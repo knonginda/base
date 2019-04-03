@@ -1,0 +1,261 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`@components/_base-grid renders its content 1`] = `
+<div class="tableContainer">
+  <table class="table">
+    <thead>
+      <tr>
+        <!---->
+        <th class="">
+          Last Name
+          <baseicon-stub source="font-awesome" name="angle-up" width="12" height="12" class="sortIcon"></baseicon-stub>
+        </th>
+        <th class="">
+          First Name
+          <baseicon-stub source="font-awesome" name="angle-up" width="12" height="12" class="sortIcon"></baseicon-stub>
+        </th>
+        <th class="">
+          ID
+          <baseicon-stub source="font-awesome" name="angle-up" width="12" height="12" class="sortIcon"></baseicon-stub>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <!---->
+        <td>
+          <div>CC</div>
+        </td>
+        <td>
+          <div>CCC</div>
+        </td>
+        <td>
+          <div>3</div>
+        </td>
+      </tr>
+      <tr>
+        <!---->
+        <td>
+          <div>DD</div>
+        </td>
+        <td>
+          <div>DDD</div>
+        </td>
+        <td>
+          <div>4</div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="bottomSpace">
+    <div class="total">
+      Total:
+      <strong>26</strong></div>
+    <ul name="Pagination" class="pagination">
+      <li class="pageItem"><a href="#" class="pageLink">
+          <baseicon-stub source="font-awesome" name="angle-left"></baseicon-stub>
+        </a></li>
+      <li class="pageItem"><a href="#" class="pageLink">1</a></li>
+      <li class="pageItem currentPage"><a href="#" class="pageLink">2</a></li>
+      <li class="pageItem"><a href="#" class="pageLink">3</a></li>
+      <li class="pageItem"><a href="#" class="pageLink">4</a></li>
+      <li class="pageItem"><a href="#" class="pageLink">5</a></li>
+      <li class="pageItem"><a href="#" class="pageLink">6</a></li>
+      <li class="pageItem"><a href="#" class="pageLink">7</a></li>
+      <li class="pageItem"><a class="pageLink">...</a></li>
+      <li class="pageItem"><a href="#" class="pageLink">13</a></li>
+      <li class="pageItem"><a href="#" class="pageLink">
+          <baseicon-stub source="font-awesome" name="angle-right"></baseicon-stub>
+        </a></li>
+    </ul>
+  </div>
+</div>
+`;
+
+exports[`@components/_base-grid renders its content by click header 1`] = `
+<div class="tableContainer">
+  <table class="table">
+    <thead>
+      <tr>
+        <!---->
+        <th class="active">
+          Last Name
+          <baseicon-stub source="font-awesome" name="angle-down" width="12" height="12" class="sortIcon"></baseicon-stub>
+        </th>
+        <th class="">
+          First Name
+          <baseicon-stub source="font-awesome" name="angle-up" width="12" height="12" class="sortIcon"></baseicon-stub>
+        </th>
+        <th class="">
+          ID
+          <baseicon-stub source="font-awesome" name="angle-up" width="12" height="12" class="sortIcon"></baseicon-stub>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <!---->
+        <td>
+          <div>ZZ</div>
+        </td>
+        <td>
+          <div>ZZZ</div>
+        </td>
+        <td>
+          <div>26</div>
+        </td>
+      </tr>
+      <tr>
+        <!---->
+        <td>
+          <div>YY</div>
+        </td>
+        <td>
+          <div>YYY</div>
+        </td>
+        <td>
+          <div>25</div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="bottomSpace">
+    <div class="total">
+      Total:
+      <strong>26</strong></div>
+    <ul name="Pagination" class="pagination">
+      <!---->
+      <li class="pageItem currentPage"><a href="#" class="pageLink">1</a></li>
+      <li class="pageItem"><a href="#" class="pageLink">2</a></li>
+      <li class="pageItem"><a href="#" class="pageLink">3</a></li>
+      <li class="pageItem"><a href="#" class="pageLink">4</a></li>
+      <li class="pageItem"><a href="#" class="pageLink">5</a></li>
+      <li class="pageItem"><a href="#" class="pageLink">6</a></li>
+      <li class="pageItem"><a href="#" class="pageLink">7</a></li>
+      <li class="pageItem"><a class="pageLink">...</a></li>
+      <li class="pageItem"><a href="#" class="pageLink">13</a></li>
+      <li class="pageItem"><a href="#" class="pageLink">
+          <baseicon-stub source="font-awesome" name="angle-right"></baseicon-stub>
+        </a></li>
+    </ul>
+  </div>
+</div>
+`;
+
+exports[`@components/_base-grid renders its content when filter by DD 1`] = `
+<div class="tableContainer">
+  <table class="table">
+    <thead>
+      <tr>
+        <!---->
+        <th class="">
+          Last Name
+          <baseicon-stub source="font-awesome" name="angle-up" width="12" height="12" class="sortIcon"></baseicon-stub>
+        </th>
+        <th class="">
+          First Name
+          <baseicon-stub source="font-awesome" name="angle-up" width="12" height="12" class="sortIcon"></baseicon-stub>
+        </th>
+        <th class="">
+          ID
+          <baseicon-stub source="font-awesome" name="angle-up" width="12" height="12" class="sortIcon"></baseicon-stub>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <!---->
+        <td>
+          <div>DD</div>
+        </td>
+        <td>
+          <div>DDD</div>
+        </td>
+        <td>
+          <div>4</div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="bottomSpace">
+    <div class="total">
+      Total:
+      <strong>1</strong></div>
+    <ul name="Pagination" class="pagination">
+      <!---->
+      <li class="pageItem currentPage"><a href="#" class="pageLink">1</a></li>
+      <!---->
+    </ul>
+  </div>
+</div>
+`;
+
+exports[`@components/_base-grid renders its content when order by DESC sort by ID 1`] = `
+<div class="tableContainer">
+  <table class="table">
+    <thead>
+      <tr>
+        <!---->
+        <th class="">
+          Last Name
+          <baseicon-stub source="font-awesome" name="angle-up" width="12" height="12" class="sortIcon"></baseicon-stub>
+        </th>
+        <th class="">
+          First Name
+          <baseicon-stub source="font-awesome" name="angle-up" width="12" height="12" class="sortIcon"></baseicon-stub>
+        </th>
+        <th class="active">
+          ID
+          <baseicon-stub source="font-awesome" name="angle-down" width="12" height="12" class="sortIcon"></baseicon-stub>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <!---->
+        <td>
+          <div>ZZ</div>
+        </td>
+        <td>
+          <div>ZZZ</div>
+        </td>
+        <td>
+          <div>26</div>
+        </td>
+      </tr>
+      <tr>
+        <!---->
+        <td>
+          <div>YY</div>
+        </td>
+        <td>
+          <div>YYY</div>
+        </td>
+        <td>
+          <div>25</div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="bottomSpace">
+    <div class="total">
+      Total:
+      <strong>26</strong></div>
+    <ul name="Pagination" class="pagination">
+      <!---->
+      <li class="pageItem currentPage"><a href="#" class="pageLink">1</a></li>
+      <li class="pageItem"><a href="#" class="pageLink">2</a></li>
+      <li class="pageItem"><a href="#" class="pageLink">3</a></li>
+      <li class="pageItem"><a href="#" class="pageLink">4</a></li>
+      <li class="pageItem"><a href="#" class="pageLink">5</a></li>
+      <li class="pageItem"><a href="#" class="pageLink">6</a></li>
+      <li class="pageItem"><a href="#" class="pageLink">7</a></li>
+      <li class="pageItem"><a class="pageLink">...</a></li>
+      <li class="pageItem"><a href="#" class="pageLink">13</a></li>
+      <li class="pageItem"><a href="#" class="pageLink">
+          <baseicon-stub source="font-awesome" name="angle-right"></baseicon-stub>
+        </a></li>
+    </ul>
+  </div>
+</div>
+`;

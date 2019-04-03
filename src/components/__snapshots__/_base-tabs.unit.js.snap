@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`@components/_base-tabs should render its content when size is large 1`] = `
+<div class="large tab">
+  <ul>
+    <li class="active tabItem">Tab Title1</li>
+    <li class="tabItem">Tab Title2</li>
+    <li class="disabled tabItem">Tab Title3</li>
+  </ul>
+  <div class="tabContent">
+    <div class="">Tab Content1</div>
+    <div class="" style="display: none;">Tab Content2</div>
+    <div class="disabled" style="display: none;">Tab Content3</div>
+  </div>
+</div>
+`;
+
+exports[`@components/_base-tabs should render its content when size is small 1`] = `
+<div class="small tab">
+  <ul>
+    <li class="active tabItem">Tab Title1</li>
+    <li class="tabItem">Tab Title2</li>
+    <li class="disabled tabItem">Tab Title3</li>
+  </ul>
+  <div class="tabContent">
+    <div class="">Tab Content1</div>
+    <div class="" style="display: none;">Tab Content2</div>
+    <div class="disabled" style="display: none;">Tab Content3</div>
+  </div>
+</div>
+`;

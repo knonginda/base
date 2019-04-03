@@ -1,0 +1,36 @@
+/* Form field
+   ========================================================================== */
+
+.formField {
+  margin-bottom: 25px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  > label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    text-align: left;
+  }
+
+  .error {
+    width: 100%;
+    margin-top: 5px;
+    color: $red;
+    display: none;
+    text-align: left;
+    font-size: $font-size-small;
+  }
+
+  &.formFieldError {
+    .error {
+      display: block;
+    }
+
+    .formControl {
+      border-color: $red;
+    }
+  }
+}

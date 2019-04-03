@@ -1,0 +1,80 @@
+$blue: #0099d6;
+$light-blue: #e5f5fb;
+$acccent-orange: #f69234;
+$light-yellow: #fef9d9;
+$dark-purple: #563770;
+$light-purple: #eadff4;
+$red: #e21a23; // Error messages only
+$light-pink: #fdeaeb;
+$dark-green: #78a12e; // Use for highlight text for agent note
+$green: #8cc63e; // eHealth logo
+$light-green: #d3eab6;
+$lighter-green: #e7f2db;
+$black: #333;
+$dark-grey: #666;
+$medium-grey: #999;
+$light-grey: #ccc;
+$lighter-grey: #ddd;
+$lightest-grey: #eee;
+$lightestx-grey: #f6f6f6;
+
+$brand-blue: $blue;
+$brand-green: $dark-green;
+
+// BORDER
+$color-border: $light-grey;
+$color-placeholder: $medium-grey;
+
+// CONTENT
+$color-body-bg: #fff;
+$color-text: #444;
+$color-heading-text: #333;
+
+// LINKS
+$color-link-text: $brand-blue;
+$color-link-text-active: $color-text;
+
+// INPUTS
+$color-input-border: $color-border;
+
+// SELECTS
+$color-select-border: $color-border;
+
+// CHECKBOXS, RADIOS
+$color-checkbox-border: $color-border;
+$color-radio-border: $color-border;
+
+// BUTTONS
+$color-button-bg-primary: $brand-blue;
+$color-button-hover-bg-primary: #0089c0;
+$color-button-text-primary: white;
+$color-button-border-primary: $color-button-bg-primary;
+
+$color-button-bg-secondary: #fff;
+$color-button-hover-bg-secondary: $lightest-grey;
+$color-button-text-secondary: $brand-blue;
+$color-button-border-secondary: $brand-blue;
+
+$color-button-bg-teritary: #fff;
+$color-button-hover-bg-teritary: $lightest-grey;
+$color-button-text-teritary: $brand-blue;
+$color-button-border-teritary: $light-grey;
+
+// MODAL
+$color-modal-border: $color-border;
+$color-modal-bg: #fff;
+$color-modal-box-shadow: 0 2px 4px 0 #999;
+
+@function color($name) {
+  @if map-has-key(getColors(), $name) {
+    @return map-get(getColors(), $name);
+  } @else {
+    @warn "Color not found: #{$name}";
+
+    @return #000;
+  }
+}
+
+@function getColors() {
+  @return $colors;
+}
