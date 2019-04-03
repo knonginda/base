@@ -139,6 +139,9 @@ export default {
     </BaseTabs>
     <BaseUpload v-model="file" />
     <BaseFasIcon :name="['far', 'clock']" />
+    <BaseFasIcon :name="['far', 'user-circle']" />
+    <BaseFasIcon name="sign-out-alt" />
+    <BaseFasIcon name="cog" />
   </div>
 </template>
 

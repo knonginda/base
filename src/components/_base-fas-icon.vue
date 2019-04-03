@@ -19,6 +19,8 @@ import {
   faDotCircle,
   faEllipsisH,
   faFilter,
+  faSignOutAlt,
+  faCog,
 } from '@fortawesome/free-solid-svg-icons'
 
 import {
@@ -26,6 +28,7 @@ import {
   faCircle,
   faTimesCircle,
   faClock,
+  faUserCircle,
 } from '@fortawesome/free-regular-svg-icons'
 
 // https://fontawesome.com/icons
@@ -49,7 +52,10 @@ fontAwesomeIconLibrary.add(
   faAngleRight,
   faAngleDown,
   faAngleLeft,
-  faClock
+  faClock,
+  faSignOutAlt,
+  faUserCircle,
+  faCog
 )
 
 export default {
