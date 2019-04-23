@@ -1,8 +1,8 @@
 {
   "name": "@knonginda/base",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "base lib",
-  "main": "dist/index.common.js",
+  "main": "build/index.common.js",
   "scripts": {
     "dev": "vue-cli-service serve --open",
     "build": "vue-cli-service build --target lib --name index ./src/components/_globals.js",
@@ -62,8 +62,8 @@
     "vue-template-compiler": "2.6.10"
   },
   "files": [
-    "dist/index.common.js",
-    "dist/index.css",
+    "build/index.common.js",
+    "build/index.css",
     "src/design/**/*",
     "src/assets/**/*"
   ],
