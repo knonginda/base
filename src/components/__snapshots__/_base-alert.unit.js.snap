@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`@components/_base-alert renders its content 1`] = `
+<div class="baseAlert baseAlertDanger">
+  <basefasicon-stub source="font-awesome" name="times-circle" class="themeIcon"></basefasicon-stub>
+  <div class="msgContainer">
+    <div class="baseTitle"><span>title</span></div> <span>foo</span>
+  </div>
+</div>
+`;
+
+exports[`@components/_base-alert renders its content when theme equals danger 1`] = `
+<div class="baseAlert baseAlertDanger">
+  <basefasicon-stub source="font-awesome" name="times-circle" class="themeIcon"></basefasicon-stub>
+  <div class="msgContainer">
+    <div class="baseTitle"><span>title</span></div> <span>foo</span>
+  </div>
+</div>
+`;
+
+exports[`@components/_base-alert renders its content when theme equals info 1`] = `
+<div class="baseAlert baseAlertInfo">
+  <basefasicon-stub source="font-awesome" name="exclamation-circle" class="themeIcon"></basefasicon-stub>
+  <div class="msgContainer">
+    <div class="baseTitle"><span>title</span></div> <span>foo</span>
+  </div>
+</div>
+`;
+
+exports[`@components/_base-alert renders its content when theme equals success 1`] = `
+<div class="baseAlert baseAlertSuccess">
+  <basefasicon-stub source="font-awesome" name="check-circle" class="themeIcon"></basefasicon-stub>
+  <div class="msgContainer">
+    <div class="baseTitle"><span>title</span></div> <span>foo</span>
+  </div>
+</div>
+`;
+
+exports[`@components/_base-alert renders its content when theme equals warning 1`] = `
+<div class="baseAlert baseAlertWarning">
+  <basefasicon-stub source="font-awesome" name="exclamation-triangle" class="themeIcon"></basefasicon-stub>
+  <div class="msgContainer">
+    <div class="baseTitle"><span>title</span></div> <span>foo</span>
+  </div>
+</div>
+`;

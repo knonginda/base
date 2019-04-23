@@ -27,18 +27,18 @@ describe('@components/_base-button', () => {
     )
   })
 
-  it('renders its content when theme is teritary', () => {
-    const slotContent = '<span>teritary</span>'
+  it('renders its content when theme is tertiary', () => {
+    const slotContent = '<span>tertiary</span>'
     const wrapper = shallowMount(BaseButton, {
       propsData: {
-        theme: 'teritary',
+        theme: 'tertiary',
       },
       slots: {
         default: slotContent,
       },
     })
     expect(wrapper.html()).toBe(
-      `<button class="teritary medium button"><span>teritary</span></button>`
+      `<button class="tertiary medium button"><span>tertiary</span></button>`
     )
   })
 

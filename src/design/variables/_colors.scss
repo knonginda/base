@@ -1,11 +1,13 @@
 $blue: #0099d6;
 $light-blue: #e5f5fb;
-$acccent-orange: #f69234;
-$light-yellow: #fef9d9;
+$yellow: #fdd96e;
+$light-yellow: #fff9da;
+$lighter-yellow: #f69234;
 $dark-purple: #563770;
 $light-purple: #eadff4;
 $red: #e21a23; // Error messages only
-$light-pink: #fdeaeb;
+$light-red: #f7a7aa;
+$lighter-red: #fdeaeb;
 $dark-green: #78a12e; // Use for highlight text for agent note
 $green: #8cc63e; // eHealth logo
 $light-green: #d3eab6;
@@ -55,15 +57,35 @@ $color-button-hover-bg-secondary: $lightest-grey;
 $color-button-text-secondary: $brand-blue;
 $color-button-border-secondary: $brand-blue;
 
-$color-button-bg-teritary: #fff;
-$color-button-hover-bg-teritary: $lightest-grey;
-$color-button-text-teritary: $brand-blue;
-$color-button-border-teritary: $light-grey;
+$color-button-bg-tertiary: #fff;
+$color-button-hover-bg-tertiary: $lightest-grey;
+$color-button-text-tertiary: $brand-blue;
+$color-button-border-tertiary: $light-grey;
 
 // MODAL
 $color-modal-border: $color-border;
 $color-modal-bg: #fff;
-$color-modal-box-shadow: 0 2px 4px 0 #999;
+$color-modal-box-shadow: 0 2px 4px 0 $medium-grey;
+
+// ERROR
+$color-error-text: $red;
+$color-error-bg: $light-red;
+$color-error-border: $lighter-red;
+
+// WARNING
+$color-error-text: $black;
+$color-error-bg: $light-yellow;
+$color-error-border: $yellow;
+
+// SUCCESS
+$color-error-text: $dark-green;
+$color-error-bg: $lighter-green;
+$color-error-border: $dark-green;
+
+// INFOMATION
+$color-error-text: $black;
+$color-error-bg: $light-blue;
+$color-error-border: $blue;
 
 @function color($name) {
   @if map-has-key(getColors(), $name) {

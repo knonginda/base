@@ -1,5 +1,6 @@
 {
   "beautify.ignore": ["**/*.js", "**/*.jsx"],
   "prettier.printWidth": 80,
-  "prettier.singleQuote": true
+  "prettier.singleQuote": true,
+  "editor.tabSize": 2
 }

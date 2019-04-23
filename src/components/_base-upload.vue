@@ -1,4 +1,8 @@
 <script>
+// Init format
+// file: new File([], '', {
+//   name: 'test',
+// }),
 export default {
   props: {
     value: {
@@ -45,15 +49,15 @@ export default {
   margin-left: 10px;
   font-size: $font-size-large;
   line-height: 36px;
-  color: $color-button-text-teritary;
+  color: $color-button-text-tertiary;
   text-align: center;
   cursor: pointer;
-  background: $color-button-bg-teritary;
-  border: 2px solid $color-button-border-teritary;
+  background: $color-button-bg-tertiary;
+  border: 2px solid $color-button-border-tertiary;
   border-radius: 5px;
 
   &:hover {
-    background: $color-button-hover-bg-teritary;
+    background: $color-button-hover-bg-tertiary;
   }
 }
 

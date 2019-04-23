@@ -1,4 +1,6 @@
 <script>
+import upperFirst from 'lodash/upperFirst'
+
 export default {
   name: 'BaseModal',
 
@@ -8,43 +10,41 @@ export default {
       required: false,
       default: '',
     },
-
     overlayTheme: {
       type: String,
       required: false,
       default: 'normal',
     },
-
-    modalTheme: {
+    theme: {
       type: String,
-      required: false,
       default: 'normal',
+      validator: function(value) {
+        return (
+          ['normal', 'warning', 'success', 'danger', 'info'].indexOf(value) !==
+          -1
+        )
+      },
     },
-
     blocking: {
       type: Boolean,
       required: false,
       default: false,
     },
-
     isHideCloseButton: {
       type: Boolean,
       required: false,
       default: false,
     },
-
     width: {
       type: [Number, String],
       required: false,
       default: null,
     },
-
     height: {
       type: [Number, String],
       required: false,
       default: null,
     },
-
     buttonSpace: {
       type: String,
       default: 'flexEnd',
@@ -53,7 +53,6 @@ export default {
       },
     },
   },
-
   data() {
     return {
       visible: false,
@@ -67,56 +66,64 @@ export default {
       },
     }
   },
-
   computed: {
     hasTitle() {
       return this.title || this.$slots.title
     },
-
+    overlayClasses() {
+      return [
+        'baseModalOverlay',
+        'baseModalClickable',
+        `baseModal${upperFirst(this.theme)}`,
+        { blocking: this.blocking },
+        { isBaseModalOverlayVisible: this.visible },
+      ]
+    },
     modalContentStyle() {
       let height = this.height
       let maxHeight = null
-
       if (height !== null) {
         if (Number.isInteger(Number(height))) {
           height = height + 'px'
         }
         maxHeight = 'none'
       }
-
       return {
         height,
         maxHeight,
       }
     },
-
     modalStyle() {
       let width = this.width
       let maxWidth = null
-
       if (width !== null) {
         if (Number.isInteger(Number(width))) {
           width = width + 'px'
         }
         maxWidth = 'none'
       }
-
       return {
         width,
         maxWidth,
       }
     },
+    themeIconName() {
+      return this.theme === 'danger'
+        ? 'times-circle'
+        : this.theme === 'warning'
+        ? 'exclamation-triangle'
+        : this.theme === 'success'
+        ? 'check-circle'
+        : 'exclamation-circle'
+    },
   },
-
   mounted() {
     document.addEventListener('keyup', this.onDocumentKeyup)
   },
-
   methods: {
     open() {
       this.isOpen = true
       this.lockBody()
-
       setTimeout(() => {
         if (!this.visible) {
           this.visible = true
@@ -124,30 +131,24 @@ export default {
       }, 30)
       this.$emit('open')
     },
-
     close() {
       this.visible = false
       this.unlockBody()
-
       setTimeout(() => {
         this.isOpen = false
       }, 300)
       this.$emit('close')
     },
-
     lockBody() {
       this.backups.body.height = document.body.style.height
       this.backups.body.overflow = document.body.style.overflow
-
       document.body.style.height = '100%'
       document.body.style.overflow = 'hidden'
     },
-
     unlockBody() {
       document.body.style.height = this.backups.body.height
       document.body.style.overflow = this.backups.body.overflow
     },
-
     onOverlayClick(event) {
       if (
         !event.target.classList ||
@@ -164,16 +165,7 @@ export default {
 
 <template>
   <div>
-    <div
-      v-show="isOpen"
-      :class="[
-        'baseModalOverlay',
-        blocking ? 'blocking' : '',
-        visible ? 'isBaseModalOverlayVisible' : '',
-        'baseModalClickable',
-      ]"
-      @click="onOverlayClick"
-    >
+    <div v-show="isOpen" :class="overlayClasses" @click="onOverlayClick">
       <div
         :class="['baseModal', visible ? 'isBaseModalVisible' : '']"
         :style="modalStyle"
@@ -185,6 +177,7 @@ export default {
         <!-- If title is present -->
         <div v-if="hasTitle" class="baseTitle">
           <template v-if="hasTitle">
+            <BaseFasIcon class="themeIcon" :name="themeIconName" />
             <!-- eslint-disable-next-line vue/no-v-html -->
             <h2 v-if="title" v-html="title"></h2>
             <slot v-else name="title"></slot>
@@ -286,12 +279,19 @@ export default {
 .baseTitle {
   @include ellipsis;
 
+  display: flex;
+  align-items: center;
   height: 64px;
   line-height: 64px;
   border-bottom: 1px solid $color-modal-border;
   padding: {
     right: 64px;
     left: 32px;
+  }
+
+  > svg {
+    margin-right: 10px;
+    font-size: 24px;
   }
 
   > h2 {
@@ -366,6 +366,42 @@ export default {
   .baseContent {
     opacity: 1;
     transform: none;
+  }
+}
+
+.baseModalSuccess {
+  .baseTitle {
+    background-color: $lighter-green;
+  }
+  .themeIcon {
+    color: $dark-green;
+  }
+}
+
+.baseModalDanger {
+  .baseTitle {
+    background-color: $lighter-red;
+  }
+  .themeIcon {
+    color: $red;
+  }
+}
+
+.baseModalWarning {
+  .baseTitle {
+    background-color: $light-yellow;
+  }
+  .themeIcon {
+    color: $yellow;
+  }
+}
+
+.baseModalInfo {
+  .baseTitle {
+    background-color: $light-blue;
+  }
+  .themeIcon {
+    color: $blue;
   }
 }
 </style>

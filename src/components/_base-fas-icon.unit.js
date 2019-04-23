@@ -1,9 +1,9 @@
 /* eslint-disable no-undef */
-import BaseIcon from './_base-icon'
+import BaseFasIcon from './_base-fas-icon'
 
 describe('@components/_base-icon', () => {
   it('renders a font-awesome icon', () => {
-    const { element } = mount(BaseIcon, {
+    const { element } = mount(BaseFasIcon, {
       propsData: {
         name: 'sync',
       },
@@ -14,7 +14,7 @@ describe('@components/_base-icon', () => {
   })
 
   it('renders a custom icon', () => {
-    const { element } = shallowMount(BaseIcon, {
+    const { element } = shallowMount(BaseFasIcon, {
       ...createComponentMocks({
         style: {
           iconCustomSomeIcon: 'generated-class-name',

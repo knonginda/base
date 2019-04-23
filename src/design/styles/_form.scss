@@ -4,14 +4,9 @@
 .formField {
   margin-bottom: 25px;
 
-  &:last-child {
-    margin-bottom: 0;
-  }
-
-  > label {
+  .formLabel {
     display: block;
     margin-bottom: 5px;
-    font-weight: bold;
     text-align: left;
   }
 
@@ -34,3 +29,119 @@
     }
   }
 }
+
+// Overwrited datepicker styles
+/* stylelint-disable */
+.vdp-datepicker {
+  input {
+    @extend %typography-medium;
+
+    display: block;
+    width: 100%;
+    height: $size-input-height;
+    padding: $size-input-padding-vertical $size-input-padding-horizontal;
+    margin-bottom: 0;
+    line-height: 1;
+    text-indent: 10px;
+    border: $size-input-border solid $color-input-border;
+    border-radius: $size-input-border-radius;
+    outline: none;
+    cursor: pointer;
+
+    &::placeholder {
+      color: $color-placeholder;
+    }
+  }
+}
+
+.vdp-datepicker__calendar {
+  margin-right: 50px;
+  border: 1px solid #979797;
+  padding: 6px;
+
+  header {
+    display: flex !important;
+
+    & + div {
+      outline: 1px solid #ddd;
+      margin-top: 7px;
+      display: flex !important;
+      flex-wrap: wrap !important;
+      padding: 2px;
+      width: 100%;
+    }
+
+    .prev:not(.disabled):hover, 
+    .next:not(.disabled):hover, 
+    .up:not(.disabled):hover {
+      background-color: #e5f5fb;
+    }
+  }
+
+  .prev, .next {
+    outline: 1px solid #0099d6;
+  }
+
+  .day__month_btn {
+    margin: 0 7px;
+    outline: 1px solid #979797;
+  }
+
+  .cell {
+    border: 1px solid #eee;
+    margin: 2px;
+    width: 12.8% !important;
+    height: 36px;
+    line-height: 36px;
+    background-color: #f6f6f6 !important;
+
+    &.selected {
+      background-color: #e5f5fb !important;
+      border: 1px solid #0099d6 !important;
+    }
+
+    &.month,
+    &.year {
+      width: 31.9% !important;
+      
+      &:nth-child(2),
+      &:nth-child(3),
+      &:nth-child(4) {
+        margin-top: 9px !important;
+      }
+    }
+
+    &.day,
+    &.month,
+    &.year {
+      &:not(.blank):not(.disabled).day:hover, 
+      &:not(.blank):not(.disabled).month:hover, 
+      &:not(.blank):not(.disabled).year:hover {
+        background-color: #e5f5fb !important;
+        border: 1px solid #0099d6 !important;
+      }
+    }
+
+    &.day-header:hover {
+      background-color: #f6f6f6 !important;
+    }
+
+    &.today {
+      background-color: #e5f5fb !important;
+      border: 1px solid #e5f5fb !important;
+    }
+  }
+}
+
+.vdp-datepicker__calendar-button {
+  .calendar {
+    display: block;
+    width: 16px;
+    height: 18px;
+    position: absolute;
+    right: 12px;
+    top: 9px;
+    background-image: url('data:image/svg+xml;utf8,<svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="calendar-alt" class="svg-inline--fa fa-calendar-alt fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="#0099d6" d="M148 288h-40c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12zm108-12v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm96 0v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm-96 96v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm-96 0v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm192 0v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm96-260v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V112c0-26.5 21.5-48 48-48h48V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h128V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h48c26.5 0 48 21.5 48 48zm-48 346V160H48v298c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6z"></path></svg>');
+  }
+}
+/* stylelint-enable */

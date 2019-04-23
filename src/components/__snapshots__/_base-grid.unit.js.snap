@@ -8,44 +8,19 @@ exports[`@components/_base-grid renders its content 1`] = `
         <!---->
         <th class="">
           Last Name
-          <baseicon-stub source="font-awesome" name="angle-up" width="12" height="12" class="sortIcon"></baseicon-stub>
+          <basefasicon-stub source="font-awesome" name="angle-up" class="sortIcon"></basefasicon-stub>
         </th>
         <th class="">
           First Name
-          <baseicon-stub source="font-awesome" name="angle-up" width="12" height="12" class="sortIcon"></baseicon-stub>
+          <basefasicon-stub source="font-awesome" name="angle-up" class="sortIcon"></basefasicon-stub>
         </th>
         <th class="">
           ID
-          <baseicon-stub source="font-awesome" name="angle-up" width="12" height="12" class="sortIcon"></baseicon-stub>
+          <basefasicon-stub source="font-awesome" name="angle-up" class="sortIcon"></basefasicon-stub>
         </th>
       </tr>
     </thead>
-    <tbody>
-      <tr>
-        <!---->
-        <td>
-          <div>CC</div>
-        </td>
-        <td>
-          <div>CCC</div>
-        </td>
-        <td>
-          <div>3</div>
-        </td>
-      </tr>
-      <tr>
-        <!---->
-        <td>
-          <div>DD</div>
-        </td>
-        <td>
-          <div>DDD</div>
-        </td>
-        <td>
-          <div>4</div>
-        </td>
-      </tr>
-    </tbody>
+    <tbody></tbody>
   </table>
   <div class="bottomSpace">
     <div class="total">
@@ -53,7 +28,7 @@ exports[`@components/_base-grid renders its content 1`] = `
       <strong>26</strong></div>
     <ul name="Pagination" class="pagination">
       <li class="pageItem"><a href="#" class="pageLink">
-          <baseicon-stub source="font-awesome" name="angle-left"></baseicon-stub>
+          <basefasicon-stub source="font-awesome" name="angle-left"></basefasicon-stub>
         </a></li>
       <li class="pageItem"><a href="#" class="pageLink">1</a></li>
       <li class="pageItem currentPage"><a href="#" class="pageLink">2</a></li>
@@ -65,9 +40,13 @@ exports[`@components/_base-grid renders its content 1`] = `
       <li class="pageItem"><a class="pageLink">...</a></li>
       <li class="pageItem"><a href="#" class="pageLink">13</a></li>
       <li class="pageItem"><a href="#" class="pageLink">
-          <baseicon-stub source="font-awesome" name="angle-right"></baseicon-stub>
+          <basefasicon-stub source="font-awesome" name="angle-right"></basefasicon-stub>
         </a></li>
     </ul>
+    <div class="perPageContainer">
+      <div class="perPageHeader">Per Page: </div>
+      <baseselect-stub value="[object Object]" size="small"></baseselect-stub>
+    </div>
   </div>
 </div>
 `;
@@ -80,44 +59,19 @@ exports[`@components/_base-grid renders its content by click header 1`] = `
         <!---->
         <th class="active">
           Last Name
-          <baseicon-stub source="font-awesome" name="angle-down" width="12" height="12" class="sortIcon"></baseicon-stub>
+          <basefasicon-stub source="font-awesome" name="angle-down" class="sortIcon"></basefasicon-stub>
         </th>
         <th class="">
           First Name
-          <baseicon-stub source="font-awesome" name="angle-up" width="12" height="12" class="sortIcon"></baseicon-stub>
+          <basefasicon-stub source="font-awesome" name="angle-up" class="sortIcon"></basefasicon-stub>
         </th>
         <th class="">
           ID
-          <baseicon-stub source="font-awesome" name="angle-up" width="12" height="12" class="sortIcon"></baseicon-stub>
+          <basefasicon-stub source="font-awesome" name="angle-up" class="sortIcon"></basefasicon-stub>
         </th>
       </tr>
     </thead>
-    <tbody>
-      <tr>
-        <!---->
-        <td>
-          <div>ZZ</div>
-        </td>
-        <td>
-          <div>ZZZ</div>
-        </td>
-        <td>
-          <div>26</div>
-        </td>
-      </tr>
-      <tr>
-        <!---->
-        <td>
-          <div>YY</div>
-        </td>
-        <td>
-          <div>YYY</div>
-        </td>
-        <td>
-          <div>25</div>
-        </td>
-      </tr>
-    </tbody>
+    <tbody></tbody>
   </table>
   <div class="bottomSpace">
     <div class="total">
@@ -135,9 +89,13 @@ exports[`@components/_base-grid renders its content by click header 1`] = `
       <li class="pageItem"><a class="pageLink">...</a></li>
       <li class="pageItem"><a href="#" class="pageLink">13</a></li>
       <li class="pageItem"><a href="#" class="pageLink">
-          <baseicon-stub source="font-awesome" name="angle-right"></baseicon-stub>
+          <basefasicon-stub source="font-awesome" name="angle-right"></basefasicon-stub>
         </a></li>
     </ul>
+    <div class="perPageContainer">
+      <div class="perPageHeader">Per Page: </div>
+      <baseselect-stub value="[object Object]" size="small"></baseselect-stub>
+    </div>
   </div>
 </div>
 `;
@@ -150,32 +108,19 @@ exports[`@components/_base-grid renders its content when filter by DD 1`] = `
         <!---->
         <th class="">
           Last Name
-          <baseicon-stub source="font-awesome" name="angle-up" width="12" height="12" class="sortIcon"></baseicon-stub>
+          <basefasicon-stub source="font-awesome" name="angle-up" class="sortIcon"></basefasicon-stub>
         </th>
         <th class="">
           First Name
-          <baseicon-stub source="font-awesome" name="angle-up" width="12" height="12" class="sortIcon"></baseicon-stub>
+          <basefasicon-stub source="font-awesome" name="angle-up" class="sortIcon"></basefasicon-stub>
         </th>
         <th class="">
           ID
-          <baseicon-stub source="font-awesome" name="angle-up" width="12" height="12" class="sortIcon"></baseicon-stub>
+          <basefasicon-stub source="font-awesome" name="angle-up" class="sortIcon"></basefasicon-stub>
         </th>
       </tr>
     </thead>
-    <tbody>
-      <tr>
-        <!---->
-        <td>
-          <div>DD</div>
-        </td>
-        <td>
-          <div>DDD</div>
-        </td>
-        <td>
-          <div>4</div>
-        </td>
-      </tr>
-    </tbody>
+    <tbody></tbody>
   </table>
   <div class="bottomSpace">
     <div class="total">
@@ -186,6 +131,10 @@ exports[`@components/_base-grid renders its content when filter by DD 1`] = `
       <li class="pageItem currentPage"><a href="#" class="pageLink">1</a></li>
       <!---->
     </ul>
+    <div class="perPageContainer">
+      <div class="perPageHeader">Per Page: </div>
+      <baseselect-stub value="[object Object]" size="small"></baseselect-stub>
+    </div>
   </div>
 </div>
 `;
@@ -198,44 +147,19 @@ exports[`@components/_base-grid renders its content when order by DESC sort by I
         <!---->
         <th class="">
           Last Name
-          <baseicon-stub source="font-awesome" name="angle-up" width="12" height="12" class="sortIcon"></baseicon-stub>
+          <basefasicon-stub source="font-awesome" name="angle-up" class="sortIcon"></basefasicon-stub>
         </th>
         <th class="">
           First Name
-          <baseicon-stub source="font-awesome" name="angle-up" width="12" height="12" class="sortIcon"></baseicon-stub>
+          <basefasicon-stub source="font-awesome" name="angle-up" class="sortIcon"></basefasicon-stub>
         </th>
         <th class="active">
           ID
-          <baseicon-stub source="font-awesome" name="angle-down" width="12" height="12" class="sortIcon"></baseicon-stub>
+          <basefasicon-stub source="font-awesome" name="angle-down" class="sortIcon"></basefasicon-stub>
         </th>
       </tr>
     </thead>
-    <tbody>
-      <tr>
-        <!---->
-        <td>
-          <div>ZZ</div>
-        </td>
-        <td>
-          <div>ZZZ</div>
-        </td>
-        <td>
-          <div>26</div>
-        </td>
-      </tr>
-      <tr>
-        <!---->
-        <td>
-          <div>YY</div>
-        </td>
-        <td>
-          <div>YYY</div>
-        </td>
-        <td>
-          <div>25</div>
-        </td>
-      </tr>
-    </tbody>
+    <tbody></tbody>
   </table>
   <div class="bottomSpace">
     <div class="total">
@@ -253,9 +177,13 @@ exports[`@components/_base-grid renders its content when order by DESC sort by I
       <li class="pageItem"><a class="pageLink">...</a></li>
       <li class="pageItem"><a href="#" class="pageLink">13</a></li>
       <li class="pageItem"><a href="#" class="pageLink">
-          <baseicon-stub source="font-awesome" name="angle-right"></baseicon-stub>
+          <basefasicon-stub source="font-awesome" name="angle-right"></basefasicon-stub>
         </a></li>
     </ul>
+    <div class="perPageContainer">
+      <div class="perPageHeader">Per Page: </div>
+      <baseselect-stub value="[object Object]" size="small"></baseselect-stub>
+    </div>
   </div>
 </div>
 `;

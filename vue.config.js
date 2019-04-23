@@ -1,6 +1,8 @@
+const path = require('path')
 const appConfig = require('./src/app.config')
 
 module.exports = {
+  outputDir: path.resolve(__dirname, './build'),
   // publicPath: process.env.NODE_ENV === 'production' ? '/' : '/',
   configureWebpack: {
     // Provide the app's title in Webpack's name field, so that

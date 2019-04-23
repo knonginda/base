@@ -20,7 +20,7 @@ export default {
       type: String,
       default: 'primary',
       validator: function(value) {
-        return ['primary', 'secondary', 'teritary'].indexOf(value) !== -1
+        return ['primary', 'secondary', 'tertiary'].indexOf(value) !== -1
       },
     },
     disabled: {
@@ -103,13 +103,13 @@ export default {
   }
 }
 
-.teritary {
-  color: $color-button-text-teritary;
+.tertiary {
+  color: $color-button-text-tertiary;
   background-color: #fff;
-  border: 2px solid $color-button-border-teritary;
+  border: 2px solid $color-button-border-tertiary;
 
   &:hover {
-    background: $color-button-hover-bg-teritary;
+    background: $color-button-hover-bg-tertiary;
   }
 
   &:disabled {
@@ -122,7 +122,7 @@ export default {
 }
 
 .small {
-  @extend %typography-medium;
+  @extend %typography-small;
 
   min-width: $size-button-width-small;
   padding: $size-button-padding-small;

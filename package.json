@@ -1,13 +1,13 @@
 {
   "name": "@knonginda/base",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "base lib",
   "main": "dist/index.common.js",
   "scripts": {
     "dev": "vue-cli-service serve --open",
     "build": "vue-cli-service build --target lib --name index ./src/components/_globals.js",
     "lint:eslint": "eslint --fix",
-    "lint:stylelint": "stylelint",
+    "lint:stylelint": "stylelint --fix",
     "lint:prettier": "prettier --write --loglevel warn",
     "lint:all:eslint": "npm run lint:eslint \"src/**/*.{vue,js}\"",
     "lint:all:stylelint": "npm run lint:stylelint \"src/**/*.{vue, scss}\"",
@@ -24,7 +24,12 @@
     "@fortawesome/free-solid-svg-icons": "5.8.1",
     "@fortawesome/vue-fontawesome": "0.1.6",
     "lodash": "4.17.11",
-    "vue": "2.6.10"
+    "moment-timezone": "0.5.23",
+    "v-tooltip": "2.0.1",
+    "vue": "2.6.10",
+    "vue-moment": "4.0.0",
+    "vue-resource": "1.5.1",
+    "vuejs-datepicker": "1.5.4"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "3.5.1",
@@ -51,6 +56,7 @@
     "stylelint-config-recess-order": "2.0.1",
     "stylelint-config-standard": "18.2.0",
     "stylelint-scss": "3.5.4",
+    "vue-clickaway": "2.2.2",
     "vue-eslint-parser": "6.0.3",
     "vue-jest": "3.0.2",
     "vue-template-compiler": "2.6.10"
