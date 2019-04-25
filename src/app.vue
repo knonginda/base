@@ -44,22 +44,32 @@ export default {
         {
           key: 'firstName',
           label: 'Customer Name',
+          width: '20%',
         },
         {
           key: 'createdWhen',
           label: 'Update',
+          width: '16%',
         },
         {
           key: 'disposition',
           label: 'Disposition',
+          width: '16%',
         },
         {
           key: 'electionPeriod',
           label: 'Election Period',
+          width: '16%',
         },
         {
           key: 'scriptPhase',
           label: 'Script Phase',
+          width: '16%',
+        },
+        {
+          key: 'duration',
+          label: 'Call Duration',
+          width: '16%',
         },
       ],
       gridData: [],
@@ -1637,6 +1647,7 @@ export default {
           <td>{{ row.disposition.value }}</td>
           <td>{{ row.electionPeriod }}</td>
           <td>{{ row.scriptPhase }}</td>
+          <td>{{ row.duration | duration }}</td>
         </tr>
       </template>
     </BaseGrid>

@@ -304,10 +304,13 @@ export default {
     getSortData(data) {
       let sortKey = this.sortKey
       let order = this.sortOrders[sortKey] || 1
-      let dateRegex = new RegExp('/^([0-9]{1,2})/([0-9]{1,2})/([0-9]{4})$/')
+      // let dateRegex = new RegExp('/^([0-9]{1,2})/([0-9]{1,2})/([0-9]{4})$/')
 
       if (sortKey) {
         data = data.sort((a, b) => {
+          a = a[sortKey] === null ? '' : a
+          b = b[sortKey] === null ? '' : b
+
           // it should be sort by Number, for example:
           // { id : '12' }
           // { age: 20 }
@@ -317,24 +320,35 @@ export default {
             return (a === b ? 0 : a > b ? 1 : -1) * order
           }
 
+          // it should be sort by value (Business Logic), for example:
+          // { name: 'No Sale', value: 'No Sale - Customer will call back' }
+          else if (
+            typeof a[sortKey] === 'object' &&
+            typeof b[sortKey] === 'object'
+          ) {
+            a = a[sortKey].value === null ? '' : a[sortKey].value
+            b = b[sortKey].value === null ? '' : b[sortKey].value
+            return (a === b ? 0 : a > b ? 1 : -1) * order
+          }
+
           // it should be sort by Date, for example:
           // { date: '01/01/2019' }
-          else if (dateRegex.test(a[sortKey]) && dateRegex.test(b[sortKey])) {
-            a = a[sortKey]
-              .split('/')
-              .reverse()
-              .join()
-            b = b[sortKey]
-              .split('/')
-              .reverse()
-              .join()
-            return (a < b ? -1 : a > b ? 1 : 0) * order
-          }
+          // else if (dateRegex.test(a[sortKey]) && dateRegex.test(b[sortKey])) {
+          //   a = a[sortKey]
+          //     .split('/')
+          //     .reverse()
+          //     .join()
+          //   b = b[sortKey]
+          //     .split('/')
+          //     .reverse()
+          //     .join()
+          //   return (a < b ? -1 : a > b ? 1 : 0) * order
+          // }
 
           // it should be sort by String
           else {
-            a = a[sortKey]
-            b = b[sortKey]
+            a = a[sortKey] + ''
+            b = b[sortKey] + ''
             return (a === b ? 0 : a > b ? 1 : -1) * order
           }
         })
