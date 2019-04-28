@@ -1,13 +1,11 @@
 {
-  "name": "@bo/base",
-  "version": "1.0.0",
-  "description": "ehealth base lib",
-  "main": "index.js",
+  "name": "@knonginda/base",
+  "version": "1.0.6",
+  "description": "base lib",
+  "main": "build/index.common.js",
   "scripts": {
     "dev": "vue-cli-service serve --open",
     "build": "vue-cli-service build --target lib --name index ./src/components/_globals.js",
-    "package": "rm -rf ./dist && mkdir -p ./dist && cp -rf ./build/index.common.js ./build/index.css ./src/assets ./src/design ./package.json ./README.md ./dist/ && mv ./dist/index.common.js ./dist/index.js",
-    "deploy": "cd ./dist && npm publish --access restricted",
     "lint:eslint": "eslint --fix",
     "lint:stylelint": "stylelint --fix",
     "lint:prettier": "prettier --write --loglevel warn",
@@ -32,9 +30,7 @@
     "vue": "2.6.10",
     "vue-moment": "4.0.0",
     "vue-resource": "1.5.1",
-    "vuejs-datepicker": "1.5.4"
-  },
-  "devDependencies": {
+    "vuejs-datepicker": "1.5.4",
     "@vue/cli-plugin-babel": "3.5.1",
     "@vue/cli-plugin-eslint": "3.5.1",
     "@vue/cli-plugin-unit-jest": "3.5.1",
@@ -64,6 +60,12 @@
     "vue-jest": "3.0.2",
     "vue-template-compiler": "2.6.10"
   },
+  "files": [
+    "build/index.common.js",
+    "build/index.css",
+    "src/design/**/*",
+    "src/assets/**/*"
+  ],
   "engines": {
     "node": ">=8.9.0"
   },
@@ -76,16 +78,8 @@
   "license": "ISC",
   "keywords": [
     "vuejs",
-    "applet-plugin",
     "base-lib"
   ],
-  "repository": {
-    "type": "git",
-    "url": "https://git.ehealthinsurance.com/scm/bo/applet-plugin-base.git"
-  },
-  "publishConfig": {
-    "registry": "https://repo.ehealthinsurance.com/artifactory/api/npm/ehi-npm-sj/"
-  },
   "gitHooks": {
     "pre-commit": "lint-staged"
   }
