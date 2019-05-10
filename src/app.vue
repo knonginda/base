@@ -1,4 +1,5 @@
 <script>
+import Vue from 'vue'
 import appConfig from '@src/app.config'
 
 export default {
@@ -11,6 +12,9 @@ export default {
   },
   data() {
     return {
+      eventBus: new Vue(),
+      erros: ['test'],
+      email: '',
       dispositionOptions: [
         { name: 'All', value: '' },
         { name: 'None', value: 'None' },
@@ -1547,11 +1551,20 @@ export default {
     ]
   },
   methods: {
+    test() {
+      this.eventBus.$emit('onResetData')
+    },
     resetData(value) {
       this.newData = value
     },
     fixDate(event) {
       return this.$moment(event).format('MM/DD/YYYY')
+    },
+    validateField(field) {
+      const provider = this.$refs[field]
+
+      // Validate the field
+      return provider.validate()
     },
   },
 }
@@ -1559,6 +1572,27 @@ export default {
 
 <template>
   <div class="baseStyle">
+    <button @click="test">test</button>
+    <form id="validated-form">
+      <BaseValidation
+        v-slot="{ validate, errors }"
+        name="email"
+        rules="required|email"
+      >
+        <label>Email:</label>
+        <BaseInput v-model="email" name="email" @input="validate" />
+        <p>{{ errors[0] }}</p>
+      </BaseValidation>
+      <BaseButton @click="validateField('myinput')">Test Validation</BaseButton>
+    </form>
+    <div>
+      <BaseSpinner
+        :spacing="15"
+        size="large"
+        :font-size="17"
+        message="Loading..."
+      ></BaseSpinner>
+    </div>
     <div style="display: flex;">
       <div class="formField" style=" width: 160px;margin-right: 20px;">
         <label class="formLabel">Disposition</label>
@@ -1630,6 +1664,7 @@ export default {
       :query="query"
       :columns="gridColumns"
       :data="gridData"
+      :event-bus="eventBus"
       @changes="resetData"
     >
       <template v-slot:tbody>
@@ -1643,11 +1678,11 @@ export default {
               </template>
             </BasePopover>
           </td>
-          <td>{{ row.createdWhen | date }}</td>
+          <td>{{ row.createdWhen }}</td>
           <td>{{ row.disposition.value }}</td>
           <td>{{ row.electionPeriod }}</td>
           <td>{{ row.scriptPhase }}</td>
-          <td>{{ row.duration | duration }}</td>
+          <td>{{ row.duration }}</td>
         </tr>
       </template>
     </BaseGrid>
@@ -1699,6 +1734,26 @@ body {
   &:nth-child(3) {
     td {
       background-color: #f7faf2 !important;
+    }
+  }
+}
+.formField {
+  .error {
+    display: none;
+    width: 100%;
+    margin-top: 5px;
+    font-size: $font-size-small;
+    color: $red;
+    text-align: left;
+  }
+
+  &.formFieldError {
+    .error {
+      display: block;
+    }
+
+    .formControl {
+      border-color: $red;
     }
   }
 }

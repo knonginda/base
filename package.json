@@ -1,6 +1,6 @@
 {
   "name": "@knonginda/base",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "base lib",
   "main": "build/index.common.js",
   "scripts": {
@@ -27,9 +27,11 @@
     "moment-duration-format": "2.2.2",
     "moment-timezone": "0.5.23",
     "v-tooltip": "2.0.1",
+    "vee-validate": "2.2.6",
     "vue": "2.6.10",
     "vue-moment": "4.0.0",
     "vue-resource": "1.5.1",
+    "vue-simple-spinner": "1.2.8",
     "vuejs-datepicker": "1.5.4"
   },
   "devDependencies": {
@@ -62,12 +64,6 @@
     "vue-jest": "3.0.2",
     "vue-template-compiler": "2.6.10"
   },
-  "files": [
-    "build/index.common.js",
-    "build/index.css",
-    "src/design/**/*",
-    "src/assets/**/*"
-  ],
   "engines": {
     "node": ">=8.9.0"
   },
@@ -80,8 +76,16 @@
   "license": "ISC",
   "keywords": [
     "vuejs",
+    "applet-plugin",
     "base-lib"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://git.ehealthinsurance.com/scm/bo/applet-plugin-base.git"
+  },
+  "publishConfig": {
+    "registry": "https://repo.ehealthinsurance.com/artifactory/api/npm/ehi-npm-sj/"
+  },
   "gitHooks": {
     "pre-commit": "lint-staged"
   }

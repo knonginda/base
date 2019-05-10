@@ -7,6 +7,10 @@ export default {
       type: Array,
       default: null,
     },
+    eventBus: {
+      type: Object,
+      default: null,
+    },
     columns: {
       type: Array,
       default: null,
@@ -160,6 +164,9 @@ export default {
   },
   created() {
     this.resetData()
+    this.eventBus.$on('onResetData', () => {
+      this.resetData()
+    })
   },
   methods: {
     resetData() {
@@ -662,7 +669,7 @@ export default {
   }
 
   .perPageHeader {
-    margin: 3px 10px 0 15px;
+    margin: 5px 10px 0 15px;
   }
 }
 </style>
