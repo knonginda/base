@@ -2,7 +2,7 @@
   "name": "@knonginda/base",
   "version": "1.0.10",
   "description": "base lib",
-  "main": "build/index.common.js",
+  "main": "dist/index.common.js",
   "scripts": {
     "dev": "vue-cli-service serve --open",
     "build": "vue-cli-service build --target lib --name index ./src/components/_globals.js",
