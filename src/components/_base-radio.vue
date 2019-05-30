@@ -17,11 +17,11 @@ export default {
       default: null,
     },
     value: {
-      type: [String, Number, Boolean],
+      type: [String, Number, Boolean, Array],
       default: null,
     },
     modelValue: {
-      type: [String, Number, Boolean],
+      type: [String, Number, Boolean, Array],
       default: undefined,
     },
     checked: {

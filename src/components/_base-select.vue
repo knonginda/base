@@ -31,6 +31,13 @@ export default {
       showOptions: false,
     }
   },
+  computed: {
+    selectedName() {
+      return this.options.filter((item) => {
+        return this.value === item.value
+      })[0].name
+    },
+  },
   methods: {
     overlayClasses() {
       return [
@@ -43,7 +50,7 @@ export default {
     },
     onChange(option) {
       this.$emit('change')
-      this.$emit('input', option)
+      this.$emit('input', option.value)
       this.showOptions = !this.showOptions
     },
     onOpen() {
@@ -59,7 +66,7 @@ export default {
 <template>
   <div v-on-clickaway="onClose" :class="overlayClasses()" @click="onOpen()">
     <div class="spaceBetween">
-      <div class="selectName">{{ value ? value.name : 'All' }}</div>
+      <div class="selectName">{{ selectedName }}</div>
       <div class="selectSymbol">
         <BaseFasIcon v-if="!showOptions" name="angle-down" />
         <BaseFasIcon v-else name="angle-up" />
@@ -73,7 +80,7 @@ export default {
             type="radio"
             :value="option.value"
             :name="'selector_' + _uid"
-            :checked="option.value === value.value"
+            :checked="option.value === value"
             @change="onChange(option)"
           />
           <span class="optionName">{{ option.name }}</span>

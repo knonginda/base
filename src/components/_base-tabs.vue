@@ -84,7 +84,7 @@ export default {
 }
 
 .tabContent {
-  padding: 0;
+  padding: 10px;
 }
 
 .tabItem {
@@ -98,14 +98,26 @@ export default {
 
 .small .tabItem {
   padding: $size-tab-padding-small;
+
+  &.active {
+    padding: $size-tab-padding-small-active;
+  }
 }
 
 .medium .tabItem {
   padding: $size-tab-padding-medium;
+
+  &.active {
+    padding: $size-tab-padding-medium-active;
+  }
 }
 
 .large .tabItem {
   padding: $size-tab-padding-large;
+
+  &.active {
+    padding: $size-tab-padding-large-active;
+  }
 }
 
 .disabled {
@@ -115,6 +127,7 @@ export default {
 
 .active {
   background-color: #fff;
+  border-top: 3px solid #8cc63e;
   border-bottom: 1px solid #fff;
 }
 </style>

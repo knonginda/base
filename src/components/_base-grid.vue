@@ -13,7 +13,11 @@ export default {
     },
     columns: {
       type: Array,
-      default: null,
+      default: () => [],
+    },
+    hideColumns: {
+      type: Array,
+      default: () => [],
     },
     query: {
       type: Object,
@@ -30,10 +34,6 @@ export default {
     stickyRows: {
       type: Number,
       default: 0,
-    },
-    sort: {
-      type: Boolean,
-      default: true,
     },
     filter: {
       type: Boolean,
@@ -57,7 +57,10 @@ export default {
     }
 
     return {
-      perPage: { name: this.query.limit, value: this.query.limit },
+      perPage: {
+        name: this.query.limit,
+        value: this.query.limit,
+      },
       sortKey: sortKey || '',
       sortOrders: sortOrders,
       total: this.data.length,
@@ -82,9 +85,7 @@ export default {
       }
 
       // Sortable
-      if (this.sort) {
-        data = this.getSortData(data)
-      }
+      data = this.getSortData(data)
 
       this.setTotal(data.length)
 
@@ -160,6 +161,12 @@ export default {
         this.query.limit = this.perPage.value
         this.resetData()
       },
+      deep: true,
+    },
+    hideColumns: {
+      handler(hideColumns) {
+        this.hideColmun()
+      },
     },
   },
   created() {
@@ -167,6 +174,9 @@ export default {
     this.eventBus.$on('onResetData', () => {
       this.resetData()
     })
+  },
+  mounted() {
+    this.hideColmun()
   },
   methods: {
     resetData() {
@@ -188,6 +198,29 @@ export default {
       if ((i < 0 && this.isFirstPage) || (i > 0 && this.isLastPage)) return
       this.query.offset = +this.query.offset + i * +this.query.limit
       this.resetData()
+    },
+    hideColmun() {
+      // Reset columns to show
+      for (let column of this.$el.querySelectorAll('th, td')) {
+        column.setAttribute('style', 'display: table-cell')
+      }
+      // Set columns to hide
+      for (let column of this.hideColumns) {
+        for (let [colIndex, shouldHideColumn] of this.columns.entries()) {
+          if (shouldHideColumn['key'] === column) {
+            this.$el
+              .querySelector(`thead tr th:nth-child(${colIndex + 1})`)
+              .setAttribute('style', 'display: none')
+            for (let i = 1; i <= this.$slots.tbody.length; i++) {
+              this.$el
+                .querySelector(
+                  `tr:nth-child(${i}) td:nth-child(${colIndex + 1})`
+                )
+                .setAttribute('style', 'display: none')
+            }
+          }
+        }
+      }
     },
     getFilterData(data) {
       if (isEmpty(this.query.filterKey)) {
@@ -231,35 +264,6 @@ export default {
                   }
                 })
               }
-
-              // ================= Select =================
-              // name and value should not be undefined
-            } else if (
-              !isEmpty(filterItem[1].name) &&
-              !isEmpty(filterItem[1].value)
-            ) {
-              data = data.filter((row) => {
-                let selectItem = row[filterItem[0]]
-                if (!isEmpty(selectItem)) {
-                  // Filter according to business logic by key
-                  // For example:
-                  //   disposition: {
-                  //     key: 'No Sale',
-                  //     value: 'Too expensensive',
-                  //   }
-                  //   Search 'No Sale' but page shows 'Too expensensive'
-                  if (!isEmpty(selectItem.key)) {
-                    return selectItem.key.indexOf(filterItem[1].value) > -1
-
-                    // Filter according to value
-                    // For example:
-                    //   disposition: 'No Sale'
-                    //   Search 'No Sale' and page shows 'No Sale'
-                  } else {
-                    return selectItem.indexOf(filterItem[1].value) > -1
-                  }
-                }
-              })
             }
 
             // ================= Number =================
@@ -274,14 +278,20 @@ export default {
             // ================= String =================
           } else {
             data = data.filter((row) => {
-              let selectItem = !isEmpty(row[filterItem[0]])
-                ? row[filterItem[0]]
-                : ''
-              return (
-                String(selectItem)
-                  .toLowerCase()
-                  .indexOf(filterItem[1].toLowerCase()) > -1
-              )
+              let selectItem = row[filterItem[0]]
+              if (!isEmpty(selectItem)) {
+                // For example:
+                //   disposition: {
+                //     key: 'No Sale',
+                //     value: 'Too expensensive',
+                //   }
+                //   Search 'No Sale' but page shows 'Too expensensive'
+                if (!isEmpty(selectItem.key)) {
+                  return String(selectItem.key).indexOf(filterItem[1]) > -1
+                } else {
+                  return String(selectItem).indexOf(filterItem[1]) > -1
+                }
+              }
             })
           }
         })
@@ -311,51 +321,43 @@ export default {
     getSortData(data) {
       let sortKey = this.sortKey
       let order = this.sortOrders[sortKey] || 1
-      // let dateRegex = new RegExp('/^([0-9]{1,2})/([0-9]{1,2})/([0-9]{4})$/')
 
+      /* eslint no-eval: 0 */
       if (sortKey) {
         data = data.sort((a, b) => {
-          a = a[sortKey] === null ? '' : a
-          b = b[sortKey] === null ? '' : b
+          a = eval(`a.${sortKey}`) === null ? '' : a
+          b = eval(`b.${sortKey}`) === null ? '' : b
 
           // it should be sort by Number, for example:
           // { id : '12' }
           // { age: 20 }
-          if (Number(a[sortKey]) && Number(b[sortKey])) {
-            a = Number(a[sortKey])
-            b = Number(b[sortKey])
+          if (Number(eval(`a.${sortKey}`)) && Number(eval(`b.${sortKey}`))) {
+            a = Number(eval(`a.${sortKey}`))
+            b = Number(eval(`b.${sortKey}`))
             return (a === b ? 0 : a > b ? 1 : -1) * order
           }
 
           // it should be sort by value (Business Logic), for example:
           // { name: 'No Sale', value: 'No Sale - Customer will call back' }
           else if (
-            typeof a[sortKey] === 'object' &&
-            typeof b[sortKey] === 'object'
+            typeof eval(`a.${sortKey}`) === 'object' &&
+            typeof eval(`b.${sortKey}`) === 'object'
           ) {
-            a = a[sortKey].value === null ? '' : a[sortKey].value
-            b = b[sortKey].value === null ? '' : b[sortKey].value
+            a =
+              eval(`a.${sortKey}`).value === null
+                ? ''
+                : eval(`a.${sortKey}`).value
+            b =
+              eval(`b.${sortKey}`).value === null
+                ? ''
+                : eval(`b.${sortKey}`).value
             return (a === b ? 0 : a > b ? 1 : -1) * order
           }
 
-          // it should be sort by Date, for example:
-          // { date: '01/01/2019' }
-          // else if (dateRegex.test(a[sortKey]) && dateRegex.test(b[sortKey])) {
-          //   a = a[sortKey]
-          //     .split('/')
-          //     .reverse()
-          //     .join()
-          //   b = b[sortKey]
-          //     .split('/')
-          //     .reverse()
-          //     .join()
-          //   return (a < b ? -1 : a > b ? 1 : 0) * order
-          // }
-
           // it should be sort by String
           else {
-            a = a[sortKey] + ''
-            b = b[sortKey] + ''
+            a = eval(`a.${sortKey}`) + ''
+            b = eval(`b.${sortKey}`) + ''
             return (a === b ? 0 : a > b ? 1 : -1) * order
           }
         })
@@ -452,7 +454,11 @@ export default {
       </ul>
       <div class="perPageContainer">
         <div class="perPageHeader">Per Page: </div>
-        <BaseSelect v-model="perPage" size="small" :options="query.perPage" />
+        <BaseSelect
+          v-model="perPage.value"
+          size="small"
+          :options="query.perPage"
+        />
       </div>
     </div>
     <table class="table">
@@ -465,35 +471,33 @@ export default {
               @change="selectAll()"
             />
           </th>
-          <th
-            v-for="(column, index) in columns"
-            :key="index"
-            :style="{ width: column.width }"
-          >
-            <div
-              v-if="sort"
-              :class="[
-                'headerItem headerItemSort',
-                { active: sortKey === column.key },
-              ]"
-              @click="sortBy(column)"
-            >
-              <div v-html="column.label"></div>
-              <BaseFasIcon
-                v-if="sortOrders[column.key] > 0"
-                :class="['sortIcon', { active: sortKey === column.key }]"
-                :name="sortKey === column.key ? 'sort-up' : 'sort'"
-              />
-              <BaseFasIcon
-                v-else
-                :class="['sortIcon', { active: sortKey === column.key }]"
-                :name="sortKey === column.key ? 'sort-down' : 'sort'"
-              />
-            </div>
-            <div v-else class="headerItem">
-              <div v-html="column.label"></div>
-            </div>
-          </th>
+          <template v-for="(column, index) in columns">
+            <th :key="index" :style="{ width: column.width }">
+              <div
+                v-if="column.sort"
+                :class="[
+                  'headerItem headerItemSort',
+                  { active: sortKey === column.key },
+                ]"
+                @click="sortBy(column)"
+              >
+                <div v-html="column.label"></div>
+                <BaseFasIcon
+                  v-if="sortOrders[column.key] > 0"
+                  :class="['sortIcon', { active: sortKey === column.key }]"
+                  :name="sortKey === column.key ? 'sort-up' : 'sort'"
+                />
+                <BaseFasIcon
+                  v-else
+                  :class="['sortIcon', { active: sortKey === column.key }]"
+                  :name="sortKey === column.key ? 'sort-down' : 'sort'"
+                />
+              </div>
+              <div v-else class="headerItem">
+                <div v-html="column.label"></div>
+              </div>
+            </th>
+          </template>
         </tr>
       </thead>
       <tbody>
@@ -530,7 +534,11 @@ export default {
       </ul>
       <div class="perPageContainer">
         <div class="perPageHeader">Per Page: </div>
-        <BaseSelect v-model="perPage" size="small" :options="query.perPage" />
+        <BaseSelect
+          v-model="perPage.value"
+          size="small"
+          :options="query.perPage"
+        />
       </div>
     </div>
   </div>

@@ -48,32 +48,48 @@ export default {
         {
           key: 'firstName',
           label: 'Customer Name',
-          width: '20%',
+          sort: true,
         },
         {
           key: 'createdWhen',
           label: 'Update',
-          width: '16%',
+          sort: true,
         },
         {
           key: 'disposition',
           label: 'Disposition',
-          width: '16%',
         },
         {
           key: 'electionPeriod',
           label: 'Election Period',
-          width: '16%',
         },
         {
           key: 'scriptPhase',
           label: 'Script Phase',
-          width: '16%',
         },
         {
           key: 'duration',
           label: 'Call Duration',
-          width: '16%',
+        },
+        {
+          key: 'appointed[0].appointed',
+          label: 'AK',
+          sort: true,
+        },
+        {
+          key: 'appointed[1].appointed',
+          label: 'AL',
+          sort: true,
+        },
+        {
+          key: 'appointed[2].appointed',
+          label: 'AR',
+          sort: true,
+        },
+        {
+          key: 'disposition.key',
+          label: 'Key',
+          sort: true,
         },
       ],
       gridData: [],
@@ -81,9 +97,9 @@ export default {
         limit: 10,
         offset: 0,
         filterKey: {
-          disposition: { name: 'All' },
-          electionPeriod: { name: 'All', value: '' },
-          scriptPhase: { name: 'All', value: '' },
+          disposition: '',
+          electionPeriod: '',
+          scriptPhase: '',
           createdWhen: {
             startDate: '',
             endDate: '',
@@ -99,1454 +115,106 @@ export default {
         ],
       },
       showSelectedItems: [],
+      hideColumns: [],
     }
   },
   created: function() {
     this.gridData = [
       {
-        leadId: 5911766,
-        firstName: 'gfds',
-        lastName: 'hgfd',
-        createdWhen: '2019-02-13T22:46:48.000+0000',
+        firstName: 'Jett',
+        lastName: 'Liu',
+        createdWhen: '2019-07-13T22:46:48.000+0000',
         electionPeriod: 'GI',
-        pageNum: 7,
         currentCover: null,
         primaryDisposition: 'No Sale',
         secondaryDisposition: 'Customer will call back',
         duration: '48',
         scriptPhase: 'Enrollment',
         disposition: {
-          key: 'No Sale',
-          value: 'No Sale - Customer will call back',
+          key: '1 No Sale',
+          value: 'Customer will call back',
         },
+        appointed: [
+          {
+            mcSalesStateAppointId: 23432432,
+            state: 'AK',
+            appointed: '1',
+          },
+          {
+            mcSalesStateAppointId: 23432432,
+            state: 'AL',
+            appointed: '3',
+          },
+          {
+            mcSalesStateAppointId: 23432432,
+            state: 'AR',
+            appointed: '4',
+          },
+        ],
       },
       {
-        leadId: 3011338,
-        firstName: 'fdsa',
-        lastName: 'fdsa',
-        createdWhen: '2019-02-14T18:50:33.000+0000',
+        firstName: 'Tes',
+        lastName: 'Fd',
+        createdWhen: '2019-01-13T22:46:48.000+0000',
         electionPeriod: 'GI',
-        pageNum: 31,
-        currentCover: null,
-        primaryDisposition: 'Enrolled outside of BOSE',
-        secondaryDisposition: null,
-        duration: '193',
-        scriptPhase: 'Enrollment',
-        disposition: {
-          key: 'Enrolled',
-          value: 'Enrolled outside of BOSE',
-        },
-      },
-      {
-        leadId: 5909837,
-        firstName: 'adfs',
-        lastName: 'adsf',
-        createdWhen: '2019-03-07T19:26:13.000+0000',
-        electionPeriod: 'IEP/ICEP',
-        pageNum: null,
-        currentCover: null,
-        primaryDisposition: 'Pipeline',
-        secondaryDisposition: 'Pipeline - General',
-        duration: '463',
-        scriptPhase: null,
-        disposition: {
-          key: 'Pipeline',
-          value: 'Pipeline - General',
-        },
-      },
-      {
-        leadId: 5909837,
-        firstName: 'adfs',
-        lastName: 'adsf',
-        createdWhen: '2019-03-07T23:43:51.000+0000',
-        electionPeriod: 'IEP/ICEP',
-        pageNum: null,
-        currentCover: null,
-        primaryDisposition: 'Pipeline',
-        secondaryDisposition: 'Pipeline - General',
-        duration: '0',
-        scriptPhase: null,
-        disposition: {
-          key: 'Pipeline',
-          value: 'Pipeline - General',
-        },
-      },
-      {
-        leadId: 5911706,
-        firstName: 'gfde',
-        lastName: 'gfdsw',
-        createdWhen: '2019-02-12T21:26:06.000+0000',
-        electionPeriod: null,
-        pageNum: 31,
-        currentCover: null,
-        primaryDisposition: 'Enrolled',
-        secondaryDisposition: null,
-        duration: '6',
-        scriptPhase: 'Enrollment',
-        disposition: {
-          key: 'Enrolled',
-          value: 'Enrolled',
-        },
-      },
-      {
-        leadId: 5911006,
-        firstName: 'dafs',
-        lastName: 'dfsa',
-        createdWhen: '2019-03-07T04:33:20.000+0000',
-        electionPeriod: null,
-        pageNum: 2,
         currentCover: null,
         primaryDisposition: 'No Sale',
         secondaryDisposition: 'Customer will call back',
-        duration: '3',
-        scriptPhase: 'Needs Analysis',
-        disposition: {
-          key: 'No Sale',
-          value: 'No Sale - Customer will call back',
-        },
-      },
-      {
-        leadId: 5909837,
-        firstName: 'adfs',
-        lastName: 'adsf',
-        createdWhen: '2019-03-07T23:22:39.000+0000',
-        electionPeriod: 'IEP/ICEP',
-        pageNum: null,
-        currentCover: null,
-        primaryDisposition: 'Pipeline',
-        secondaryDisposition: 'Pipeline - General',
-        duration: '0',
-        scriptPhase: null,
-        disposition: {
-          key: 'Pipeline',
-          value: 'Pipeline - General',
-        },
-      },
-      {
-        leadId: 5909837,
-        firstName: 'adfs',
-        lastName: 'adsf',
-        createdWhen: '2019-03-07T23:32:20.000+0000',
-        electionPeriod: 'IEP/ICEP',
-        pageNum: null,
-        currentCover: null,
-        primaryDisposition: 'Pipeline',
-        secondaryDisposition: 'Pipeline - General',
-        duration: '0',
-        scriptPhase: null,
-        disposition: {
-          key: 'Pipeline',
-          value: 'Pipeline - General',
-        },
-      },
-      {
-        leadId: 5909837,
-        firstName: 'adfs',
-        lastName: 'adsf',
-        createdWhen: '2019-03-07T23:32:21.000+0000',
-        electionPeriod: 'IEP/ICEP',
-        pageNum: null,
-        currentCover: null,
-        primaryDisposition: 'Pipeline',
-        secondaryDisposition: 'Pipeline - General',
-        duration: '0',
-        scriptPhase: null,
-        disposition: {
-          key: 'Pipeline',
-          value: 'Pipeline - General',
-        },
-      },
-      {
-        leadId: 5911328,
-        firstName: 'adf',
-        lastName: 'asfd',
-        createdWhen: '2019-01-14T19:44:11.000+0000',
-        electionPeriod: null,
-        pageNum: 31,
-        currentCover: null,
-        primaryDisposition: 'Enrolled',
-        secondaryDisposition: null,
-        duration: '5676',
+        duration: '48',
         scriptPhase: 'Enrollment',
         disposition: {
-          key: 'Enrolled',
-          value: 'Enrolled',
+          key: '2 No Sale',
+          value: 'Customer will call back',
         },
+        appointed: [
+          {
+            mcSalesStateAppointId: 23432432,
+            state: 'AK',
+            appointed: '5',
+          },
+          {
+            mcSalesStateAppointId: 23432432,
+            state: 'AL',
+            appointed: '6',
+          },
+          {
+            mcSalesStateAppointId: 23432432,
+            state: 'AR',
+            appointed: '2',
+          },
+        ],
       },
       {
-        leadId: 5911652,
-        firstName: 'fds',
-        lastName: 'fds',
-        createdWhen: '2019-02-11T21:55:55.000+0000',
+        firstName: 'Cdds',
+        lastName: 'Ssd',
+        createdWhen: '2019-03-13T22:46:48.000+0000',
         electionPeriod: 'GI',
-        pageNum: 31,
-        currentCover: null,
-        primaryDisposition: 'Enrolled',
-        secondaryDisposition: null,
-        duration: '4351',
-        scriptPhase: 'Enrollment',
-        disposition: {
-          key: 'Enrolled',
-          value: 'Enrolled',
-        },
-      },
-      {
-        leadId: 5911686,
-        firstName: 'gfds',
-        lastName: 'fds',
-        createdWhen: '2019-02-12T21:06:06.000+0000',
-        electionPeriod: null,
-        pageNum: 31,
-        currentCover: null,
-        primaryDisposition: 'Enrolled',
-        secondaryDisposition: null,
-        duration: '6',
-        scriptPhase: 'Enrollment',
-        disposition: {
-          key: 'Enrolled',
-          value: 'Enrolled',
-        },
-      },
-      {
-        leadId: 5911788,
-        firstName: 'gfdg',
-        lastName: 'fds',
-        createdWhen: '2019-02-14T00:00:08.000+0000',
-        electionPeriod: null,
-        pageNum: 2,
         currentCover: null,
         primaryDisposition: 'No Sale',
         secondaryDisposition: 'Customer will call back',
-        duration: '1',
-        scriptPhase: 'Needs Analysis',
-        disposition: {
-          key: 'No Sale',
-          value: 'No Sale - Customer will call back',
-        },
-      },
-      {
-        leadId: 5912129,
-        firstName: 'adsf',
-        lastName: 'adfs',
-        createdWhen: '2019-03-06T02:46:40.000+0000',
-        electionPeriod: null,
-        pageNum: 3,
-        currentCover: null,
-        primaryDisposition: 'No Sale',
-        secondaryDisposition: 'Customer will call back',
-        duration: '5',
-        scriptPhase: 'Eligibility',
-        disposition: {
-          key: 'No Sale',
-          value: 'No Sale - Customer will call back',
-        },
-      },
-      {
-        leadId: 5909837,
-        firstName: 'adfs',
-        lastName: 'adsf',
-        createdWhen: '2019-03-07T23:22:01.000+0000',
-        electionPeriod: 'IEP/ICEP',
-        pageNum: null,
-        currentCover: null,
-        primaryDisposition: 'Pipeline',
-        secondaryDisposition: 'Pipeline - General',
-        duration: '0',
-        scriptPhase: null,
-        disposition: {
-          key: 'Pipeline',
-          value: 'Pipeline - General',
-        },
-      },
-      {
-        leadId: 5909837,
-        firstName: 'adfs',
-        lastName: 'adsf',
-        createdWhen: '2019-03-08T21:20:05.000+0000',
-        electionPeriod: 'IEP/ICEP',
-        pageNum: 7,
-        currentCover: null,
-        primaryDisposition: 'Pipeline',
-        secondaryDisposition: 'Pipeline - Age In',
-        duration: '0',
+        duration: '48',
         scriptPhase: 'Enrollment',
         disposition: {
-          key: 'Pipeline',
-          value: 'Pipeline - Age In',
-        },
-      },
-      {
-        leadId: 5909837,
-        firstName: 'adfs',
-        lastName: 'adsf',
-        createdWhen: '2019-03-08T21:22:08.000+0000',
-        electionPeriod: 'IEP/ICEP',
-        pageNum: null,
-        currentCover: null,
-        primaryDisposition: 'Pipeline',
-        secondaryDisposition: 'Pipeline - General',
-        duration: '0',
-        scriptPhase: null,
-        disposition: {
-          key: 'Pipeline',
-          value: 'Pipeline - General',
-        },
-      },
-      {
-        leadId: 5909837,
-        firstName: 'adfs',
-        lastName: 'adsf',
-        createdWhen: '2019-03-08T22:39:36.000+0000',
-        electionPeriod: 'IEP/ICEP',
-        pageNum: null,
-        currentCover: null,
-        primaryDisposition: 'Pipeline',
-        secondaryDisposition: 'Pipeline - General',
-        duration: '0',
-        scriptPhase: null,
-        disposition: {
-          key: 'Pipeline',
-          value: 'Pipeline - General',
-        },
-      },
-      {
-        leadId: 5909837,
-        firstName: 'adfs',
-        lastName: 'adsf',
-        createdWhen: '2019-03-08T22:39:40.000+0000',
-        electionPeriod: 'IEP/ICEP',
-        pageNum: null,
-        currentCover: null,
-        primaryDisposition: 'Pipeline',
-        secondaryDisposition: 'Pipeline - General',
-        duration: '0',
-        scriptPhase: null,
-        disposition: {
-          key: 'Pipeline',
-          value: 'Pipeline - General',
-        },
-      },
-      {
-        leadId: 5909837,
-        firstName: 'adfs',
-        lastName: 'adsf',
-        createdWhen: '2019-03-08T22:40:34.000+0000',
-        electionPeriod: 'IEP/ICEP',
-        pageNum: null,
-        currentCover: null,
-        primaryDisposition: 'Pipeline',
-        secondaryDisposition: 'Pipeline - General',
-        duration: '0',
-        scriptPhase: null,
-        disposition: {
-          key: 'Pipeline',
-          value: 'Pipeline - General',
-        },
-      },
-      {
-        leadId: 5911206,
-        firstName: 'testt',
-        lastName: 'tetsss',
-        createdWhen: '2019-01-03T22:38:37.000+0000',
-        electionPeriod: 'IEP/ICEP',
-        pageNum: 31,
-        currentCover: null,
-        primaryDisposition: 'Enrolled',
-        secondaryDisposition: null,
-        duration: '64',
-        scriptPhase: 'Enrollment',
-        disposition: {
-          key: 'Enrolled',
-          value: 'Enrolled',
-        },
-      },
-      {
-        leadId: 5911209,
-        firstName: 'dfs',
-        lastName: 'tesa',
-        createdWhen: '2019-01-04T01:16:19.000+0000',
-        electionPeriod: 'IEP/ICEP',
-        pageNum: 31,
-        currentCover: null,
-        primaryDisposition: 'Enrolled',
-        secondaryDisposition: null,
-        duration: '14',
-        scriptPhase: 'Enrollment',
-        disposition: {
-          key: 'Enrolled',
-          value: 'Enrolled',
-        },
-      },
-      {
-        leadId: 5911786,
-        firstName: 'gfds',
-        lastName: 'fds',
-        createdWhen: '2019-02-13T23:39:26.000+0000',
-        electionPeriod: null,
-        pageNum: 2,
-        currentCover: null,
-        primaryDisposition: 'No Sale',
-        secondaryDisposition: 'Customer will call back',
-        duration: '3',
-        scriptPhase: 'Needs Analysis',
-        disposition: {
-          key: 'No Sale',
-          value: 'No Sale - Customer will call back',
-        },
-      },
-      {
-        leadId: 5911787,
-        firstName: 'fds',
-        lastName: 'fds',
-        createdWhen: '2019-02-13T23:46:35.000+0000',
-        electionPeriod: null,
-        pageNum: 2,
-        currentCover: null,
-        primaryDisposition: 'No Sale',
-        secondaryDisposition: 'Customer will call back',
-        duration: '2',
-        scriptPhase: 'Needs Analysis',
-        disposition: {
-          key: 'No Sale',
-          value: 'No Sale - Customer will call back',
-        },
-      },
-      {
-        leadId: 5909837,
-        firstName: 'adfs',
-        lastName: 'adsf',
-        createdWhen: '2019-03-07T22:43:43.000+0000',
-        electionPeriod: 'IEP/ICEP',
-        pageNum: null,
-        currentCover: null,
-        primaryDisposition: 'Pipeline',
-        secondaryDisposition: 'Pipeline - General',
-        duration: '0',
-        scriptPhase: null,
-        disposition: {
-          key: 'Pipeline',
-          value: 'Pipeline - General',
-        },
-      },
-      {
-        leadId: 5909837,
-        firstName: 'adfs',
-        lastName: 'adsf',
-        createdWhen: '2019-03-07T23:39:15.000+0000',
-        electionPeriod: 'IEP/ICEP',
-        pageNum: null,
-        currentCover: null,
-        primaryDisposition: 'Pipeline',
-        secondaryDisposition: 'Pipeline - General',
-        duration: '0',
-        scriptPhase: null,
-        disposition: {
-          key: 'Pipeline',
-          value: 'Pipeline - General',
-        },
-      },
-      {
-        leadId: 5911006,
-        firstName: 'dafs',
-        lastName: 'dfsa',
-        createdWhen: '2019-03-08T19:05:15.000+0000',
-        electionPeriod: null,
-        pageNum: null,
-        currentCover: null,
-        primaryDisposition: null,
-        secondaryDisposition: null,
-        duration: '0',
-        scriptPhase: null,
-        disposition: {
-          key: 'None',
-          value: null,
-        },
-      },
-      {
-        leadId: 5797943,
-        firstName: 'test',
-        lastName: 'test',
-        createdWhen: '2019-01-03T23:48:31.000+0000',
-        electionPeriod: 'IEP/ICEP',
-        pageNum: 31,
-        currentCover: null,
-        primaryDisposition: 'Enrolled',
-        secondaryDisposition: null,
-        duration: '10',
-        scriptPhase: 'Enrollment',
-        disposition: {
-          key: 'Enrolled',
-          value: 'Enrolled',
-        },
-      },
-      {
-        leadId: 5911208,
-        firstName: 'test',
-        lastName: 'test',
-        createdWhen: '2019-01-04T00:24:49.000+0000',
-        electionPeriod: 'IEP/ICEP',
-        pageNum: 31,
-        currentCover: null,
-        primaryDisposition: 'Enrolled',
-        secondaryDisposition: null,
-        duration: '29',
-        scriptPhase: 'Enrollment',
-        disposition: {
-          key: 'Enrolled',
-          value: 'Enrolled',
-        },
-      },
-      {
-        leadId: 5911666,
-        firstName: 'gfd',
-        lastName: 'jhgfd',
-        createdWhen: '2019-02-12T18:34:50.000+0000',
-        electionPeriod: 'GI',
-        pageNum: 31,
-        currentCover: null,
-        primaryDisposition: 'Enrolled',
-        secondaryDisposition: null,
-        duration: '141',
-        scriptPhase: 'Enrollment',
-        disposition: {
-          key: 'Enrolled',
-          value: 'Enrolled',
-        },
-      },
-      {
-        leadId: 5912106,
-        firstName: 'afd',
-        lastName: 'afds',
-        createdWhen: '2019-03-05T00:49:34.000+0000',
-        electionPeriod: null,
-        pageNum: null,
-        currentCover: null,
-        primaryDisposition: null,
-        secondaryDisposition: null,
-        duration: '0',
-        scriptPhase: null,
-        disposition: {
-          key: 'None',
-          value: null,
-        },
-      },
-      {
-        leadId: 5912106,
-        firstName: 'afd',
-        lastName: 'afds',
-        createdWhen: '2019-03-05T00:49:44.000+0000',
-        electionPeriod: null,
-        pageNum: null,
-        currentCover: null,
-        primaryDisposition: null,
-        secondaryDisposition: null,
-        duration: '0',
-        scriptPhase: null,
-        disposition: {
-          key: 'None',
-          value: null,
-        },
-      },
-      {
-        leadId: 5912129,
-        firstName: 'adsf',
-        lastName: 'adfs',
-        createdWhen: '2019-03-06T03:00:52.000+0000',
-        electionPeriod: null,
-        pageNum: null,
-        currentCover: null,
-        primaryDisposition: null,
-        secondaryDisposition: null,
-        duration: '0',
-        scriptPhase: null,
-        disposition: {
-          key: 'None',
-          value: null,
-        },
-      },
-      {
-        leadId: 5909837,
-        firstName: 'adfs',
-        lastName: 'adsf',
-        createdWhen: '2019-03-07T23:16:31.000+0000',
-        electionPeriod: 'IEP/ICEP',
-        pageNum: null,
-        currentCover: null,
-        primaryDisposition: 'Pipeline',
-        secondaryDisposition: 'Pipeline - General',
-        duration: '0',
-        scriptPhase: null,
-        disposition: {
-          key: 'Pipeline',
-          value: 'Pipeline - General',
-        },
-      },
-      {
-        leadId: 5909837,
-        firstName: 'adfs',
-        lastName: 'adsf',
-        createdWhen: '2019-03-08T21:46:50.000+0000',
-        electionPeriod: 'IEP/ICEP',
-        pageNum: null,
-        currentCover: null,
-        primaryDisposition: null,
-        secondaryDisposition: null,
-        duration: '0',
-        scriptPhase: null,
-        disposition: {
-          key: 'None',
-          value: null,
-        },
-      },
-      {
-        leadId: 5912487,
-        firstName: 'afsdasfd',
-        lastName: 'adsfadfs',
-        createdWhen: '2019-03-19T19:29:16.000+0000',
-        electionPeriod: null,
-        pageNum: 20,
-        currentCover: null,
-        primaryDisposition: 'Transferred to IVR',
-        secondaryDisposition: null,
-        duration: '7',
-        scriptPhase: 'Enrollment',
-        disposition: {
-          key: 'Enrolled',
-          value: 'Transferred to IVR',
-        },
-      },
-      {
-        leadId: 5912491,
-        firstName: 'afdadf',
-        lastName: 'afsdadfs',
-        createdWhen: '2019-03-19T21:50:22.000+0000',
-        electionPeriod: null,
-        pageNum: 31,
-        currentCover: null,
-        primaryDisposition: 'Enrolled',
-        secondaryDisposition: null,
-        duration: '7',
-        scriptPhase: 'Enrollment',
-        disposition: {
-          key: 'Enrolled',
-          value: 'Enrolled',
-        },
-      },
-      {
-        leadId: 5909367,
-        firstName: 'vre',
-        lastName: 'xEA',
-        createdWhen: '2019-03-20T00:04:37.000+0000',
-        electionPeriod: 'IEP/ICEP',
-        pageNum: null,
-        currentCover: null,
-        primaryDisposition: 'Answered Call',
-        secondaryDisposition: null,
-        duration: '0',
-        scriptPhase: null,
-        disposition: {
-          key: 'Other',
-          value: 'Answered Call',
-        },
-      },
-      {
-        leadId: 5912647,
-        firstName: 'adfsadsfsdfdsa',
-        lastName: 'afdsadsass',
-        createdWhen: '2019-03-25T18:13:07.000+0000',
-        electionPeriod: null,
-        pageNum: null,
-        currentCover: null,
-        primaryDisposition: null,
-        secondaryDisposition: null,
-        duration: '0',
-        scriptPhase: null,
-        disposition: {
-          key: 'None',
-          value: null,
-        },
-      },
-      {
-        leadId: 5909153,
-        firstName: 'firstnamed',
-        lastName: 'lastnameaf',
-        createdWhen: '2019-03-27T02:48:29.000+0000',
-        electionPeriod: 'GI',
-        pageNum: 8,
-        currentCover: null,
-        primaryDisposition: 'No Sale',
-        secondaryDisposition: 'Too expensive',
-        duration: '1',
-        scriptPhase: 'Enrollment',
-        disposition: {
-          key: 'No Sale',
-          value: 'No Sale - Too expensive',
-        },
-      },
-      {
-        leadId: 5909837,
-        firstName: 'adfs',
-        lastName: 'adsf',
-        createdWhen: '2019-03-08T22:58:26.000+0000',
-        electionPeriod: 'IEP/ICEP',
-        pageNum: null,
-        currentCover: null,
-        primaryDisposition: 'Pipeline',
-        secondaryDisposition: 'Pipeline - General',
-        duration: '0',
-        scriptPhase: null,
-        disposition: {
-          key: 'Pipeline',
-          value: 'Pipeline - General',
-        },
-      },
-      {
-        leadId: 5909837,
-        firstName: 'adfs',
-        lastName: 'adsf',
-        createdWhen: '2019-03-08T23:00:42.000+0000',
-        electionPeriod: 'IEP/ICEP',
-        pageNum: null,
-        currentCover: null,
-        primaryDisposition: 'Pipeline',
-        secondaryDisposition: 'Pipeline - General',
-        duration: '0',
-        scriptPhase: null,
-        disposition: {
-          key: 'Pipeline',
-          value: 'Pipeline - General',
-        },
-      },
-      {
-        leadId: 5909837,
-        firstName: 'adfs',
-        lastName: 'adsf',
-        createdWhen: '2019-03-08T23:02:04.000+0000',
-        electionPeriod: 'IEP/ICEP',
-        pageNum: null,
-        currentCover: null,
-        primaryDisposition: 'Pipeline',
-        secondaryDisposition: 'Pipeline - General',
-        duration: '0',
-        scriptPhase: null,
-        disposition: {
-          key: 'Pipeline',
-          value: 'Pipeline - General',
-        },
-      },
-      {
-        leadId: 5909837,
-        firstName: 'adfs',
-        lastName: 'adsf',
-        createdWhen: '2019-03-08T23:02:47.000+0000',
-        electionPeriod: 'IEP/ICEP',
-        pageNum: null,
-        currentCover: null,
-        primaryDisposition: 'Pipeline',
-        secondaryDisposition: 'Pipeline - General',
-        duration: '0',
-        scriptPhase: null,
-        disposition: {
-          key: 'Pipeline',
-          value: 'Pipeline - General',
-        },
-      },
-      {
-        leadId: 5909837,
-        firstName: 'adfs',
-        lastName: 'adsf',
-        createdWhen: '2019-03-08T23:03:57.000+0000',
-        electionPeriod: 'IEP/ICEP',
-        pageNum: null,
-        currentCover: null,
-        primaryDisposition: 'Pipeline',
-        secondaryDisposition: 'Pipeline - General',
-        duration: '0',
-        scriptPhase: null,
-        disposition: {
-          key: 'Pipeline',
-          value: 'Pipeline - General',
-        },
-      },
-      {
-        leadId: 5909837,
-        firstName: 'adfs',
-        lastName: 'adsf',
-        createdWhen: '2019-03-08T23:04:51.000+0000',
-        electionPeriod: 'IEP/ICEP',
-        pageNum: null,
-        currentCover: null,
-        primaryDisposition: 'Pipeline',
-        secondaryDisposition: 'Pipeline - General',
-        duration: '0',
-        scriptPhase: null,
-        disposition: {
-          key: 'Pipeline',
-          value: 'Pipeline - General',
-        },
-      },
-      {
-        leadId: 5912409,
-        firstName: 'asdf',
-        lastName: 'asdf',
-        createdWhen: '2019-03-19T22:04:09.000+0000',
-        electionPeriod: null,
-        pageNum: null,
-        currentCover: null,
-        primaryDisposition: 'Answered Call',
-        secondaryDisposition: null,
-        duration: '0',
-        scriptPhase: null,
-        disposition: {
-          key: 'Other',
-          value: 'Answered Call',
-        },
-      },
-      {
-        leadId: 5909837,
-        firstName: 'adfs',
-        lastName: 'adsf',
-        createdWhen: '2019-03-19T23:20:56.000+0000',
-        electionPeriod: 'IEP/ICEP',
-        pageNum: null,
-        currentCover: null,
-        primaryDisposition: 'Answered Call',
-        secondaryDisposition: null,
-        duration: '0',
-        scriptPhase: null,
-        disposition: {
-          key: 'Other',
-          value: 'Answered Call',
-        },
-      },
-      {
-        leadId: 5909367,
-        firstName: 'vre',
-        lastName: 'xEA',
-        createdWhen: '2019-03-20T00:15:01.000+0000',
-        electionPeriod: 'IEP/ICEP',
-        pageNum: null,
-        currentCover: null,
-        primaryDisposition: 'Dialed Call',
-        secondaryDisposition: null,
-        duration: '0',
-        scriptPhase: null,
-        disposition: {
-          key: 'Other',
-          value: 'Dialed Call',
-        },
-      },
-      {
-        leadId: 5912646,
-        firstName: 'fdasdsadsaf',
-        lastName: 'fadsasdf',
-        createdWhen: '2019-03-25T17:46:27.000+0000',
-        electionPeriod: null,
-        pageNum: null,
-        currentCover: null,
-        primaryDisposition: null,
-        secondaryDisposition: null,
-        duration: '0',
-        scriptPhase: null,
-        disposition: {
-          key: 'None',
-          value: null,
-        },
-      },
-      {
-        leadId: 5909367,
-        firstName: 'vre',
-        lastName: 'xEA',
-        createdWhen: '2019-03-14T01:00:50.000+0000',
-        electionPeriod: 'IEP/ICEP',
-        pageNum: null,
-        currentCover: null,
-        primaryDisposition: 'Answered Call',
-        secondaryDisposition: null,
-        duration: '0',
-        scriptPhase: null,
-        disposition: {
-          key: 'Other',
-          value: 'Answered Call',
-        },
-      },
-      {
-        leadId: 5909153,
-        firstName: 'firstnamed',
-        lastName: 'lastnameaf',
-        createdWhen: '2019-03-18T22:58:18.000+0000',
-        electionPeriod: 'GI',
-        pageNum: null,
-        currentCover: null,
-        primaryDisposition: 'Answered Call',
-        secondaryDisposition: null,
-        duration: '0',
-        scriptPhase: null,
-        disposition: {
-          key: 'Other',
-          value: 'Answered Call',
-        },
-      },
-      {
-        leadId: 5909608,
-        firstName: 'dfas',
-        lastName: 'dafs',
-        createdWhen: '2019-03-19T00:16:35.000+0000',
-        electionPeriod: 'IEP/ICEP',
-        pageNum: null,
-        currentCover: null,
-        primaryDisposition: 'Answered Call',
-        secondaryDisposition: null,
-        duration: '0',
-        scriptPhase: null,
-        disposition: {
-          key: 'Other',
-          value: 'Answered Call',
-        },
-      },
-      {
-        leadId: 5909367,
-        firstName: 'vre',
-        lastName: 'xEA',
-        createdWhen: '2019-03-19T00:19:21.000+0000',
-        electionPeriod: 'IEP/ICEP',
-        pageNum: null,
-        currentCover: null,
-        primaryDisposition: 'Answered Call',
-        secondaryDisposition: null,
-        duration: '0',
-        scriptPhase: null,
-        disposition: {
-          key: 'Other',
-          value: 'Answered Call',
-        },
-      },
-      {
-        leadId: 5909153,
-        firstName: 'firstnamed',
-        lastName: 'lastnameaf',
-        createdWhen: '2019-03-19T21:59:01.000+0000',
-        electionPeriod: 'GI',
-        pageNum: null,
-        currentCover: null,
-        primaryDisposition: 'Answered Call',
-        secondaryDisposition: null,
-        duration: '2',
-        scriptPhase: null,
-        disposition: {
-          key: 'Other',
-          value: 'Answered Call',
-        },
-      },
-      {
-        leadId: 5909367,
-        firstName: 'vre',
-        lastName: 'xEA',
-        createdWhen: '2019-03-20T00:15:01.000+0000',
-        electionPeriod: 'IEP/ICEP',
-        pageNum: 2,
-        currentCover: null,
-        primaryDisposition: 'No Sale',
-        secondaryDisposition: 'Customer will call back',
-        duration: '1',
-        scriptPhase: 'Needs Analysis',
-        disposition: {
-          key: 'No Sale',
-          value: 'No Sale - Customer will call back',
-        },
-      },
-      {
-        leadId: 5912510,
-        firstName: 'adfadsf',
-        lastName: 'fsadsdaf',
-        createdWhen: '2019-03-20T18:03:49.000+0000',
-        electionPeriod: null,
-        pageNum: null,
-        currentCover: null,
-        primaryDisposition: 'Dialed Call',
-        secondaryDisposition: null,
-        duration: '0',
-        scriptPhase: null,
-        disposition: {
-          key: 'Other',
-          value: 'Dialed Call',
-        },
-      },
-      {
-        leadId: 5909837,
-        firstName: 'adfs',
-        lastName: 'adsf',
-        createdWhen: '2019-03-11T16:05:07.000+0000',
-        electionPeriod: 'IEP/ICEP',
-        pageNum: null,
-        currentCover: null,
-        primaryDisposition: 'Pipeline',
-        secondaryDisposition: 'Pipeline - General',
-        duration: '0',
-        scriptPhase: null,
-        disposition: {
-          key: 'Pipeline',
-          value: 'Pipeline - General',
-        },
-      },
-      {
-        leadId: 5911988,
-        firstName: 'ad',
-        lastName: 'dfas',
-        createdWhen: '2019-03-12T23:00:36.000+0000',
-        electionPeriod: 'GI',
-        pageNum: null,
-        currentCover: null,
-        primaryDisposition: null,
-        secondaryDisposition: null,
-        duration: '0',
-        scriptPhase: null,
-        disposition: {
-          key: 'None',
-          value: null,
-        },
-      },
-      {
-        leadId: 5911988,
-        firstName: 'ad',
-        lastName: 'dfas',
-        createdWhen: '2019-03-12T23:00:39.000+0000',
-        electionPeriod: 'GI',
-        pageNum: null,
-        currentCover: null,
-        primaryDisposition: null,
-        secondaryDisposition: null,
-        duration: '0',
-        scriptPhase: null,
-        disposition: {
-          key: 'None',
-          value: null,
-        },
-      },
-      {
-        leadId: 5911988,
-        firstName: 'ad',
-        lastName: 'dfas',
-        createdWhen: '2019-03-12T23:00:44.000+0000',
-        electionPeriod: 'GI',
-        pageNum: null,
-        currentCover: null,
-        primaryDisposition: null,
-        secondaryDisposition: null,
-        duration: '0',
-        scriptPhase: null,
-        disposition: {
-          key: 'None',
-          value: null,
-        },
-      },
-      {
-        leadId: 3011338,
-        firstName: 'fdsa',
-        lastName: 'fdsa',
-        createdWhen: '2019-03-12T23:50:42.000+0000',
-        electionPeriod: 'GI',
-        pageNum: null,
-        currentCover: null,
-        primaryDisposition: null,
-        secondaryDisposition: null,
-        duration: '0',
-        scriptPhase: null,
-        disposition: {
-          key: 'None',
-          value: null,
-        },
-      },
-      {
-        leadId: 5909608,
-        firstName: 'dfas',
-        lastName: 'dafs',
-        createdWhen: '2019-03-19T00:14:40.000+0000',
-        electionPeriod: 'IEP/ICEP',
-        pageNum: null,
-        currentCover: null,
-        primaryDisposition: 'Answered Call',
-        secondaryDisposition: null,
-        duration: '0',
-        scriptPhase: null,
-        disposition: {
-          key: 'Other',
-          value: 'Answered Call',
-        },
-      },
-      {
-        leadId: 5909153,
-        firstName: 'firstnamed',
-        lastName: 'lastnameaf',
-        createdWhen: '2019-03-19T00:14:56.000+0000',
-        electionPeriod: 'GI',
-        pageNum: null,
-        currentCover: null,
-        primaryDisposition: 'Answered Call',
-        secondaryDisposition: null,
-        duration: '0',
-        scriptPhase: null,
-        disposition: {
-          key: 'Other',
-          value: 'Answered Call',
-        },
-      },
-      {
-        leadId: 5909367,
-        firstName: 'vre',
-        lastName: 'xEA',
-        createdWhen: '2019-03-19T22:16:25.000+0000',
-        electionPeriod: 'IEP/ICEP',
-        pageNum: null,
-        currentCover: null,
-        primaryDisposition: 'Answered Call',
-        secondaryDisposition: null,
-        duration: '107',
-        scriptPhase: null,
-        disposition: {
-          key: 'Other',
-          value: 'Answered Call',
-        },
-      },
-      {
-        leadId: 5912510,
-        firstName: 'adfadsf',
-        lastName: 'fsadsdaf',
-        createdWhen: '2019-03-20T18:03:12.000+0000',
-        electionPeriod: null,
-        pageNum: null,
-        currentCover: null,
-        primaryDisposition: 'Dialed Call',
-        secondaryDisposition: null,
-        duration: '0',
-        scriptPhase: null,
-        disposition: {
-          key: 'Other',
-          value: 'Dialed Call',
-        },
-      },
-      {
-        leadId: 5912646,
-        firstName: 'fdasdsadsaf',
-        lastName: 'fadsasdf',
-        createdWhen: '2019-03-25T17:46:27.000+0000',
-        electionPeriod: null,
-        pageNum: null,
-        currentCover: null,
-        primaryDisposition: null,
-        secondaryDisposition: null,
-        duration: '0',
-        scriptPhase: null,
-        disposition: {
-          key: 'None',
-          value: null,
-        },
-      },
-      {
-        leadId: 5912646,
-        firstName: 'fdasdsadsaf',
-        lastName: 'fadsasdf',
-        createdWhen: '2019-03-25T17:47:03.000+0000',
-        electionPeriod: null,
-        pageNum: 2,
-        currentCover: null,
-        primaryDisposition: 'No Sale',
-        secondaryDisposition: 'Customer will call back',
-        duration: '1',
-        scriptPhase: 'Needs Analysis',
-        disposition: {
-          key: 'No Sale',
-          value: 'No Sale - Customer will call back',
-        },
-      },
-      {
-        leadId: 5912647,
-        firstName: 'adfsadsfsdfdsa',
-        lastName: 'afdsadsass',
-        createdWhen: '2019-03-25T18:11:17.000+0000',
-        electionPeriod: null,
-        pageNum: 2,
-        currentCover: null,
-        primaryDisposition: 'No Sale',
-        secondaryDisposition: 'Customer will call back',
-        duration: '1',
-        scriptPhase: 'Needs Analysis',
-        disposition: {
-          key: 'No Sale',
-          value: 'No Sale - Customer will call back',
-        },
-      },
-      {
-        leadId: 5909153,
-        firstName: 'firstnamed',
-        lastName: 'lastnameaf',
-        createdWhen: '2019-03-27T01:45:06.000+0000',
-        electionPeriod: 'GI',
-        pageNum: 8,
-        currentCover: null,
-        primaryDisposition: 'No Sale',
-        secondaryDisposition: 'Too expensive',
-        duration: '47',
-        scriptPhase: 'Enrollment',
-        disposition: {
-          key: 'No Sale',
-          value: 'No Sale - Too expensive',
-        },
-      },
-      {
-        leadId: 5912846,
-        firstName: 'testhistory',
-        lastName: 'testhistory',
-        createdWhen: '2019-04-04T01:34:06.000+0000',
-        electionPeriod: null,
-        pageNum: 31,
-        currentCover: null,
-        primaryDisposition: 'Enrolled',
-        secondaryDisposition: null,
-        duration: '5',
-        scriptPhase: 'Enrollment',
-        disposition: {
-          key: 'Enrolled',
-          value: 'Enrolled',
-        },
-      },
-      {
-        leadId: 5909837,
-        firstName: 'adfs',
-        lastName: 'adsf',
-        createdWhen: '2019-03-11T15:54:33.000+0000',
-        electionPeriod: 'IEP/ICEP',
-        pageNum: null,
-        currentCover: null,
-        primaryDisposition: 'Pipeline',
-        secondaryDisposition: 'Pipeline - General',
-        duration: '2',
-        scriptPhase: null,
-        disposition: {
-          key: 'Pipeline',
-          value: 'Pipeline - General',
-        },
-      },
-      {
-        leadId: 5912488,
-        firstName: 'asfdasfd',
-        lastName: 'fasds',
-        createdWhen: '2019-03-19T19:41:56.000+0000',
-        electionPeriod: null,
-        pageNum: 13,
-        currentCover: null,
-        primaryDisposition: 'No Sale',
-        secondaryDisposition: 'Customer will call back',
-        duration: '4',
-        scriptPhase: 'Enrollment',
-        disposition: {
-          key: 'No Sale',
-          value: 'No Sale - Customer will call back',
-        },
-      },
-      {
-        leadId: 5909837,
-        firstName: 'adfs',
-        lastName: 'adsf',
-        createdWhen: '2019-03-19T23:19:11.000+0000',
-        electionPeriod: 'IEP/ICEP',
-        pageNum: null,
-        currentCover: null,
-        primaryDisposition: 'Answered Call',
-        secondaryDisposition: null,
-        duration: '0',
-        scriptPhase: null,
-        disposition: {
-          key: 'Other',
-          value: 'Answered Call',
-        },
-      },
-      {
-        leadId: 5909153,
-        firstName: 'firstnamed',
-        lastName: 'lastnameaf',
-        createdWhen: '2019-04-03T21:44:34.000+0000',
-        electionPeriod: 'GI',
-        pageNum: null,
-        currentCover: null,
-        primaryDisposition: 'Pipeline',
-        secondaryDisposition: 'Pipeline - General',
-        duration: '0',
-        scriptPhase: null,
-        disposition: {
-          key: 'Pipeline',
-          value: 'Pipeline - General',
-        },
-      },
-      {
-        leadId: 5912233,
-        firstName: 'adsf',
-        lastName: 'adfs',
-        createdWhen: '2019-03-12T01:09:27.000+0000',
-        electionPeriod: null,
-        pageNum: 2,
-        currentCover: null,
-        primaryDisposition: 'No Sale',
-        secondaryDisposition: 'Customer will call back',
-        duration: '3',
-        scriptPhase: 'Needs Analysis',
-        disposition: {
-          key: 'No Sale',
-          value: 'No Sale - Customer will call back',
-        },
-      },
-      {
-        leadId: 5912487,
-        firstName: 'afsdasfd',
-        lastName: 'adsfadfs',
-        createdWhen: '2019-03-19T19:25:46.000+0000',
-        electionPeriod: null,
-        pageNum: 20,
-        currentCover: null,
-        primaryDisposition: 'No Sale',
-        secondaryDisposition: 'Customer will call back',
-        duration: '3',
-        scriptPhase: 'Enrollment',
-        disposition: {
-          key: 'No Sale',
-          value: 'No Sale - Customer will call back',
-        },
-      },
-      {
-        leadId: 5912510,
-        firstName: 'adfadsf',
-        lastName: 'fsadsdaf',
-        createdWhen: '2019-03-20T18:00:02.000+0000',
-        electionPeriod: null,
-        pageNum: 13,
-        currentCover: null,
-        primaryDisposition: 'No Sale',
-        secondaryDisposition: 'Customer will call back',
-        duration: '2',
-        scriptPhase: 'Enrollment',
-        disposition: {
-          key: 'No Sale',
-          value: 'No Sale - Customer will call back',
-        },
-      },
-      {
-        leadId: 5912646,
-        firstName: 'fdasdsadsaf',
-        lastName: 'fadsasdf',
-        createdWhen: '2019-03-25T17:46:29.000+0000',
-        electionPeriod: null,
-        pageNum: 2,
-        currentCover: null,
-        primaryDisposition: 'No Sale',
-        secondaryDisposition: 'Customer will call back',
-        duration: '0',
-        scriptPhase: 'Needs Analysis',
-        disposition: {
-          key: 'No Sale',
-          value: 'No Sale - Customer will call back',
-        },
-      },
-      {
-        leadId: 5909153,
-        firstName: 'firstnamed',
-        lastName: 'lastnameaf',
-        createdWhen: '2019-03-27T02:52:08.000+0000',
-        electionPeriod: 'GI',
-        pageNum: 8,
-        currentCover: null,
-        primaryDisposition: 'No Sale',
-        secondaryDisposition: 'Too expensive',
-        duration: '1',
-        scriptPhase: 'Enrollment',
-        disposition: {
-          key: 'No Sale',
-          value: 'No Sale - Too expensive',
-        },
-      },
-      {
-        leadId: 5909153,
-        firstName: 'firstnamed',
-        lastName: 'lastnameaf',
-        createdWhen: '2019-03-27T02:53:25.000+0000',
-        electionPeriod: 'GI',
-        pageNum: null,
-        currentCover: null,
-        primaryDisposition: 'Dialed Call',
-        secondaryDisposition: null,
-        duration: '0',
-        scriptPhase: null,
-        disposition: {
-          key: 'Other',
-          value: 'Dialed Call',
-        },
-      },
-      {
-        leadId: 5912232,
-        firstName: 'das',
-        lastName: 'dfas',
-        createdWhen: '2019-03-12T00:59:05.000+0000',
-        electionPeriod: null,
-        pageNum: 2,
-        currentCover: null,
-        primaryDisposition: 'No Sale',
-        secondaryDisposition: 'Transferred call',
-        duration: '5',
-        scriptPhase: 'Needs Analysis',
-        disposition: {
-          key: 'No Sale',
-          value: 'No Sale - Transferred call',
-        },
-      },
-      {
-        leadId: 5909367,
-        firstName: 'vre',
-        lastName: 'xEA',
-        createdWhen: '2019-03-12T22:48:24.000+0000',
-        electionPeriod: 'IEP/ICEP',
-        pageNum: null,
-        currentCover: null,
-        primaryDisposition: 'Answered Call',
-        secondaryDisposition: null,
-        duration: '0',
-        scriptPhase: null,
-        disposition: {
-          key: 'Other',
-          value: 'Answered Call',
-        },
-      },
-      {
-        leadId: 5912646,
-        firstName: 'fdasdsadsaf',
-        lastName: 'fadsasdf',
-        createdWhen: '2019-03-25T17:44:25.000+0000',
-        electionPeriod: null,
-        pageNum: 2,
-        currentCover: null,
-        primaryDisposition: 'No Sale',
-        secondaryDisposition: 'Transferred call',
-        duration: '1',
-        scriptPhase: 'Needs Analysis',
-        disposition: {
-          key: 'No Sale',
-          value: 'No Sale - Transferred call',
-        },
-      },
-      {
-        leadId: 5909153,
-        firstName: 'firstnamed',
-        lastName: 'lastnameaf',
-        createdWhen: '2019-03-27T01:19:29.000+0000',
-        electionPeriod: 'GI',
-        pageNum: 8,
-        currentCover: null,
-        primaryDisposition: 'No Sale',
-        secondaryDisposition: 'Transferred Call',
-        duration: '13',
-        scriptPhase: 'Enrollment',
-        disposition: {
-          key: 'No Sale',
-          value: 'No Sale - Transferred Call',
-        },
+          key: '3 No Sale',
+          value: 'Customer will call back',
+        },
+        appointed: [
+          {
+            mcSalesStateAppointId: 23432432,
+            state: 'AK',
+            appointed: '11',
+          },
+          {
+            mcSalesStateAppointId: 23432432,
+            state: 'AL',
+            appointed: '15',
+          },
+          {
+            mcSalesStateAppointId: 23432432,
+            state: 'AR',
+            appointed: '9',
+          },
+        ],
       },
     ]
   },
@@ -1572,7 +240,11 @@ export default {
 
 <template>
   <div class="baseStyle">
-    <button @click="test">test</button>
+    <!-- <BaseTabs>
+      <BaseTab title="Tab 1" active>Tab 1 content</BaseTab>
+      <BaseTab title="Tab 2">Tab 2 content</BaseTab>
+      <BaseTab title="Tab 3" :disabled="isDisabled">Tab 3 content</BaseTab>
+    </BaseTabs>
     <form id="validated-form">
       <BaseValidation
         v-slot="{ validate, errors }"
@@ -1658,9 +330,36 @@ export default {
           >
         </BaseModal>
       </div>
-    </div>
+    </div> -->
+    <!-- <select class="select-css">
+      <option>This is a native select element</option>
+      <option>Apples</option>
+      <option>Bananas</option>
+      <option>Grapes</option>
+      <option>Oranges</option>
+    </select> -->
+    <ul>
+      <li>
+        <BaseRadio
+          v-model="hideColumns"
+          :value="['createdWhen', 'scriptPhase']"
+          name="radio-group"
+          >Agent Info</BaseRadio
+        >
+      </li>
+      <li>
+        <BaseRadio
+          v-model="hideColumns"
+          :value="['disposition']"
+          name="radio-group"
+          >State</BaseRadio
+        >
+      </li>
+    </ul>
+    {{ hideColumns }}
     <BaseGrid
       ref="grid"
+      :hide-columns="hideColumns"
       :query="query"
       :columns="gridColumns"
       :data="gridData"
@@ -1668,31 +367,29 @@ export default {
       @changes="resetData"
     >
       <template v-slot:tbody>
-        <tr v-for="(row, index) in newData" :key="index" class="stickyColumns">
-          <td v-tooltip="'Test'"
-            >{{ row.firstName }}, {{ row.lastName }}
-            <BasePopover placement="top">
-              <button class="tooltip-target b3">Click me</button>
-              <template slot="popover">
-                <strong>tet</strong>
-              </template>
-            </BasePopover>
-          </td>
-          <td>{{ row.createdWhen }}</td>
-          <td>{{ row.disposition.value }}</td>
-          <td>{{ row.electionPeriod }}</td>
-          <td>{{ row.scriptPhase }}</td>
-          <td>{{ row.duration }}</td>
-        </tr>
+        <template v-for="(row, index) in newData">
+          <tr :key="index">
+            <td> {{ row.firstName }}, {{ row.lastName }} </td>
+            <td>{{ row.createdWhen }}</td>
+            <td>{{ row.disposition.value }}</td>
+            <td>{{ row.electionPeriod }}</td>
+            <td>{{ row.scriptPhase }}</td>
+            <td>{{ row.duration }}</td>
+            <td>{{ row.appointed[0].appointed }}</td>
+            <td>{{ row.appointed[1].appointed }}</td>
+            <td>{{ row.appointed[2].appointed }}</td>
+            <td>{{ row.disposition.key }}</td>
+          </tr>
+        </template>
       </template>
     </BaseGrid>
-    <BaseAlert theme="info">
+    <!-- <BaseAlert theme="info">
       <template v-slot:title
         >Well Done!</template
       >
       You successfully read this important
       <BaseLink href="https://www.google.com">alert message</BaseLink>.
-    </BaseAlert>
+    </BaseAlert> -->
   </div>
 </template>
 
@@ -1757,4 +454,102 @@ body {
     }
   }
 }
+
+/* class applies to select element itself, not a wrapper element */
+// .select-css {
+// 	box-sizing: border-box;
+// 	display: block;
+// 	width: 100%;
+// 	max-width: 100%; /* useful when width is set to anything other than 100% */
+// 	padding: .6em 1.4em .5em .8em;
+// 	margin: 0;
+// 	font-family: sans-serif;
+// 	font-size: 16px;
+// 	font-weight: 500;
+// 	line-height: 1.3;
+// 	color: #444;
+//   color: #F69234;
+// 	background-color: #fff;
+//   background-color: #FEF9D9;
+
+// 	/* note: bg image below uses 2 urls. The first is an svg data uri for the arrow icon, and the second is the gradient.
+// 		for the icon, if you want to change the color, be sure to use `%23` instead of `#`, since it's a url. You can also swap in a different svg icon or an external image reference
+
+// 	*/
+// 	background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23333333%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
+// 	background-repeat: no-repeat, repeat;
+
+// 	/* arrow icon position (1em from the right, 50% vertical) , then gradient position */
+// 	background-position: right .7em top 50%, 0 0;
+
+// 	/* icon size, then gradient */
+//   background-size: .65em auto, 100%;
+// 	border: 1px solid #aaa;
+// 	border-radius: 0;
+// 	-moz-appearance: none;
+// 	-webkit-appearance: none;
+// 	appearance: none;
+// }
+
+// /* Hide arrow icon in IE browsers */
+// .select-css::-ms-expand {
+// 	display: none;
+// }
+
+// /* Hover style */
+// .select-css:hover {
+// 	border-color: #888;
+// }
+
+// /* Focus style */
+// .select-css:focus {
+// 	border-color: #aaa;
+// 	outline: none;
+
+// 	/* It'd be nice to use -webkit-focus-ring-color here but it doesn't work on box-shadow */
+// 	box-shadow: 0 0 1px 3px rgba(59, 153, 252, .7);
+// 	box-shadow: 0 0 0 3px -moz-mac-focusring;
+// }
+
+// /* Set options to normal weight */
+// .select-css option {
+// 	font-weight:normal;
+// }
+
+// /* Support for rtl text, explicit support for Arabic and Hebrew */
+// *[dir="rtl"] .select-css, :root:lang(ar) .select-css, :root:lang(iw) .select-css {
+// 	padding: .6em .8em .5em 1.4em;
+// 	background-position: left .7em top 50%, 0 0;
+// }
+
+// /* Disabled styles */
+// .select-css:disabled, .select-css[aria-disabled=true] {
+// 	color: graytext;
+// 	background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22graytext%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E'),
+// 	  linear-gradient(to bottom, #fff 0%,#e5e5e5 100%);
+// }
+
+// .select-css:disabled:hover, .select-css[aria-disabled=true] {
+// 	border-color: #aaa;
+// }
+
+// table {
+//   width: 3000px !important;
+// }
+
+// thead th:first-child,
+// tbody td:first-child {
+//   position: sticky;
+//   left: 0;
+//   z-index: 9;
+//   box-shadow: inset -2px 0px 0px 0px black;
+// }
+
+// thead th:nth-child(2),
+// tbody td:nth-child(2) {
+//   position: sticky;
+//   left: 582px;
+//   z-index: 9;
+//   box-shadow: inset -2px 0px 0px 0px black;
+// }
 </style>
