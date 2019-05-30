@@ -1,6 +1,6 @@
 {
   "name": "@knonginda/base",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "base lib",
   "main": "build/index.common.js",
   "scripts": {
@@ -65,8 +65,8 @@
     "vue-template-compiler": "2.6.10"
   },
   "files": [
-    "build/index.common.js",
-    "build/index.css",
+    "dist/index.common.js",
+    "dist/index.css",
     "src/design/**/*",
     "src/assets/**/*"
   ],
