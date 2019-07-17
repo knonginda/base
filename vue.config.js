@@ -1,8 +1,8 @@
-// const path = require('path')
+const path = require('path')
 const appConfig = require('./src/app.config')
 
 module.exports = {
-  // outputDir: path.resolve(__dirname, './build'),
+  outputDir: path.resolve(__dirname, './build'),
   // publicPath: process.env.NODE_ENV === 'production' ? '/' : '/',
   configureWebpack: {
     // Provide the app's title in Webpack's name field, so that
@@ -24,15 +24,11 @@ module.exports = {
       ? {
           proxy: {
             '/api': {
-              pathRewrite: {
-                '^/api': '',
-              },
+              pathRewrite: { '^/api': '' },
               target: process.env.VUE_APP_API_BASE_URL,
             },
           },
         } // Proxy API endpoints a local mock API.
-      : {
-          before: require('./tests/mock-api'),
-        }),
+      : { before: require('./tests/mock-api') }),
   },
 }

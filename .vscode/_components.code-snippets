@@ -1,0 +1,94 @@
+{
+  "BaseButton": {
+    "scope": "vue-html",
+    "prefix": "BaseButton",
+    "body": ["<BaseButton>", "\t${3}", "</BaseButton>"],
+    "description": "<BaseButton>"
+  },
+  "BaseFasIcon": {
+    "scope": "vue-html",
+    "prefix": "BaseFasIcon",
+    "body": ["<BaseFasIcon name=\"${1}\"/>"],
+    "description": "<BaseFasIcon>"
+  },
+  "BaseInput": {
+    "scope": "vue-html",
+    "prefix": "BaseInput",
+    "body": ["<BaseInput v-model=\"\"/>"],
+    "description": "<BaseInput>"
+  },
+  "BaseRadio": {
+    "scope": "vue-html",
+    "prefix": "BaseRadio",
+    "body": [
+      "<BaseRadio v-model=\"\" value=\"\" name=\"\">", "\t${3}", "</BaseRadio>"
+    ],
+    "description": "<BaseRadio>"
+  },
+  "BaseCheckbox": {
+    "scope": "vue-html",
+    "prefix": "BaseCheckbox",
+    "body": [
+      "<BaseCheckbox v-model=\"\" name=\"\">", "\t${3}", "</BaseCheckbox>"
+    ],
+    "description": "<BaseCheckbox>"
+  },
+  "BaseSelect": {
+    "scope": "vue-html",
+    "prefix": "BaseSelect",
+    "body": [
+      "<BaseSelect v-model=\"\" :options=\"\"/>"
+    ],
+    "description": "<BaseSelect>"
+  },
+  "BaseLink": {
+    "scope": "vue-html",
+    "prefix": "BaseLink",
+    "body": [
+      "<BaseLink ${1|name,:to,href|}=\"${2:route}\">",
+      "\t${3}",
+      "</BaseLink>"
+    ],
+    "description": "<BaseLink>"
+  },
+  "BaseGrid": {
+    "scope": "vue-html",
+    "prefix": "BaseGrid",
+    "body": [
+      "<BaseGrid ref=\"\" :query=\"\" :columns=\"\" :data=\"\" :event-bus=\"\">",
+      "\t<template v-slot:tbody>",
+      "\t\t<template v-for=\"(row, index) in \">",
+      "\t\t\t<tr :key=\"index\">",
+      "\t\t\t\t<td></td>",
+      "\t\t\t</tr>",
+      "\t\t</template>",
+      "\t</template>",
+      "</BaseGrid>"
+    ],
+    "description": "<BaseGrid>"
+  },
+  "BaseModal": {
+    "scope": "vue-html",
+    "prefix": "BaseModal",
+    "body": [
+      "<BaseModal ref=\"\">",
+      "\t<template slot=\"\">",
+      "\t\t<h2></h2>",
+      "\t</template>",
+      "\t<div></div>",
+      "</BaseModal>"
+    ],
+    "description": "<BaseModal>"
+  },
+  "BaseTabs": {
+    "scope": "vue-html",
+    "prefix": "BaseTabs",
+    "body": [
+      "<BaseTabs>",
+      "\t<BaseTab title=\"\" active></BaseTab>",
+      "\t<BaseTab title=\"\"></BaseTab>",
+      "</BaseTabs>"
+    ],
+    "description": "<BaseTabs>"
+  }
+}

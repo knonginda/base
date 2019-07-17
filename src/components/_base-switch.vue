@@ -1,6 +1,10 @@
 <script>
 export default {
   name: 'BaseCheckbox',
+  model: {
+    prop: 'modelValue',
+    event: 'input',
+  },
   props: {
     id: {
       type: String,
@@ -8,23 +12,23 @@ export default {
         return 'checkbox-id-' + this._uid
       },
     },
-    value: {
-      type: [String, Object, Number, Boolean],
-      default: null,
-    },
     name: {
       type: String,
       default: null,
+    },
+    modelValue: {
+      type: Boolean,
+      default: undefined,
     },
     disabled: {
       type: Boolean,
       default: false,
     },
-    trueValue: {
+    onValue: {
       type: [Boolean, String, Number],
       default: null,
     },
-    falseValue: {
+    offValue: {
       type: [Boolean, String, Number],
       default: null,
     },
@@ -41,107 +45,100 @@ export default {
     },
   },
   watch: {
-    value: {
+    modelValue: {
       handler(newValue, oldValue) {
         if (newValue === oldValue) {
           return true
         } else {
-          this.setValues()
+          this.setChecked()
         }
       },
     },
   },
   mounted() {
-    this.setValues()
+    this.setChecked()
   },
   methods: {
-    setValues() {
+    setChecked() {
       let input = this.$el.querySelector('input[type="checkbox"]')
-      if (this.trueValue !== null && this.falseValue !== null) {
-        if (this.value === this.trueValue) {
-          input.checked = true
-        } else if (this.value === this.falseValue) {
-          input.checked = false
-        }
+      if (this.modelValue) {
+        input.checked = true
       } else {
-        if (this.value) {
-          input.checked = true
-        } else {
-          input.checked = false
-        }
+        input.checked = false
       }
     },
     onChange($event) {
       // Passing custom event from outside change.
       this.$emit('change')
-      let isChecked = $event.target.checked
-      if (this.trueValue !== null && isChecked) {
-        this.$emit('input', this.trueValue)
-      } else if (this.falseValue !== null && !isChecked) {
-        this.$emit('input', this.falseValue)
-      } else {
-        this.$emit('input', $event.target.checked)
-      }
+      this.$emit('input', $event.target.checked)
     },
   },
 }
 </script>
 
 <template>
-  <div :class="[size, 'checkbox', { isDisabled: disabled }]">
+  <div :class="[size, 'switch', { isDisabled: disabled }]">
     <input
       :id="id"
       type="checkbox"
       :name="name"
       :disabled="disabled"
-      :true-value="trueValue"
-      :false-value="falseValue"
       @change="onChange($event)"
     />
-    <label :for="id">
-      <span>
-        <slot></slot>
+    <div class="switchInner">
+      <label :for="id"></label>
+      <span class="switchText">
+        {{ modelValue ? onValue : offValue }}
       </span>
-    </label>
+    </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
 @import '@design';
+.switch {
+  .switchInner {
+    display: flex;
+    align-items: center;
+    height: 25px;
+  }
 
-.checkbox {
+  .switchText {
+    padding-left: 5px;
+  }
+
   label {
     position: relative;
-    display: inline-block;
+    width: 50px;
+    height: 18px;
     cursor: pointer;
 
     &::before {
       position: absolute;
-      width: 20px;
-      height: 20px;
+      width: 50px;
+      height: 18px;
       content: '';
-      background-color: #fff;
-      border: 2px solid $color-checkbox-border;
+      background-color: #999;
+      border-radius: 20px;
+      transition: background-color 0.5s ease 0s;
     }
 
     &::after {
       position: absolute;
-      top: 4px;
-      left: 4px;
-      width: 12px;
-      height: 8px;
+      top: -3px;
+      right: 27px;
+      width: 23px;
+      height: 23px;
       content: '';
-      background: transparent;
-      border: 3px solid #fff;
-      border-top: none;
-      border-right: none;
-      opacity: 0;
-      transform: rotate(-45deg);
+      background-color: #d8d8d8;
+      border: 1px solid #ccc;
+      border-radius: 50%;
+      transition: right 0.3s ease 0s;
     }
 
     span {
       display: inline-block;
-      margin-left: 23px;
+      margin-left: 55px;
     }
   }
 
@@ -149,13 +146,14 @@ export default {
     display: none;
 
     &:checked {
-      ~ label::before {
+      ~ .switchInner label::before {
         background-color: $brand-green;
-        border: 2px solid $brand-green;
+        transition: background-color 0.5s ease 0s;
       }
 
-      ~ label::after {
-        opacity: 1;
+      ~ .switchInner label::after {
+        right: 0;
+        transition: right 0.3s ease 0s;
       }
     }
   }

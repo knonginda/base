@@ -67,7 +67,7 @@ export default {
 </script>
 
 <template>
-  <div :class="['radio', size]">
+  <div :class="['radio', { isDisabled: disabled }, size]">
     <input
       :id="id"
       type="radio"
@@ -90,12 +90,11 @@ export default {
 
 .radio {
   input {
-    position: absolute;
-    left: -9999px;
+    display: none;
 
     &:checked ~ label::after {
       position: absolute;
-      top: 3px;
+      top: 4px;
       left: 4px;
       width: 12px;
       height: 12px;
@@ -125,17 +124,26 @@ export default {
       margin: 1px 0 0 23px;
     }
   }
-}
 
-.large {
-  @extend %typography-large;
-}
+  &.isDisabled {
+    opacity: 0.5;
 
-.medium {
-  @extend %typography-medium;
-}
+    input,
+    label {
+      cursor: not-allowed;
+    }
+  }
 
-.small {
-  @extend %typography-small;
+  .large {
+    @extend %typography-large;
+  }
+
+  .medium {
+    @extend %typography-medium;
+  }
+
+  .small {
+    @extend %typography-small;
+  }
 }
 </style>

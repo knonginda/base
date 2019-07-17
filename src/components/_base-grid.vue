@@ -1,5 +1,13 @@
 <script>
-import { remove, take, takeRight, concat, isEmpty, inRange } from 'lodash'
+import {
+  remove,
+  take,
+  takeRight,
+  concat,
+  isEmpty,
+  isNil,
+  inRange,
+} from 'lodash'
 
 export default {
   props: {
@@ -12,10 +20,6 @@ export default {
       default: null,
     },
     columns: {
-      type: Array,
-      default: () => [],
-    },
-    hideColumns: {
       type: Array,
       default: () => [],
     },
@@ -163,20 +167,12 @@ export default {
       },
       deep: true,
     },
-    hideColumns: {
-      handler(hideColumns) {
-        this.hideColmun()
-      },
-    },
   },
   created() {
     this.resetData()
     this.eventBus.$on('onResetData', () => {
       this.resetData()
     })
-  },
-  mounted() {
-    this.hideColmun()
   },
   methods: {
     resetData() {
@@ -198,29 +194,6 @@ export default {
       if ((i < 0 && this.isFirstPage) || (i > 0 && this.isLastPage)) return
       this.query.offset = +this.query.offset + i * +this.query.limit
       this.resetData()
-    },
-    hideColmun() {
-      // Reset columns to show
-      for (let column of this.$el.querySelectorAll('th, td')) {
-        column.setAttribute('style', 'display: table-cell')
-      }
-      // Set columns to hide
-      for (let column of this.hideColumns) {
-        for (let [colIndex, shouldHideColumn] of this.columns.entries()) {
-          if (shouldHideColumn['key'] === column) {
-            this.$el
-              .querySelector(`thead tr th:nth-child(${colIndex + 1})`)
-              .setAttribute('style', 'display: none')
-            for (let i = 1; i <= this.$slots.tbody.length; i++) {
-              this.$el
-                .querySelector(
-                  `tr:nth-child(${i}) td:nth-child(${colIndex + 1})`
-                )
-                .setAttribute('style', 'display: none')
-            }
-          }
-        }
-      }
     },
     getFilterData(data) {
       if (isEmpty(this.query.filterKey)) {
@@ -325,15 +298,15 @@ export default {
       /* eslint no-eval: 0 */
       if (sortKey) {
         data = data.sort((a, b) => {
-          a = eval(`a.${sortKey}`) === null ? '' : a
-          b = eval(`b.${sortKey}`) === null ? '' : b
-
           // it should be sort by Number, for example:
           // { id : '12' }
           // { age: 20 }
-          if (Number(eval(`a.${sortKey}`)) && Number(eval(`b.${sortKey}`))) {
-            a = Number(eval(`a.${sortKey}`))
-            b = Number(eval(`b.${sortKey}`))
+          if (
+            typeof eval(`a.${sortKey}`) === 'number' &&
+            typeof eval(`b.${sortKey}`) === 'number'
+          ) {
+            a = eval(`a.${sortKey}`)
+            b = eval(`b.${sortKey}`)
             return (a === b ? 0 : a > b ? 1 : -1) * order
           }
 
@@ -356,8 +329,18 @@ export default {
 
           // it should be sort by String
           else {
-            a = eval(`a.${sortKey}`) + ''
-            b = eval(`b.${sortKey}`) + ''
+            a =
+              typeof eval(`a.${sortKey}`) === 'string'
+                ? eval(`a.${sortKey}`).toLowerCase()
+                : isNil(eval(`a.${sortKey}`))
+                ? ''
+                : eval(`a.${sortKey}`)
+            b =
+              typeof eval(`b.${sortKey}`) === 'string'
+                ? eval(`b.${sortKey}`).toLowerCase()
+                : isNil(eval(`b.${sortKey}`))
+                ? ''
+                : eval(`b.${sortKey}`)
             return (a === b ? 0 : a > b ? 1 : -1) * order
           }
         })
@@ -472,7 +455,10 @@ export default {
             />
           </th>
           <template v-for="(column, index) in columns">
-            <th :key="index" :style="{ width: column.width }">
+            <th
+              :key="index"
+              :style="{ width: column.width, minWidth: column.width }"
+            >
               <div
                 v-if="column.sort"
                 :class="[
@@ -678,6 +664,14 @@ export default {
 
   .perPageHeader {
     margin: 5px 10px 0 15px;
+  }
+
+  .show {
+    display: table-cell;
+  }
+
+  .hide {
+    display: none;
   }
 }
 </style>

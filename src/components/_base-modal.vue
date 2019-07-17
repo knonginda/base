@@ -211,7 +211,7 @@ export default {
   z-index: $layer-modal-z-index;
   width: 100vw;
   height: 100vh;
-  background: rgba(#fff, 0.9);
+  background: rgba(#808080, 0.4);
   opacity: 0;
   transition: opacity 0.3s;
   transform: translate3d(0, 0, 0);

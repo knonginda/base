@@ -1,4 +1,5 @@
 <script>
+import Vue from 'vue'
 // https://github.com/simplesmiler/vue-clickaway
 import { mixin as clickaway } from 'vue-clickaway'
 
@@ -25,10 +26,15 @@ export default {
       type: Boolean,
       default: false,
     },
+    editable: {
+      type: Boolean,
+      default: true,
+    },
   },
   data() {
     return {
       showOptions: false,
+      matchingValue: '',
     }
   },
   computed: {
@@ -59,13 +65,46 @@ export default {
     onClose() {
       this.showOptions = false
     },
+    onMatch() {
+      if (this.disabled) {
+        return true
+      }
+      this.showOptions = !this.showOptions
+      this.matchingValue = ''
+      this.$el.querySelector('input').setAttribute('style', 'display: block')
+      Vue.nextTick(() => {
+        this.$el.querySelector('input').focus()
+      })
+    },
+    isMatching(option) {
+      return (
+        option.name
+          .toString()
+          .toLowerCase()
+          .indexOf(this.matchingValue.toString().toLowerCase()) !== -1 ||
+        this.matchingValue.toString() === ''
+      )
+    },
   },
 }
 </script>
 
 <template>
-  <div v-on-clickaway="onClose" :class="overlayClasses()" @click="onOpen()">
-    <div class="spaceBetween">
+  <div v-on-clickaway="onClose" :class="overlayClasses()">
+    <div v-if="editable" class="spaceBetween" @click="onMatch()">
+      <input
+        v-show="showOptions"
+        v-model="matchingValue"
+        class="matchingInput"
+        type="text"
+      />
+      <div class="selectName">{{ selectedName }}</div>
+      <div class="selectSymbol">
+        <BaseFasIcon v-if="!showOptions" name="angle-down" />
+        <BaseFasIcon v-else name="angle-up" />
+      </div>
+    </div>
+    <div v-else class="spaceBetween" @click="onOpen()">
       <div class="selectName">{{ selectedName }}</div>
       <div class="selectSymbol">
         <BaseFasIcon v-if="!showOptions" name="angle-down" />
@@ -73,20 +112,22 @@ export default {
       </div>
     </div>
     <ul v-show="showOptions" class="selectorOptions">
-      <li v-for="(option, index) in options" :key="index">
-        <label :for="'selector_' + _uid + '_' + index" class="option">
-          <input
-            :id="'selector_' + _uid + '_' + index"
-            type="radio"
-            :value="option.value"
-            :name="'selector_' + _uid"
-            :checked="option.value === value"
-            @change="onChange(option)"
-          />
-          <span class="optionName">{{ option.name }}</span>
-          <BaseFasIcon class="optionChecked" name="check-circle" />
-        </label>
-      </li>
+      <template v-for="(option, index) in options">
+        <li v-show="isMatching(option)" :key="index">
+          <label :for="'selector_' + _uid + '_' + index" class="option">
+            <input
+              :id="'selector_' + _uid + '_' + index"
+              type="radio"
+              :value="option.value"
+              :name="'selector_' + _uid"
+              :checked="option.value === value"
+              @change="onChange(option)"
+            />
+            <span class="optionName">{{ option.name }}</span>
+            <BaseFasIcon class="optionChecked" name="check-circle" />
+          </label>
+        </li>
+      </template>
     </ul>
   </div>
 </template>
@@ -116,6 +157,7 @@ export default {
 }
 
 .selectName {
+  width: 100%;
   min-width: 50px;
   padding-left: 10px;
   overflow: hidden;
@@ -181,10 +223,24 @@ export default {
   }
 }
 
+.matchingInput {
+  position: absolute;
+  margin-top: 2px;
+  font-size: 18px;
+  text-indent: 9px;
+  border: 0;
+  outline: none;
+}
+
 .small {
   &.selector {
     min-width: 70px;
     height: $size-input-height - 8;
+  }
+
+  .matchingInput {
+    width: calc(100% - 35px);
+    line-height: 24px;
   }
 
   .spaceBetween {
@@ -216,6 +272,11 @@ export default {
   &.selector {
     min-width: 100px;
     height: $size-input-height;
+  }
+
+  .matchingInput {
+    width: calc(100% - 45px);
+    line-height: 32px;
   }
 
   .spaceBetween {
