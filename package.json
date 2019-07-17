@@ -1,6 +1,6 @@
 {
   "name": "@knonginda/base",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "base lib",
   "main": "build/index.common.js",
   "scripts": {
