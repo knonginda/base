@@ -35,6 +35,10 @@ export default {
       type: String,
       default: 'Please Select Option',
     },
+    change: {
+      type: Function,
+      default: () => {},
+    },
   },
   data() {
     return {
@@ -86,6 +90,7 @@ export default {
         }
       }
       this.$emit('input', this.selectedValues)
+      this.change()
     },
     onChange(option) {
       let index = this.selectedValues.indexOf(option.value)
@@ -95,6 +100,7 @@ export default {
         this.selectedValues.push(option.value)
       }
       this.$emit('input', this.selectedValues)
+      this.change()
     },
     onOpen() {
       this.showOptions = !this.showOptions && !this.disabled

@@ -37,17 +37,13 @@ export default {
     },
     change: {
       type: Function,
-      default: null,
+      default: () => {},
     },
   },
   watch: {
     value: {
       handler(newValue, oldValue) {
-        if (newValue === oldValue) {
-          return true
-        } else {
-          this.setValues()
-        }
+        return newValue === oldValue ? true : this.setValues()
       },
     },
   },
@@ -58,17 +54,11 @@ export default {
     setValues() {
       let input = this.$el.querySelector('input[type="checkbox"]')
       if (this.trueValue !== null && this.falseValue !== null) {
-        if (this.value === this.trueValue) {
-          input.checked = true
-        } else if (this.value === this.falseValue) {
-          input.checked = false
-        }
+        this.value === this.trueValue
+          ? (input.checked = true)
+          : (input.checked = false)
       } else {
-        if (this.value) {
-          input.checked = true
-        } else {
-          input.checked = false
-        }
+        this.value ? (input.checked = true) : (input.checked = false)
       }
     },
     onChange($event) {
@@ -82,6 +72,7 @@ export default {
       } else {
         this.$emit('input', $event.target.checked)
       }
+      this.change()
     },
   },
 }
@@ -167,18 +158,6 @@ export default {
     label {
       cursor: not-allowed;
     }
-  }
-
-  &.large {
-    @extend %typography-large;
-  }
-
-  &.medium {
-    @extend %typography-medium;
-  }
-
-  &.small {
-    @extend %typography-small;
   }
 }
 </style>

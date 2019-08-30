@@ -6,6 +6,7 @@ describe('@components/_base-input', () => {
     const wrapper = shallowMount(BaseInput, {
       propsData: {
         value: 'aaa',
+        debounce: '0',
       },
     })
     const input = wrapper.find('input')
@@ -15,7 +16,9 @@ describe('@components/_base-input', () => {
 
     inputEl.value = 'bbb'
     input.trigger('input')
-    expect(wrapper.emitted().update).toEqual([['bbb']])
+    setTimeout(() => {
+      expect(wrapper.emitted().update).toEqual([['bbb']])
+    })
 
     wrapper.setProps({
       value: 'ccc',

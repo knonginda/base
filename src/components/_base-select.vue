@@ -30,6 +30,10 @@ export default {
       type: Boolean,
       default: true,
     },
+    change: {
+      type: Function,
+      default: () => {},
+    },
   },
   data() {
     return {
@@ -58,6 +62,7 @@ export default {
       this.$emit('change')
       this.$emit('input', option.value)
       this.showOptions = !this.showOptions
+      this.change()
     },
     onOpen() {
       this.showOptions = !this.showOptions && !this.disabled

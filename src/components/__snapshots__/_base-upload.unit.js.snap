@@ -2,7 +2,7 @@
 
 exports[`@components/_base-radio renders its content 1`] = `
 <div class="uploader">
-  <baseinput-stub type="text" value="" readonly=""></baseinput-stub> <label>
+  <baseinput-stub type="text" value="" debounce="0" readonly=""></baseinput-stub> <label>
     <div class="selectButton">Browse</div> <input type="file" class="fileButton">
   </label>
 </div>

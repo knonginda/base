@@ -39,6 +39,10 @@ export default {
         return ['large', 'medium', 'small'].indexOf(value) !== -1
       },
     },
+    change: {
+      type: Function,
+      default: () => {},
+    },
   },
   computed: {
     state() {
@@ -58,6 +62,7 @@ export default {
       // Passing custom event from outside change.
       this.$emit('change')
       this.toggle()
+      this.change()
     },
     toggle() {
       this.$emit('input', this.state ? '' : this.value)

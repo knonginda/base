@@ -12,7 +12,6 @@ export default {
   },
   data() {
     return {
-      multipleSelector: ['Enrolled', 'No Sale'],
       loading: false,
       eventBus: new Vue(),
       email: '',
@@ -61,12 +60,16 @@ export default {
         },
       ],
       gridData: [],
+      testCheckbox: '',
+      testRadio: '',
+      testSwitch: true,
+      testInput: '',
       query: {
         limit: 30,
         offset: 0,
         filterKey: {
           firstName: ['Test', 'Test1', 'Test2'],
-          disposition: [],
+          disposition: '',
         },
         sort: '',
         order: '',
@@ -112,6 +115,15 @@ export default {
         })
       })
     },
+    test() {
+      alert(1)
+    },
+    test2() {
+      alert(2)
+    },
+    test3() {
+      console.log(this.testInput)
+    },
   },
 }
 </script>
@@ -128,20 +140,31 @@ export default {
       v-model="query.filterKey.disposition"
       :options="dispositionOptions"
     /> -->
+    <BaseSwitch v-model="testSwitch" name="test" :change="test2"></BaseSwitch>
+    <BaseCheckbox
+      v-model="testCheckbox"
+      name="test"
+      :change="test2"
+    ></BaseCheckbox>
+    <BaseRadio v-model="testRadio" name="test" :change="test"></BaseRadio>
     <div>
       <label>First Name</label>
+      {{ query.filterKey.firstName }}
       <BaseSelectMultiple
         v-model="query.filterKey.firstName"
         :options="firstNameOptions"
         placeholder="Select a Name"
+        :change="test2"
       />
     </div>
     <div>
       <label>Disposition</label>
-      <BaseSelectMultiple
+      {{ query.filterKey.disposition }}
+      <BaseSelect
         v-model="query.filterKey.disposition"
         :options="dispositionOptions"
         placeholder="Select a disposition"
+        :change="test"
       />
     </div>
     <!-- <form id="validated-form">
@@ -158,7 +181,7 @@ export default {
     </form> -->
     <!-- <BaseSwitch v-model="test" on-label="Yes" off-label="No" name="test" /> -->
     <!-- <BaseCheckbox v-model="test" name="test" /> -->
-    <BaseGrid
+    <!-- <BaseGrid
       v-show="!loading"
       ref="grid"
       selectable
@@ -190,7 +213,7 @@ export default {
           </td>
         </tr>
       </template>
-    </BaseGrid>
+    </BaseGrid> -->
     <!-- <div v-show="loading" class="spinnerContainer">
       <BaseSpinner :spacing="15" message="Loading..."></BaseSpinner>
     </div> -->

@@ -25,6 +25,23 @@ export default {
       type: Boolean,
       default: false,
     },
+    debounce: {
+      type: String,
+      default: '0',
+    },
+  },
+  data() {
+    return {
+      isDebounce: null,
+    }
+  },
+  methods: {
+    onDebounce($event) {
+      clearTimeout(this.isDebounce)
+      this.isDebounce = setTimeout(() => {
+        this.$emit('update', $event.target.value)
+      }, Number(this.debounce))
+    },
   },
 }
 </script>
@@ -39,7 +56,7 @@ export default {
     :disabled="disabled"
     v-bind="$attrs"
     v-on="$listeners"
-    @input="$emit('update', $event.target.value)"
+    @input="onDebounce"
   />
 </template>
 

@@ -24,11 +24,11 @@ export default {
       type: Boolean,
       default: false,
     },
-    onValue: {
+    onLabel: {
       type: [Boolean, String, Number],
       default: null,
     },
-    offValue: {
+    offLabel: {
       type: [Boolean, String, Number],
       default: null,
     },
@@ -41,17 +41,13 @@ export default {
     },
     change: {
       type: Function,
-      default: null,
+      default: () => {},
     },
   },
   watch: {
     modelValue: {
       handler(newValue, oldValue) {
-        if (newValue === oldValue) {
-          return true
-        } else {
-          this.setChecked()
-        }
+        return newValue === oldValue ? true : this.setChecked()
       },
     },
   },
@@ -61,16 +57,13 @@ export default {
   methods: {
     setChecked() {
       let input = this.$el.querySelector('input[type="checkbox"]')
-      if (this.modelValue) {
-        input.checked = true
-      } else {
-        input.checked = false
-      }
+      this.modelValue ? (input.checked = true) : (input.checked = false)
     },
     onChange($event) {
       // Passing custom event from outside change.
       this.$emit('change')
       this.$emit('input', $event.target.checked)
+      this.change()
     },
   },
 }
@@ -88,7 +81,7 @@ export default {
     <div class="switchInner">
       <label :for="id"></label>
       <span class="switchText">
-        {{ modelValue ? onValue : offValue }}
+        {{ modelValue ? onLabel : offLabel }}
       </span>
     </div>
   </div>

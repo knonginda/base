@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`@components/_base-checkbox renders its content 1`] = `
+<div class="medium switch"><input id="checkbox-id-1" type="checkbox">
+  <div class="switchInner"><label for="checkbox-id-1"></label> <span class="switchText">
+      No
+    </span></div>
+</div>
+`;

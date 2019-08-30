@@ -2,81 +2,14 @@
 
 exports[`@components/_base-grid renders its content 1`] = `
 <div class="tableContainer">
-  <table class="table">
-    <thead>
-      <tr>
-        <!---->
-        <th class="">
-          Last Name
-          <basefasicon-stub source="font-awesome" name="angle-up" class="sortIcon"></basefasicon-stub>
-        </th>
-        <th class="">
-          First Name
-          <basefasicon-stub source="font-awesome" name="angle-up" class="sortIcon"></basefasicon-stub>
-        </th>
-        <th class="">
-          ID
-          <basefasicon-stub source="font-awesome" name="angle-up" class="sortIcon"></basefasicon-stub>
-        </th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
-  <div class="bottomSpace">
-    <div class="total">
-      Total:
-      <strong>26</strong></div>
-    <ul name="Pagination" class="pagination">
-      <li class="pageItem"><a href="#" class="pageLink">
-          <basefasicon-stub source="font-awesome" name="angle-left"></basefasicon-stub>
-        </a></li>
-      <li class="pageItem"><a href="#" class="pageLink">1</a></li>
-      <li class="pageItem currentPage"><a href="#" class="pageLink">2</a></li>
-      <li class="pageItem"><a href="#" class="pageLink">3</a></li>
-      <li class="pageItem"><a href="#" class="pageLink">4</a></li>
-      <li class="pageItem"><a href="#" class="pageLink">5</a></li>
-      <li class="pageItem"><a href="#" class="pageLink">6</a></li>
-      <li class="pageItem"><a href="#" class="pageLink">7</a></li>
-      <li class="pageItem"><a class="pageLink">...</a></li>
-      <li class="pageItem"><a href="#" class="pageLink">13</a></li>
-      <li class="pageItem"><a href="#" class="pageLink">
-          <basefasicon-stub source="font-awesome" name="angle-right"></basefasicon-stub>
-        </a></li>
-    </ul>
-    <div class="perPageContainer">
-      <div class="perPageHeader">Per Page: </div>
-      <baseselect-stub value="[object Object]" size="small"></baseselect-stub>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`@components/_base-grid renders its content by click header 1`] = `
-<div class="tableContainer">
-  <table class="table">
-    <thead>
-      <tr>
-        <!---->
-        <th class="active">
-          Last Name
-          <basefasicon-stub source="font-awesome" name="angle-down" class="sortIcon"></basefasicon-stub>
-        </th>
-        <th class="">
-          First Name
-          <basefasicon-stub source="font-awesome" name="angle-up" class="sortIcon"></basefasicon-stub>
-        </th>
-        <th class="">
-          ID
-          <basefasicon-stub source="font-awesome" name="angle-up" class="sortIcon"></basefasicon-stub>
-        </th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
-  <div class="bottomSpace">
-    <div class="total">
-      Total:
-      <strong>26</strong></div>
+  <div class="paginationContainer">
+    <div class="pageInfo">Showing <strong>
+          1
+        </strong> - <strong>
+          5
+        </strong> of <strong>
+          26
+        </strong></div>
     <ul name="Pagination" class="pagination">
       <!---->
       <li class="pageItem currentPage"><a href="#" class="pageLink">1</a></li>
@@ -85,86 +18,60 @@ exports[`@components/_base-grid renders its content by click header 1`] = `
       <li class="pageItem"><a href="#" class="pageLink">4</a></li>
       <li class="pageItem"><a href="#" class="pageLink">5</a></li>
       <li class="pageItem"><a href="#" class="pageLink">6</a></li>
-      <li class="pageItem"><a href="#" class="pageLink">7</a></li>
-      <li class="pageItem"><a class="pageLink">...</a></li>
-      <li class="pageItem"><a href="#" class="pageLink">13</a></li>
       <li class="pageItem"><a href="#" class="pageLink">
           <basefasicon-stub source="font-awesome" name="angle-right"></basefasicon-stub>
         </a></li>
     </ul>
     <div class="perPageContainer">
       <div class="perPageHeader">Per Page: </div>
-      <baseselect-stub value="[object Object]" size="small"></baseselect-stub>
+      <baseselect-stub value="5" size="small" editable="true" change="() => {
+          /* istanbul ignore next */cov_2oakgc951z.f[3]++;
+        }"></baseselect-stub>
     </div>
   </div>
-</div>
-`;
-
-exports[`@components/_base-grid renders its content when filter by DD 1`] = `
-<div class="tableContainer">
   <table class="table">
     <thead>
       <tr>
         <!---->
-        <th class="">
-          Last Name
-          <basefasicon-stub source="font-awesome" name="angle-up" class="sortIcon"></basefasicon-stub>
+        <th>
+          <div class="headerItem headerItemSort">
+            <div>Last Name</div>
+            <basefasicon-stub source="font-awesome" name="sort" class="sortIcon"></basefasicon-stub>
+          </div>
         </th>
-        <th class="">
-          First Name
-          <basefasicon-stub source="font-awesome" name="angle-up" class="sortIcon"></basefasicon-stub>
+        <th>
+          <div class="headerItem headerItemSort">
+            <div>First Name</div>
+            <basefasicon-stub source="font-awesome" name="sort" class="sortIcon"></basefasicon-stub>
+          </div>
         </th>
-        <th class="">
-          ID
-          <basefasicon-stub source="font-awesome" name="angle-up" class="sortIcon"></basefasicon-stub>
+        <th>
+          <div class="headerItem">
+            <div>ID</div>
+          </div>
+        </th>
+        <th>
+          <div class="headerItem">
+            <div>Disposition</div>
+          </div>
+        </th>
+        <th>
+          <div class="headerItem">
+            <div>Date</div>
+          </div>
         </th>
       </tr>
     </thead>
     <tbody></tbody>
   </table>
-  <div class="bottomSpace">
-    <div class="total">
-      Total:
-      <strong>1</strong></div>
-    <ul name="Pagination" class="pagination">
-      <!---->
-      <li class="pageItem currentPage"><a href="#" class="pageLink">1</a></li>
-      <!---->
-    </ul>
-    <div class="perPageContainer">
-      <div class="perPageHeader">Per Page: </div>
-      <baseselect-stub value="[object Object]" size="small"></baseselect-stub>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`@components/_base-grid renders its content when order by DESC sort by ID 1`] = `
-<div class="tableContainer">
-  <table class="table">
-    <thead>
-      <tr>
-        <!---->
-        <th class="">
-          Last Name
-          <basefasicon-stub source="font-awesome" name="angle-up" class="sortIcon"></basefasicon-stub>
-        </th>
-        <th class="">
-          First Name
-          <basefasicon-stub source="font-awesome" name="angle-up" class="sortIcon"></basefasicon-stub>
-        </th>
-        <th class="active">
-          ID
-          <basefasicon-stub source="font-awesome" name="angle-down" class="sortIcon"></basefasicon-stub>
-        </th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
-  <div class="bottomSpace">
-    <div class="total">
-      Total:
-      <strong>26</strong></div>
+  <div class="paginationContainer">
+    <div class="pageInfo">Showing <strong>
+          1
+        </strong> - <strong>
+          5
+        </strong> of <strong>
+          26
+        </strong></div>
     <ul name="Pagination" class="pagination">
       <!---->
       <li class="pageItem currentPage"><a href="#" class="pageLink">1</a></li>
@@ -173,16 +80,15 @@ exports[`@components/_base-grid renders its content when order by DESC sort by I
       <li class="pageItem"><a href="#" class="pageLink">4</a></li>
       <li class="pageItem"><a href="#" class="pageLink">5</a></li>
       <li class="pageItem"><a href="#" class="pageLink">6</a></li>
-      <li class="pageItem"><a href="#" class="pageLink">7</a></li>
-      <li class="pageItem"><a class="pageLink">...</a></li>
-      <li class="pageItem"><a href="#" class="pageLink">13</a></li>
       <li class="pageItem"><a href="#" class="pageLink">
           <basefasicon-stub source="font-awesome" name="angle-right"></basefasicon-stub>
         </a></li>
     </ul>
     <div class="perPageContainer">
       <div class="perPageHeader">Per Page: </div>
-      <baseselect-stub value="[object Object]" size="small"></baseselect-stub>
+      <baseselect-stub value="5" size="small" editable="true" change="() => {
+          /* istanbul ignore next */cov_2oakgc951z.f[3]++;
+        }"></baseselect-stub>
     </div>
   </div>
 </div>
