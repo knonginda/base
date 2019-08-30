@@ -1,12 +1,14 @@
 <script>
 import {
-  remove,
   take,
   takeRight,
   concat,
   isEmpty,
   isNil,
+  isNull,
+  isNumber,
   inRange,
+  filter,
 } from 'lodash'
 
 export default {
@@ -36,8 +38,8 @@ export default {
       default: true,
     },
     stickyRows: {
-      type: Number,
-      default: 0,
+      type: String,
+      default: '0',
     },
     filter: {
       type: Boolean,
@@ -47,6 +49,8 @@ export default {
   data() {
     var sortOrders = {}
     var sortKey = this.query.sort
+    var perPage = this.query.limit
+    var total = this.data.length
 
     this.columns.forEach((column) => {
       sortOrders[column.key] = 1
@@ -62,12 +66,11 @@ export default {
 
     return {
       perPage: {
-        name: this.query.limit,
-        value: this.query.limit,
+        value: perPage,
       },
       sortKey: sortKey || '',
       sortOrders: sortOrders,
-      total: this.data.length,
+      total: total,
       selectedItems: [],
       isSelectAll: false,
     }
@@ -78,7 +81,7 @@ export default {
 
       // Stickable
       let stickyData
-      if (this.stickyRows !== 0) {
+      if (Number(this.stickyRows) > 0) {
         stickyData = take(data, this.stickyRows)
         data = takeRight(data, data.length - this.stickyRows)
       }
@@ -98,7 +101,7 @@ export default {
         data = this.getPaginationData(data)
       }
 
-      if (this.stickyRows !== 0) {
+      if (Number(this.stickyRows) > 0) {
         return concat(stickyData, data)
       } else {
         return data
@@ -211,59 +214,99 @@ export default {
           // dateRange: { startDate: '', endDate: '' }
           // selectOption: { name: '', value: '' }
           if (typeof filterItem[1] === 'object') {
-            // ================= Date =================
-            // startDate and endDate should not be undefined
-            if (
-              !isEmpty(filterItem[1].startDate) &&
-              !isEmpty(filterItem[1].endDate)
-            ) {
-              let startDate =
-                new Date(filterItem[1].startDate).getTime() ||
-                new Date('01/01/2000').getTime()
-              let endDate =
-                new Date(filterItem[1].endDate).getTime() ||
-                new Date('01/01/2100').getTime()
-              if (startDate > endDate) {
-                data = []
-                return data
-              } else {
-                data = data.filter((row) => {
-                  if (!isEmpty(row[filterItem[0]])) {
-                    let currentDate = new Date(row[filterItem[0]]).getTime()
-                    return (
-                      inRange(currentDate, startDate, endDate) ||
-                      currentDate === endDate
-                    )
+            // ================= Array =================
+            if (Array.isArray(filterItem[1])) {
+              let tempData = []
+              // Show all if there is no filtering
+              if (filterItem[1].length <= 0) {
+                return
+              }
+              for (let item of filterItem[1]) {
+                data.filter((row) => {
+                  let selectItem = !isEmpty(row[filterItem[0]])
+                    ? row[filterItem[0]]
+                    : ''
+                  // For example:
+                  //   disposition: {
+                  //     key: 'No Sale',
+                  //     value: 'Too expensensive',
+                  //   }
+                  //   Search 'No Sale' but page shows 'Too expensensive'
+                  // Since it is multi-select, no lowerCase matching is required,
+                  // it must be globally matched.
+                  if (!isEmpty(selectItem.key)) {
+                    if (selectItem.key === item) {
+                      tempData.push(row)
+                    }
+                  } else {
+                    if (selectItem === item) {
+                      tempData.push(row)
+                    }
                   }
                 })
+              }
+              data = tempData
+            } else {
+              // ================= Date =================
+              // startDate and endDate should not be undefined
+              if (
+                !isEmpty(filterItem[1].startDate.toString()) &&
+                !isEmpty(filterItem[1].endDate.toString())
+              ) {
+                let startDate = new Date(filterItem[1].startDate).getTime()
+                let endDate = new Date(filterItem[1].endDate).getTime()
+                if (startDate > endDate) {
+                  data = []
+                  return data
+                } else {
+                  data = data.filter((row) => {
+                    if (!isEmpty(row[filterItem[0]])) {
+                      let currentDate = new Date(row[filterItem[0]]).getTime()
+                      return (
+                        inRange(currentDate, startDate, endDate) ||
+                        currentDate === endDate
+                      )
+                    }
+                  })
+                }
               }
             }
 
             // ================= Number =================
           } else if (typeof filterItem[1] === 'number') {
             data = data.filter((row) => {
-              let selectItem = !isEmpty(row[filterItem[0]])
-                ? row[filterItem[0]]
-                : ''
-              return selectItem.indexOf(filterItem[1]) > -1
+              if (isNumber(row[filterItem[0]])) {
+                return row[filterItem[0]] === filterItem[1]
+              }
             })
 
             // ================= String =================
           } else {
             data = data.filter((row) => {
-              let selectItem = row[filterItem[0]]
-              if (!isEmpty(selectItem)) {
-                // For example:
-                //   disposition: {
-                //     key: 'No Sale',
-                //     value: 'Too expensensive',
-                //   }
-                //   Search 'No Sale' but page shows 'Too expensensive'
-                if (!isEmpty(selectItem.key)) {
-                  return String(selectItem.key).indexOf(filterItem[1]) > -1
-                } else {
-                  return String(selectItem).indexOf(filterItem[1]) > -1
-                }
+              let selectItem = !isEmpty(row[filterItem[0]])
+                ? row[filterItem[0]]
+                : ''
+              let targetItem = filterItem[1].toString().toLowerCase()
+              // For example:
+              //   disposition: {
+              //     key: 'No Sale',
+              //     value: 'Too expensensive',
+              //   }
+              //   Search 'No Sale' but page shows 'Too expensensive'
+              if (!isEmpty(selectItem.key)) {
+                return (
+                  selectItem.key
+                    .toString()
+                    .toLowerCase()
+                    .indexOf(targetItem) > -1
+                )
+              } else {
+                return (
+                  selectItem
+                    .toString()
+                    .toLowerCase()
+                    .indexOf(targetItem) > -1
+                )
               }
             })
           }
@@ -277,15 +320,22 @@ export default {
       else {
         filterKey = filterKey.toLowerCase()
         if (filterKey) {
-          data = data.filter((row) => {
-            return Object.keys(row).some((key) => {
-              let selectItem = !isEmpty(row[key]) ? row[key] : ''
-              return (
-                String(selectItem)
+          let columns = this.columns
+          data = filter(data, (row) => {
+            for (let j of columns) {
+              // eslint-disable-line no-unused-vars
+              let selectItem = !isNull(eval(`row.${j.key}`))
+                ? eval(`row.${j.key}`)
+                : ''
+              if (
+                selectItem
+                  .toString()
                   .toLowerCase()
-                  .indexOf(filterKey) > -1
-              )
-            })
+                  .indexOf(filterKey.toLowerCase()) > -1
+              ) {
+                return true
+              }
+            }
           })
         }
       }
@@ -298,51 +348,19 @@ export default {
       /* eslint no-eval: 0 */
       if (sortKey) {
         data = data.sort((a, b) => {
-          // it should be sort by Number, for example:
-          // { id : '12' }
-          // { age: 20 }
-          if (
-            typeof eval(`a.${sortKey}`) === 'number' &&
-            typeof eval(`b.${sortKey}`) === 'number'
-          ) {
-            a = eval(`a.${sortKey}`)
-            b = eval(`b.${sortKey}`)
-            return (a === b ? 0 : a > b ? 1 : -1) * order
-          }
-
-          // it should be sort by value (Business Logic), for example:
-          // { name: 'No Sale', value: 'No Sale - Customer will call back' }
-          else if (
-            typeof eval(`a.${sortKey}`) === 'object' &&
-            typeof eval(`b.${sortKey}`) === 'object'
-          ) {
-            a =
-              eval(`a.${sortKey}`).value === null
-                ? ''
-                : eval(`a.${sortKey}`).value
-            b =
-              eval(`b.${sortKey}`).value === null
-                ? ''
-                : eval(`b.${sortKey}`).value
-            return (a === b ? 0 : a > b ? 1 : -1) * order
-          }
-
-          // it should be sort by String
-          else {
-            a =
-              typeof eval(`a.${sortKey}`) === 'string'
-                ? eval(`a.${sortKey}`).toLowerCase()
-                : isNil(eval(`a.${sortKey}`))
-                ? ''
-                : eval(`a.${sortKey}`)
-            b =
-              typeof eval(`b.${sortKey}`) === 'string'
-                ? eval(`b.${sortKey}`).toLowerCase()
-                : isNil(eval(`b.${sortKey}`))
-                ? ''
-                : eval(`b.${sortKey}`)
-            return (a === b ? 0 : a > b ? 1 : -1) * order
-          }
+          a =
+            typeof eval(`a.${sortKey}`) === 'string'
+              ? eval(`a.${sortKey}`).toLowerCase()
+              : isNil(eval(`a.${sortKey}`))
+              ? ''
+              : eval(`a.${sortKey}`)
+          b =
+            typeof eval(`b.${sortKey}`) === 'string'
+              ? eval(`b.${sortKey}`).toLowerCase()
+              : isNil(eval(`b.${sortKey}`))
+              ? ''
+              : eval(`b.${sortKey}`)
+          return (a === b ? 0 : a > b ? 1 : -1) * order
         })
       }
       return data
@@ -355,18 +373,6 @@ export default {
         )
       }
       return data
-    },
-    select(item) {
-      var selectedItems = this.selectedItems
-      if (item['isSelected']) {
-        selectedItems.push(item)
-        return selectedItems
-      } else {
-        selectedItems = remove(this.selectedItems, (removedItem) => {
-          return removedItem === item
-        })
-        return selectedItems
-      }
     },
     selectAll() {
       let data = this.getFilterData(this.data)
@@ -448,11 +454,12 @@ export default {
       <thead>
         <tr>
           <th v-if="selectable" class="selectableColumn">
-            <input
-              v-model="isSelectAll"
-              type="checkbox"
-              @change="selectAll()"
-            />
+            <div>
+              <BaseCheckbox
+                v-model="isSelectAll"
+                @input="selectAll()"
+              ></BaseCheckbox>
+            </div>
           </th>
           <template v-for="(column, index) in columns">
             <th
@@ -566,6 +573,9 @@ export default {
   }
 
   th {
+    position: sticky;
+    top: -1px;
+    z-index: $layer-table-header-index;
     color: #333;
     user-select: none;
     background-color: $lightest-grey;
@@ -652,8 +662,10 @@ export default {
   .selectableColumn {
     width: 36px;
 
-    svg ~ span {
-      display: none;
+    > div {
+      display: flex;
+      justify-content: center;
+      padding: 9px;
     }
   }
 

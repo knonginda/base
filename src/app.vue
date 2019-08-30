@@ -12,12 +12,27 @@ export default {
   },
   data() {
     return {
-      switchTest: false,
-      switchTest1: false,
+      multipleSelector: ['Enrolled', 'No Sale'],
       loading: false,
       eventBus: new Vue(),
       email: '',
       newData: [],
+      dispositionOptions: [
+        { name: 'All', value: '' },
+        { name: 'Enrolled', value: 'Enrolled' },
+        { name: 'No Sale', value: 'No Sale' },
+        { name: 'Pipeline', value: 'Pipeline' },
+        { name: 'Unworkable', value: 'Unworkable' },
+        { name: 'No Contact/Phone Related', value: 'No Contact/Phone Related' },
+        { name: 'Other', value: 'Other' },
+        { name: 'None', value: 'None' },
+      ],
+      firstNameOptions: [
+        { name: 'All', value: '' },
+        { name: 'Test', value: 'Test' },
+        { name: 'Test1', value: 'Test1' },
+        { name: 'Test2', value: 'Test2' },
+      ],
       gridColumns: [
         {
           key: 'firstName',
@@ -40,19 +55,23 @@ export default {
           sort: true,
         },
         {
-          key: 'active',
-          label: 'Active',
+          key: 'disposition.value',
+          label: 'Disposition',
           sort: true,
         },
       ],
       gridData: [],
       query: {
-        limit: 5,
+        limit: 30,
         offset: 0,
-        filterKey: '',
+        filterKey: {
+          firstName: ['Test', 'Test1', 'Test2'],
+          disposition: [],
+        },
         sort: '',
         order: '',
         perPage: [
+          { name: 2, value: 2 },
           { name: 5, value: 5 },
           { name: 10, value: 10 },
           { name: 20, value: 20 },
@@ -93,15 +112,38 @@ export default {
         })
       })
     },
-    test() {
-      this.switchTest1 = true
-    },
   },
 }
 </script>
 
 <template>
   <div class="baseStyle">
+    <!-- {{ multipleSelector }}
+    <BaseSelectMultiple
+      v-model="multipleSelector"
+      :options="dispositionOptions"
+      placeholder="Select a location"
+    /> -->
+    <!-- <BaseSelect
+      v-model="query.filterKey.disposition"
+      :options="dispositionOptions"
+    /> -->
+    <div>
+      <label>First Name</label>
+      <BaseSelectMultiple
+        v-model="query.filterKey.firstName"
+        :options="firstNameOptions"
+        placeholder="Select a Name"
+      />
+    </div>
+    <div>
+      <label>Disposition</label>
+      <BaseSelectMultiple
+        v-model="query.filterKey.disposition"
+        :options="dispositionOptions"
+        placeholder="Select a disposition"
+      />
+    </div>
     <!-- <form id="validated-form">
       <BaseValidation
         v-slot="{ validate, errors }"
@@ -114,21 +156,12 @@ export default {
       </BaseValidation>
       <BaseButton @click="validateField('myinput')">Test Validation</BaseButton>
     </form> -->
-    <BaseSwitch
-      v-model="switchTest"
-      on-value="Yes 水电费第三方"
-      off-value="No fsd fsd "
-      name="test-switch"
-    ></BaseSwitch>
-    <BaseSwitch
-      v-model="switchTest"
-      on-value="Yes 水电费第三方"
-      off-value="No fsd fsd "
-      name="test-switch"
-    ></BaseSwitch>
+    <!-- <BaseSwitch v-model="test" on-label="Yes" off-label="No" name="test" /> -->
+    <!-- <BaseCheckbox v-model="test" name="test" /> -->
     <BaseGrid
       v-show="!loading"
       ref="grid"
+      selectable
       :query="query"
       :columns="gridColumns"
       :data="gridData"
@@ -137,6 +170,9 @@ export default {
     >
       <template v-slot:tbody>
         <tr v-for="(row, index) in newData" :key="index">
+          <td>
+            <BaseCheckbox v-model="row.isSelected"></BaseCheckbox>
+          </td>
           <td>
             <div>{{ row.firstName }}</div>
           </td>
@@ -150,9 +186,7 @@ export default {
             <div>{{ row.date }}</div>
           </td>
           <td>
-            <div>
-              <BaseCheckbox v-model="row.active"></BaseCheckbox>
-            </div>
+            <div>{{ row.disposition.value }}</div>
           </td>
         </tr>
       </template>
