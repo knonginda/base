@@ -74,19 +74,31 @@ describe('@components/_base-select-multiple', () => {
     })
     expect(wrapper.vm.selectedValues.includes('1')).toBe(true)
     expect(wrapper.vm.selectedValues.includes('2')).toBe(true)
-    expect(wrapper.vm.howManySelected()).toBe('Selected(2)')
+    expect(wrapper.vm.howManySelected()).toBe('Selected (2)')
   })
-  it('editable component should works correctly', () => {
+  it('fiterable component should works correctly', () => {
     const wrapper = shallowMount(BaseSelectMultiple, {
       propsData: {
         options: options,
         value: [],
-        editable: true,
+        filterable: true,
       },
     })
     wrapper.find('.spaceBetween').trigger('click')
     wrapper.vm.matchingValue = 'Jet Li'
+    expect(wrapper.find('.matchingInput').exists()).toBe(true)
     expect(wrapper.findAll('li').length).toEqual(1)
+  })
+  it('fiterable component should disabled correctly', () => {
+    const wrapper = shallowMount(BaseSelectMultiple, {
+      propsData: {
+        options: options,
+        value: [],
+        filterable: false,
+      },
+    })
+    wrapper.find('.spaceBetween').trigger('click')
+    expect(wrapper.find('.matchingInput').exists()).toBe(false)
   })
 })
 

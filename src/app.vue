@@ -119,7 +119,7 @@ export default {
       alert(1)
     },
     test2() {
-      alert(2)
+      alert(this.query.filterKey.firstName)
     },
     test3() {
       console.log(this.testInput)
@@ -130,43 +130,17 @@ export default {
 
 <template>
   <div class="baseStyle">
-    <!-- {{ multipleSelector }}
-    <BaseSelectMultiple
-      v-model="multipleSelector"
-      :options="dispositionOptions"
-      placeholder="Select a location"
-    /> -->
-    <!-- <BaseSelect
-      v-model="query.filterKey.disposition"
-      :options="dispositionOptions"
-    /> -->
-    <BaseSwitch v-model="testSwitch" name="test" :change="test2"></BaseSwitch>
-    <BaseCheckbox
-      v-model="testCheckbox"
-      name="test"
-      :change="test2"
-    ></BaseCheckbox>
-    <BaseRadio v-model="testRadio" name="test" :change="test"></BaseRadio>
     <div>
       <label>First Name</label>
       {{ query.filterKey.firstName }}
       <BaseSelectMultiple
         v-model="query.filterKey.firstName"
         :options="firstNameOptions"
+        :filterable="false"
         placeholder="Select a Name"
-        :change="test2"
       />
     </div>
-    <div>
-      <label>Disposition</label>
-      {{ query.filterKey.disposition }}
-      <BaseSelect
-        v-model="query.filterKey.disposition"
-        :options="dispositionOptions"
-        placeholder="Select a disposition"
-        :change="test"
-      />
-    </div>
+    <div style="height: 1000px;"></div>
     <!-- <form id="validated-form">
       <BaseValidation
         v-slot="{ validate, errors }"

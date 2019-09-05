@@ -2,7 +2,7 @@
 import Vue from 'vue'
 // https://github.com/simplesmiler/vue-clickaway
 import { mixin as clickaway } from 'vue-clickaway'
-import { clone, map } from 'lodash'
+import { clone, map, findKey } from 'lodash'
 
 export default {
   name: 'BaseSelectMultiple',
@@ -27,7 +27,7 @@ export default {
       type: Boolean,
       default: false,
     },
-    editable: {
+    filterable: {
       type: Boolean,
       default: true,
     },
@@ -121,7 +121,13 @@ export default {
     },
     howManySelected() {
       if (this.selectedValues.length > 0) {
-        return `Selected(${this.selectedValues.length})`
+        if (this.selectedValues.length === this.options.length - 1) {
+          let theAllItem = findKey(this.options, (option) => {
+            return option.value === ''
+          })
+          return this.options[theAllItem].name
+        }
+        return `Selected (${this.selectedValues.length})`
       } else {
         return ''
       }
@@ -141,7 +147,7 @@ export default {
 
 <template>
   <div v-on-clickaway="onClose" :class="overlayClasses()">
-    <div v-if="editable" class="spaceBetween" @click="onMatch()">
+    <div v-if="filterable" class="spaceBetween" @click="onMatch()">
       <input
         v-show="showOptions"
         v-model="matchingValue"
