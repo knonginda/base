@@ -97,6 +97,7 @@ export default {
       clearTimeout(this.isDebounce)
       this.isDebounce = setTimeout(() => {
         this.$emit('input', this.emitSelectedValues)
+        this.change()
       }, Number(this.debounce))
     },
     selectedNumber() {

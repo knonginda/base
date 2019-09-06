@@ -114,6 +114,9 @@ export default {
         })
       })
     },
+    test() {
+      console.log(this.query.filterKey.firstName)
+    },
   },
 }
 </script>
@@ -125,8 +128,9 @@ export default {
       {{ query.filterKey.firstName }}
       <BaseSelectMultiple
         v-model="query.filterKey.firstName"
-        debounce="500"
         :options="firstNameOptions"
+        debounce="500"
+        :change="test"
         placeholder="Select a Name"
       />
     </div>
