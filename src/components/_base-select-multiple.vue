@@ -265,7 +265,7 @@ export default {
 .selectName {
   width: calc(100% - 45px);
   margin-top: 2px;
-  font-size: 18px;
+  font-size: 16px;
   text-indent: 9px;
   cursor: pointer;
   border: 0;
@@ -285,6 +285,7 @@ export default {
   justify-content: space-between;
   width: 100%;
   padding: 10px;
+  font-size: 16px;
   cursor: pointer;
   background-color: #fff;
   border-bottom: 1px solid $lighter-grey;
