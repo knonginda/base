@@ -12,7 +12,7 @@ describe('@components/_base-select-multiple', () => {
     wrapper.trigger('click')
     const checkbox = wrapper.findAll('input[type="checkbox"]').at(0)
     checkbox.setChecked(true)
-    expect(wrapper.vm.selectedValues.length).toEqual(3)
+    expect(wrapper.vm.emitSelectedValues.length).toEqual(3)
   })
   it('should unselect all when click All selection again', () => {
     const wrapper = shallowMount(BaseSelectMultiple, {
@@ -25,7 +25,7 @@ describe('@components/_base-select-multiple', () => {
     const checkbox = wrapper.findAll('input[type="checkbox"]').at(0)
     checkbox.setChecked(true)
     checkbox.setChecked(false)
-    expect(wrapper.vm.selectedValues.length).toEqual(0)
+    expect(wrapper.vm.emitSelectedValues.length).toEqual(0)
   })
   it('should be selected when clicking', () => {
     const wrapper = shallowMount(BaseSelectMultiple, {
@@ -39,7 +39,7 @@ describe('@components/_base-select-multiple', () => {
     const checkbox2 = wrapper.findAll('input[type="checkbox"]').at(2)
     checkbox1.setChecked(true)
     checkbox2.setChecked(true)
-    expect(wrapper.vm.selectedValues.length).toEqual(2)
+    expect(wrapper.vm.emitSelectedValues.length).toEqual(2)
   })
   it('should be unselected when clicking', () => {
     const wrapper = shallowMount(BaseSelectMultiple, {
@@ -53,7 +53,7 @@ describe('@components/_base-select-multiple', () => {
     const checkbox2 = wrapper.findAll('input[type="checkbox"]').at(2)
     checkbox1.setChecked(false)
     checkbox2.setChecked(false)
-    expect(wrapper.vm.selectedValues.length).toEqual(0)
+    expect(wrapper.vm.emitSelectedValues.length).toEqual(0)
   })
   it('should render its content when no item was selected', () => {
     const wrapper = shallowMount(BaseSelectMultiple, {
@@ -62,8 +62,8 @@ describe('@components/_base-select-multiple', () => {
         value: [],
       },
     })
-    expect(wrapper.vm.selectedValues.length).toEqual(0)
-    expect(wrapper.vm.howManySelected()).toBe('')
+    expect(wrapper.vm.emitSelectedValues.length).toEqual(0)
+    expect(wrapper.vm.selectedNumber()).toBe('')
   })
   it('should render its content when selected 2 items', () => {
     const wrapper = shallowMount(BaseSelectMultiple, {
@@ -72,9 +72,33 @@ describe('@components/_base-select-multiple', () => {
         value: ['1', '2'],
       },
     })
-    expect(wrapper.vm.selectedValues.includes('1')).toBe(true)
-    expect(wrapper.vm.selectedValues.includes('2')).toBe(true)
-    expect(wrapper.vm.howManySelected()).toBe('Selected (2)')
+    expect(wrapper.vm.selectedValues[0]).toBe(true)
+    expect(wrapper.vm.selectedValues[1]).toBe(true)
+    expect(wrapper.vm.selectedNumber()).toBe('Selected (2)')
+  })
+  it('should render its content when selected all items', () => {
+    const wrapper = shallowMount(BaseSelectMultiple, {
+      propsData: {
+        options: options,
+        value: ['1', '2', '3'],
+      },
+    })
+    expect(wrapper.vm.selectedValues[0]).toBe(true)
+    expect(wrapper.vm.selectedValues[1]).toBe(true)
+    expect(wrapper.vm.selectedValues[2]).toBe(true)
+    expect(wrapper.vm.selectedNumber()).toBe('ALL')
+  })
+  it('should render its content when unselected one of items when all item selected', () => {
+    const wrapper = shallowMount(BaseSelectMultiple, {
+      propsData: {
+        options: options,
+        value: ['1', '2', '3'],
+      },
+    })
+    wrapper.trigger('click')
+    const checkbox = wrapper.findAll('input[type="checkbox"]').at(1)
+    checkbox.setChecked(false)
+    expect(wrapper.vm.selectedNumber()).toBe('Selected (2)')
   })
   it('fiterable component should works correctly', () => {
     const wrapper = shallowMount(BaseSelectMultiple, {
@@ -103,7 +127,6 @@ describe('@components/_base-select-multiple', () => {
 })
 
 const options = [
-  { name: 'All', value: '' },
   { name: 'Jet Li', value: '1' },
   { name: 'Bruce Lee', value: '2' },
   { name: 'Jackie Chan', value: '3' },

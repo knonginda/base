@@ -27,7 +27,6 @@ export default {
         { name: 'None', value: 'None' },
       ],
       firstNameOptions: [
-        { name: 'All', value: '' },
         { name: 'Test', value: 'Test' },
         { name: 'Test1', value: 'Test1' },
         { name: 'Test2', value: 'Test2' },
@@ -115,15 +114,6 @@ export default {
         })
       })
     },
-    test() {
-      alert(1)
-    },
-    test2() {
-      alert(this.query.filterKey.firstName)
-    },
-    test3() {
-      console.log(this.testInput)
-    },
   },
 }
 </script>
@@ -135,12 +125,11 @@ export default {
       {{ query.filterKey.firstName }}
       <BaseSelectMultiple
         v-model="query.filterKey.firstName"
+        debounce="500"
         :options="firstNameOptions"
-        :filterable="false"
         placeholder="Select a Name"
       />
     </div>
-    <div style="height: 1000px;"></div>
     <!-- <form id="validated-form">
       <BaseValidation
         v-slot="{ validate, errors }"

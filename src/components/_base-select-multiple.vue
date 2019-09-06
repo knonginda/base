@@ -2,7 +2,7 @@
 import Vue from 'vue'
 // https://github.com/simplesmiler/vue-clickaway
 import { mixin as clickaway } from 'vue-clickaway'
-import { clone, map, findKey } from 'lodash'
+import { remove, cloneDeep } from 'lodash'
 
 export default {
   name: 'BaseSelectMultiple',
@@ -39,36 +39,45 @@ export default {
       type: Function,
       default: () => {},
     },
+    debounce: {
+      type: String,
+      default: '0',
+    },
   },
   data() {
     return {
-      showOptions: false,
       matchingValue: '',
+      showOptions: false,
+      isDebounce: null,
+      selectedAll: true,
       selectedValues: [],
+      emitSelectedValues: [],
     }
   },
-  computed: {
-    isSelectAll() {
-      if (this.selectedValues.length !== this.options.length - 1) {
-        return false
-      }
-      let options = map(clone(this.options), 'value')
-      let index = options.indexOf('')
-      if (index > -1) {
-        options.splice(index, 1)
-      }
-      for (let option of options) {
-        if (!this.selectedValues.includes(option)) {
-          return false
-        }
-      }
-      return true
+  watch: {
+    selectedValues: {
+      handler() {
+        this.isSelectedAll()
+        this.selectedNumber()
+      },
     },
   },
   created() {
-    this.selectedValues = this.value
+    this.init()
   },
   methods: {
+    init() {
+      for (let [index, option] of this.options.entries()) {
+        this.selectedValues[index] = false
+        for (let passValue of this.value) {
+          if (option.value === passValue) {
+            this.selectedValues[index] = true
+          }
+        }
+      }
+      this.isSelectedAll()
+      this.selectedNumber()
+    },
     overlayClasses() {
       return [
         'selector',
@@ -78,29 +87,56 @@ export default {
         { disabled: this.disabled },
       ]
     },
-    onAllChange(checkbox) {
-      if (!checkbox.target.checked) {
-        this.selectedValues = []
-      } else {
-        this.selectedValues = []
-        for (let item of this.options) {
-          if (item.value !== '') {
-            this.selectedValues.push(item.value)
-          }
+    transformData() {
+      this.emitSelectedValues = []
+      for (let [index, value] of this.selectedValues.entries()) {
+        if (value) {
+          this.emitSelectedValues.push(this.options[index].value)
         }
       }
-      this.$emit('input', this.selectedValues)
-      this.change()
+      clearTimeout(this.isDebounce)
+      this.isDebounce = setTimeout(() => {
+        this.$emit('input', this.emitSelectedValues)
+      }, Number(this.debounce))
     },
-    onChange(option) {
-      let index = this.selectedValues.indexOf(option.value)
-      if (index > -1) {
-        this.selectedValues.splice(index, 1)
+    selectedNumber() {
+      let cloneData = cloneDeep(this.selectedValues)
+      let selectedNumber = remove(cloneData, (selected) => {
+        return selected
+      })
+      if (selectedNumber.length === this.selectedValues.length) {
+        return 'ALL'
+      } else if (selectedNumber.length > 0) {
+        return `Selected (${selectedNumber.length})`
       } else {
-        this.selectedValues.push(option.value)
+        return ''
       }
-      this.$emit('input', this.selectedValues)
-      this.change()
+    },
+    isSelectedAll() {
+      for (let selected of this.selectedValues) {
+        if (!selected) {
+          this.selectedAll = false
+          break
+        }
+        this.selectedAll = true
+      }
+    },
+    onAllChange($event) {
+      if ($event.target.checked) {
+        for (let index = 0; index < this.selectedValues.length; index++) {
+          this.selectedValues[index] = true
+        }
+      } else {
+        for (let index = 0; index < this.selectedValues.length; index++) {
+          this.selectedValues[index] = false
+        }
+      }
+      this.onClose()
+      this.onOpen()
+      this.transformData()
+    },
+    onChange() {
+      this.transformData()
     },
     onOpen() {
       this.showOptions = !this.showOptions && !this.disabled
@@ -119,19 +155,6 @@ export default {
         this.$el.querySelector('input').focus()
       })
     },
-    howManySelected() {
-      if (this.selectedValues.length > 0) {
-        if (this.selectedValues.length === this.options.length - 1) {
-          let theAllItem = findKey(this.options, (option) => {
-            return option.value === ''
-          })
-          return this.options[theAllItem].name
-        }
-        return `Selected (${this.selectedValues.length})`
-      } else {
-        return ''
-      }
-    },
     isMatching(option) {
       return (
         option.name
@@ -147,6 +170,7 @@ export default {
 
 <template>
   <div v-on-clickaway="onClose" :class="overlayClasses()">
+    <!-- Has Filterable -->
     <div v-if="filterable" class="spaceBetween" @click="onMatch()">
       <input
         v-show="showOptions"
@@ -156,7 +180,7 @@ export default {
       />
       <input
         class="selectName"
-        :value="howManySelected()"
+        :value="selectedNumber()"
         type="text"
         readonly
         :placeholder="placeholder"
@@ -166,10 +190,11 @@ export default {
         <BaseFasIcon v-else name="angle-up" />
       </div>
     </div>
+    <!-- Hasn't Filterable -->
     <div v-else class="spaceBetween" @click="onOpen()">
       <input
         class="selectName"
-        :value="howManySelected()"
+        :value="selectedNumber()"
         type="text"
         readonly
         :placeholder="placeholder"
@@ -180,30 +205,28 @@ export default {
       </div>
     </div>
     <ul v-show="showOptions" class="selectorOptions">
+      <!-- All Checkbox -->
+      <li v-if="isMatching({ name: 'ALL' })">
+        <input
+          :id="'selector_all_' + _uid"
+          :name="'selector_' + _uid"
+          :checked="selectedAll"
+          type="checkbox"
+          @change="onAllChange"
+        />
+        <label :for="'selector_all_' + _uid" class="option">
+          <span class="optionName">ALL</span>
+        </label>
+      </li>
+      <!-- Other Checkboxs -->
       <template v-for="(option, index) in options">
-        <!-- All checkbox -->
-        <li v-if="option.value === '' && isMatching(option)" :key="index">
-          <input
-            :id="'selector_all_' + _uid + '_' + index"
-            type="checkbox"
-            :value="option.value"
-            :name="'selector_' + _uid + '_' + index"
-            :checked="isSelectAll"
-            @change="onAllChange($event)"
-          />
-          <label :for="'selector_all_' + _uid + '_' + index" class="option">
-            <span class="optionName">{{ option.name }}</span>
-          </label>
-        </li>
-        <!-- Other checkbox -->
-        <li v-if="option.value !== '' && isMatching(option)" :key="index">
+        <li v-if="isMatching(option)" :key="index">
           <input
             :id="'selector_' + _uid + '_' + index"
-            type="checkbox"
-            :value="option.value"
+            v-model="selectedValues[index]"
             :name="'selector_' + _uid + '_' + index"
-            :checked="value.includes(option.value)"
-            @change="onChange(option, $event)"
+            type="checkbox"
+            @change="onChange"
           />
           <label :for="'selector_' + _uid + '_' + index" class="option">
             <span class="optionName">{{ option.name }}</span>
