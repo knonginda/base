@@ -210,6 +210,7 @@ export default {
       <li v-if="isMatching({ name: 'ALL' })">
         <input
           :id="'selector_all_' + _uid"
+          v-model="selectedAll"
           :name="'selector_' + _uid"
           :checked="selectedAll"
           type="checkbox"
