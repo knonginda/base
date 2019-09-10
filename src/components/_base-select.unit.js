@@ -10,50 +10,78 @@ describe('@components/_base-select', () => {
       },
     })
     expect(wrapper.find('.selectName').text()).toBe('Jet Li')
-    expect(wrapper.findAll('.option').length).toEqual(3)
+    expect(wrapper.findAll('.option').length).toEqual(4)
   })
 
   it('should render its content by click', () => {
     const wrapper = shallowMount(BaseSelect, {
       propsData: {
         options: options,
-        value: '1',
+        value: '',
       },
     })
     wrapper.trigger('click')
     const radio = wrapper.findAll('.option input[type="radio"]').at(1)
     radio.setChecked(true)
     expect(radio.element.selected).toEqual(true)
+    expect(wrapper.vm.selectedValue).toEqual('1')
   })
 
-  it('editable component should works correctly', () => {
+  it('should render its content by clicking ALL option', () => {
     const wrapper = shallowMount(BaseSelect, {
       propsData: {
         options: options,
-        value: '1',
-        editable: true,
+        value: '',
       },
     })
-    wrapper.find('.spaceBetween').trigger('click')
-    wrapper.vm.matchingValue = 'Bruce Lee'
-    expect(
-      wrapper
-        .findAll('li')
-        .at(0)
-        .html()
-    ).toContain('<li style="display: none;">')
-    expect(
-      wrapper
-        .findAll('li')
-        .at(1)
-        .html()
-    ).not.toContain('<li style="display: none;">')
-    expect(
-      wrapper
-        .findAll('li')
-        .at(2)
-        .html()
-    ).toContain('<li style="display: none;">')
+    wrapper.trigger('click')
+    const radio = wrapper.findAll('.option input[type="radio"]').at(0)
+    radio.setChecked(true)
+    expect(radio.element.selected).toEqual(true)
+    expect(wrapper.vm.selectedValue).toEqual('')
+  })
+
+  describe('filterable should works correctly', () => {
+    it('when its value equals true', () => {
+      const wrapper = shallowMount(BaseSelect, {
+        propsData: {
+          options: options,
+          value: '',
+          filterable: true,
+        },
+      })
+      wrapper.find('.spaceBetween').trigger('click')
+      wrapper.vm.matchingValue = 'Bruce Lee'
+      expect(
+        wrapper
+          .findAll('li')
+          .at(1)
+          .html()
+      ).toContain('<li style="display: none;">')
+      expect(
+        wrapper
+          .findAll('li')
+          .at(2)
+          .html()
+      ).not.toContain('<li style="display: none;">')
+      expect(
+        wrapper
+          .findAll('li')
+          .at(3)
+          .html()
+      ).toContain('<li style="display: none;">')
+    })
+    it('when its value equals false', () => {
+      const wrapper = shallowMount(BaseSelect, {
+        propsData: {
+          options: options,
+          value: '',
+          filterable: false,
+        },
+      })
+      wrapper.find('.spaceBetween').trigger('click')
+      expect(wrapper.find('.matchingInput').exists()).toBe(false)
+    })
   })
 })
 

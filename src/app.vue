@@ -17,7 +17,6 @@ export default {
       email: '',
       newData: [],
       dispositionOptions: [
-        { name: 'All', value: '' },
         { name: 'Enrolled', value: 'Enrolled' },
         { name: 'No Sale', value: 'No Sale' },
         { name: 'Pipeline', value: 'Pipeline' },
@@ -123,6 +122,12 @@ export default {
 
 <template>
   <div class="baseStyle">
+    {{ query.filterKey.disposition }}
+    <BaseSelect
+      v-model="query.filterKey.disposition"
+      :filterable="false"
+      :options="dispositionOptions"
+    />
     <div>
       <label>First Name</label>
       {{ query.filterKey.firstName }}

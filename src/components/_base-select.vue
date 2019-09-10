@@ -9,7 +9,7 @@ export default {
   props: {
     options: {
       type: Array,
-      default: null,
+      default: () => [],
     },
     value: {
       type: [String, Object, Number],
@@ -26,7 +26,7 @@ export default {
       type: Boolean,
       default: false,
     },
-    editable: {
+    filterable: {
       type: Boolean,
       default: true,
     },
@@ -37,16 +37,24 @@ export default {
   },
   data() {
     return {
-      showOptions: false,
+      selectedValue: '',
       matchingValue: '',
+      showOptions: false,
     }
   },
   computed: {
     selectedName() {
-      return this.options.filter((item) => {
-        return this.value === item.value
-      })[0].name
+      if (this.selectedValue === '') {
+        return 'ALL'
+      } else {
+        return this.options.filter((item) => {
+          return this.selectedValue === item.value
+        })[0].name
+      }
     },
+  },
+  created() {
+    this.selectedValue = this.value
   },
   methods: {
     overlayClasses() {
@@ -58,9 +66,13 @@ export default {
         { disabled: this.disabled },
       ]
     },
-    onChange(option) {
-      this.$emit('change')
-      this.$emit('input', option.value)
+    onChange() {
+      this.$emit('input', this.selectedValue)
+      this.showOptions = !this.showOptions
+      this.change()
+    },
+    onAllChange() {
+      this.$emit('input', this.selectedValue)
       this.showOptions = !this.showOptions
       this.change()
     },
@@ -96,7 +108,7 @@ export default {
 
 <template>
   <div v-on-clickaway="onClose" :class="overlayClasses()">
-    <div v-if="editable" class="spaceBetween" @click="onMatch()">
+    <div v-if="filterable" class="spaceBetween" @click="onMatch()">
       <input
         v-show="showOptions"
         v-model="matchingValue"
@@ -117,16 +129,30 @@ export default {
       </div>
     </div>
     <ul v-show="showOptions" class="selectorOptions">
+      <li v-show="isMatching({ name: 'ALL' })">
+        <label :for="'selector_all_' + _uid" class="option">
+          <input
+            :id="'selector_all_' + _uid"
+            v-model="selectedValue"
+            type="radio"
+            :value="''"
+            :name="'selector_' + _uid"
+            @change="onAllChange"
+          />
+          <span class="optionName">ALL</span>
+          <BaseFasIcon class="optionChecked" name="check-circle" />
+        </label>
+      </li>
       <template v-for="(option, index) in options">
         <li v-show="isMatching(option)" :key="index">
           <label :for="'selector_' + _uid + '_' + index" class="option">
             <input
               :id="'selector_' + _uid + '_' + index"
+              v-model="selectedValue"
               type="radio"
               :value="option.value"
               :name="'selector_' + _uid"
-              :checked="option.value === value"
-              @change="onChange(option)"
+              @change="onChange"
             />
             <span class="optionName">{{ option.name }}</span>
             <BaseFasIcon class="optionChecked" name="check-circle" />
