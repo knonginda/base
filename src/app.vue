@@ -67,7 +67,7 @@ export default {
         offset: 0,
         filterKey: {
           firstName: ['Test', 'Test1', 'Test2'],
-          disposition: '',
+          disposition: 'Enrolled',
         },
         sort: '',
         order: '',
@@ -126,6 +126,7 @@ export default {
     <BaseSelect
       v-model="query.filterKey.disposition"
       :filterable="false"
+      :need-all-option="false"
       :options="dispositionOptions"
     />
     <div>

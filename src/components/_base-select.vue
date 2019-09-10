@@ -26,6 +26,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    needAllOption: {
+      type: Boolean,
+      default: true,
+    },
     filterable: {
       type: Boolean,
       default: true,
@@ -44,7 +48,7 @@ export default {
   },
   computed: {
     selectedName() {
-      if (this.selectedValue === '') {
+      if (this.selectedValue === '' && this.needAllOption) {
         return 'ALL'
       } else {
         return this.options.filter((item) => {
@@ -129,20 +133,22 @@ export default {
       </div>
     </div>
     <ul v-show="showOptions" class="selectorOptions">
-      <li v-show="isMatching({ name: 'ALL' })">
-        <label :for="'selector_all_' + _uid" class="option">
-          <input
-            :id="'selector_all_' + _uid"
-            v-model="selectedValue"
-            type="radio"
-            :value="''"
-            :name="'selector_' + _uid"
-            @change="onAllChange"
-          />
-          <span class="optionName">ALL</span>
-          <BaseFasIcon class="optionChecked" name="check-circle" />
-        </label>
-      </li>
+      <template v-if="needAllOption">
+        <li v-show="isMatching({ name: 'ALL' })">
+          <label :for="'selector_all_' + _uid" class="option">
+            <input
+              :id="'selector_all_' + _uid"
+              v-model="selectedValue"
+              type="radio"
+              :value="''"
+              :name="'selector_' + _uid"
+              @change="onAllChange"
+            />
+            <span class="optionName">ALL</span>
+            <BaseFasIcon class="optionChecked" name="check-circle" />
+          </label>
+        </li>
+      </template>
       <template v-for="(option, index) in options">
         <li v-show="isMatching(option)" :key="index">
           <label :for="'selector_' + _uid + '_' + index" class="option">

@@ -39,6 +39,19 @@ describe('@components/_base-select', () => {
     radio.setChecked(true)
     expect(radio.element.selected).toEqual(true)
     expect(wrapper.vm.selectedValue).toEqual('')
+    expect(wrapper.html()).toContain('<span class="optionName">ALL</span>')
+  })
+
+  it('should render its content by ALL option was disabled', () => {
+    const wrapper = shallowMount(BaseSelect, {
+      propsData: {
+        options: options,
+        value: '3',
+        needAllOption: false,
+      },
+    })
+    wrapper.trigger('click')
+    expect(wrapper.html()).not.toContain('<span class="optionName">ALL</span>')
   })
 
   describe('filterable should works correctly', () => {
@@ -47,7 +60,6 @@ describe('@components/_base-select', () => {
         propsData: {
           options: options,
           value: '',
-          filterable: true,
         },
       })
       wrapper.find('.spaceBetween').trigger('click')
