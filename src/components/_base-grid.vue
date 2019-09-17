@@ -413,7 +413,7 @@ export default {
 
 <template>
   <div class="tableContainer">
-    <div v-if="pagination" class="paginationContainer">
+    <div v-if="pagination && data.length !== 0" class="paginationContainer">
       <div class="pageInfo" v-html="getPageInfo()"></div>
       <ul class="pagination" name="Pagination">
         <li v-if="!isFirstPage" class="pageItem" @click="turnPage(-1)">
@@ -446,6 +446,8 @@ export default {
         <BaseSelect
           v-model="perPage.value"
           size="small"
+          :filterable="false"
+          :need-all-option="false"
           :options="query.perPage"
         />
       </div>
@@ -497,7 +499,7 @@ export default {
         <slot name="tbody"></slot>
       </tbody>
     </table>
-    <div v-if="pagination" class="paginationContainer">
+    <div v-if="pagination && data.length !== 0" class="paginationContainer">
       <div class="pageInfo" v-html="getPageInfo()"></div>
       <ul class="pagination" name="Pagination">
         <li v-if="!isFirstPage" class="pageItem" @click="turnPage(-1)">
@@ -530,6 +532,8 @@ export default {
         <BaseSelect
           v-model="perPage.value"
           size="small"
+          :filterable="false"
+          :need-all-option="false"
           :options="query.perPage"
         />
       </div>

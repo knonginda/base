@@ -126,7 +126,6 @@ export default {
     <BaseSelect
       v-model="query.filterKey.disposition"
       :filterable="false"
-      :need-all-option="false"
       :options="dispositionOptions"
     />
     <div>
@@ -154,7 +153,7 @@ export default {
     </form> -->
     <!-- <BaseSwitch v-model="test" on-label="Yes" off-label="No" name="test" /> -->
     <!-- <BaseCheckbox v-model="test" name="test" /> -->
-    <!-- <BaseGrid
+    <BaseGrid
       v-show="!loading"
       ref="grid"
       selectable
@@ -186,7 +185,7 @@ export default {
           </td>
         </tr>
       </template>
-    </BaseGrid> -->
+    </BaseGrid>
     <!-- <div v-show="loading" class="spinnerContainer">
       <BaseSpinner :spacing="15" message="Loading..."></BaseSpinner>
     </div> -->
