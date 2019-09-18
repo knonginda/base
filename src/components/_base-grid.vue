@@ -348,19 +348,54 @@ export default {
       /* eslint no-eval: 0 */
       if (sortKey) {
         data = data.sort((a, b) => {
-          a =
-            typeof eval(`a.${sortKey}`) === 'string'
-              ? eval(`a.${sortKey}`).toLowerCase()
-              : isNil(eval(`a.${sortKey}`))
-              ? ''
-              : eval(`a.${sortKey}`)
-          b =
-            typeof eval(`b.${sortKey}`) === 'string'
-              ? eval(`b.${sortKey}`).toLowerCase()
-              : isNil(eval(`b.${sortKey}`))
-              ? ''
-              : eval(`b.${sortKey}`)
-          return (a === b ? 0 : a > b ? 1 : -1) * order
+          // it should be sort by Number, for example:
+          // { id : '12' }
+          // { age: 20 }
+          if (
+            typeof eval(`a.${sortKey}`) === 'number' &&
+            typeof eval(`b.${sortKey}`) === 'number'
+          ) {
+            a = eval(`a.${sortKey}`)
+            b = eval(`b.${sortKey}`)
+            return (a === b ? 0 : a > b ? 1 : -1) * order
+          }
+
+          // it should be sort by value (Business Logic), for example:
+          // { name: 'No Sale', value: 'No Sale - Customer will call back' }
+          // typeof null will be 'object', so added on more if condition(isNil())
+          else if (
+            (typeof eval(`a.${sortKey}`) === 'object' &&
+              !isNil(eval(`a.${sortKey}`))) ||
+            (typeof eval(`b.${sortKey}`) === 'object' &&
+              !isNil(eval(`b.${sortKey}`)))
+          ) {
+            a =
+              eval(`a.${sortKey}`).value === null
+                ? ''
+                : eval(`a.${sortKey}`).value
+            b =
+              eval(`b.${sortKey}`).value === null
+                ? ''
+                : eval(`b.${sortKey}`).value
+            return (a === b ? 0 : a > b ? 1 : -1) * order
+          }
+
+          // it should be sort by String
+          else {
+            a =
+              typeof eval(`a.${sortKey}`) === 'string'
+                ? eval(`a.${sortKey}`).toLowerCase()
+                : isNil(eval(`a.${sortKey}`))
+                ? ''
+                : eval(`a.${sortKey}`)
+            b =
+              typeof eval(`b.${sortKey}`) === 'string'
+                ? eval(`b.${sortKey}`).toLowerCase()
+                : isNil(eval(`b.${sortKey}`))
+                ? ''
+                : eval(`b.${sortKey}`)
+            return (a === b ? 0 : a > b ? 1 : -1) * order
+          }
         })
       }
       return data

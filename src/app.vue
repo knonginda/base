@@ -42,16 +42,6 @@ export default {
           sort: true,
         },
         {
-          key: 'test.value',
-          label: 'Test',
-          sort: true,
-        },
-        {
-          key: 'date',
-          label: 'Date',
-          sort: true,
-        },
-        {
           key: 'disposition.value',
           label: 'Disposition',
           sort: true,
@@ -156,7 +146,6 @@ export default {
     <BaseGrid
       v-show="!loading"
       ref="grid"
-      selectable
       :query="query"
       :columns="gridColumns"
       :data="gridData"
@@ -166,19 +155,10 @@ export default {
       <template v-slot:tbody>
         <tr v-for="(row, index) in newData" :key="index">
           <td>
-            <BaseCheckbox v-model="row.isSelected"></BaseCheckbox>
-          </td>
-          <td>
             <div>{{ row.firstName }}</div>
           </td>
           <td>
             <div>{{ row.lastName }}</div>
-          </td>
-          <td>
-            <div>{{ row.test.value }}</div>
-          </td>
-          <td>
-            <div>{{ row.date }}</div>
           </td>
           <td>
             <div>{{ row.disposition.value }}</div>
