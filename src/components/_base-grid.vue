@@ -152,7 +152,9 @@ export default {
       // If the origin data was changed,
       // then turn to page one
       handler(newData, oldData) {
-        this.query.offset = 0
+        if (newData.length !== oldData.length) {
+          this.query.offset = 0
+        }
       },
     },
     query: {
