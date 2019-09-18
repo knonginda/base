@@ -148,6 +148,13 @@ export default {
     },
   },
   watch: {
+    data: {
+      // If the origin data was changed,
+      // then turn to page one
+      handler(newData, oldData) {
+        this.query.offset = 0
+      },
+    },
     query: {
       handler(query) {
         if (this.filteredData.length === 0 && this.curPage !== 1) {
